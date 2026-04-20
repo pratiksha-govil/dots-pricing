@@ -4,6 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Dots — Research Project Pricing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -29,7 +31,7 @@
   }
 
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     background: var(--bg);
     color: var(--text);
     font-size: 15px;
@@ -320,7 +322,7 @@
           <div class="plan-badge">Included</div>
           <div class="plan-name">Analysis Platform Pro</div>
           <div class="plan-desc">Everything you need to run a research project</div>
-          <a href="https://getdots.in/contact" target="_blank" style="display: inline-block; margin-top: 8px; font-size: 12px; font-weight: 500; color: var(--text); text-decoration: underline; text-underline-offset: 2px; opacity: 0.6;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'">Get in touch →</a>
+          <div style="display:inline-block; margin-top:6px; font-size:11px; font-weight:500; color:var(--text2); background:var(--surface2); padding:3px 9px; border-radius:20px;">Ideal for shorter duration projects</div>
         </div>
         <div class="plan-price">
           <div class="price-main" id="base-price">₹50,000</div>
@@ -413,25 +415,17 @@
         <span class="addon-price" id="addon-quant-price">₹25,000</span>
         <span class="addon-unit">/ 10K rows</span>
       </div>
-      <div class="addon-note">Large dataset filtering &amp; analysis performance</div>
+      <div class="addon-note">Base plan includes 5,000 rows. Additional rows for large dataset filtering &amp; analysis.</div>
     </div>
 
-    <div class="addon-card" style="grid-column: 1 / -1;">
+    <div class="addon-card">
       <div class="addon-tag">Analysis</div>
-      <div class="addon-name">Qual bundle <span style="font-weight: 400; color: var(--text3); font-size: 13px;">— additional words for analysis</span></div>
-      <div style="font-size: 12px; color: var(--text2); margin: 6px 0 14px;">Base plan includes 150K words. Add more if your study needs it — 90-min interview ≈ 9K words, 30 interviews ≈ 270K words.</div>
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-        <div style="border: 0.5px solid var(--border-md); border-radius: 8px; padding: 12px 14px;">
-          <div style="font-size: 13px; font-weight: 600; margin-bottom: 2px;">+250K words</div>
-          <div style="font-size: 11px; color: var(--text3); margin-bottom: 8px;">Good for ~30 interviews</div>
-          <div><span class="addon-price" id="addon-qual250-price" style="font-size: 17px;">₹25,000</span><span class="addon-unit"> one-time</span></div>
-        </div>
-        <div style="border: 0.5px solid var(--border-md); border-radius: 8px; padding: 12px 14px;">
-          <div style="font-size: 13px; font-weight: 600; margin-bottom: 2px;">+500K words</div>
-          <div style="font-size: 11px; color: var(--text3); margin-bottom: 8px;">Larger studies &amp; datasets</div>
-          <div><span class="addon-price" id="addon-qual500-price" style="font-size: 17px;">₹45,000</span><span class="addon-unit"> one-time</span></div>
-        </div>
+      <div class="addon-name">Qual bundle</div>
+      <div>
+        <span class="addon-price" id="addon-qual250-price">₹25,000</span>
+        <span class="addon-unit">/ 250K words</span>
       </div>
+      <div class="addon-note">Base plan includes 150K words. 90-min interview ≈ 9,000 words. 30 interviews ≈ ~270K words.</div>
     </div>
 
   </div>
@@ -469,6 +463,7 @@
         <div class="calc-label">
           <div class="calc-label-main">Project duration</div>
           <div class="calc-label-sub">Number of months on platform</div>
+          <div style="font-size:11px; color:var(--text3); margin-top:3px; font-style:italic;">⚠ Ideal for shorter duration projects</div>
         </div>
         <div class="calc-control">
           <button class="stepper-btn" onclick="step('months',-1)">−</button>
@@ -530,15 +525,13 @@
       <!-- Qual bundle -->
       <div class="calc-row">
         <div class="calc-label">
-          <div class="calc-label-main">Qual data bundle</div>
-          <div class="calc-label-sub">Base includes 150K words · 90-min interview ≈ 9K words</div>
+          <div class="calc-label-main">Qual bundles</div>
+          <div class="calc-label-sub">Base includes 150K words · priced per 250K additional</div>
         </div>
         <div class="calc-control">
-          <div class="bundle-opts">
-            <button class="bundle-btn active" id="qual-none" onclick="setQual('none')">None</button>
-            <button class="bundle-btn" id="qual-250" onclick="setQual('250')">+250K</button>
-            <button class="bundle-btn" id="qual-500" onclick="setQual('500')">+500K</button>
-          </div>
+          <button class="stepper-btn" onclick="step('qual-bundles',-1)">−</button>
+          <input class="num-input" id="qual-bundles" type="number" min="0" max="20" value="0" oninput="calc()" />
+          <button class="stepper-btn" onclick="step('qual-bundles',1)">+</button>
         </div>
         <div class="line-cost" id="cost-qual"></div>
       </div>
@@ -582,30 +575,34 @@
     </div>
   </div>
 
-  <!-- Enterprise -->
+  <!-- Custom -->
   <div class="section-header" style="margin-top: 40px;">
-    <h2>Enterprise</h2>
+    <h2>Custom</h2>
     <div class="divider"></div>
   </div>
 
-  <div class="card" style="border-color: var(--border-md);">
-    <div class="card-inner" style="display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
-      <div style="flex: 1; min-width: 220px;">
-        <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text3); margin-bottom: 8px;">For larger teams &amp; projects</div>
-        <div style="font-size: 18px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 6px;">Custom plan</div>
-        <div style="font-size: 13px; color: var(--text2); margin-bottom: 16px;">Built for teams running large-scale studies, long-term projects, or needing custom integrations. Pricing is tailored to your scope.</div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px 16px;">
-          <div class="feat" style="font-size: 13px; color: var(--text2);"><span class="feat-dot" style="background: var(--text3);"></span>Large datasets &amp; high volumes</div>
-          <div class="feat" style="font-size: 13px; color: var(--text2);"><span class="feat-dot" style="background: var(--text3);"></span>Longer project durations</div>
-          <div class="feat" style="font-size: 13px; color: var(--text2);"><span class="feat-dot" style="background: var(--text3);"></span>Custom integrations</div>
-          <div class="feat" style="font-size: 13px; color: var(--text2);"><span class="feat-dot" style="background: var(--text3);"></span>Dedicated support</div>
+  <div class="card" style="border-color: var(--border-md); position: relative; overflow: visible;">
+    <div style="position: absolute; top: -12px; right: 16px; background: var(--accent); color: #fff; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px; letter-spacing: 0.3px; white-space: nowrap;">✦ Tailored for you</div>
+    <div class="card-inner">
+      <div class="plan-top">
+        <div>
+          <div class="plan-badge" style="background:var(--surface2); color:var(--text2);">For larger teams &amp; projects</div>
+          <div class="plan-name">Custom plan</div>
+          <div class="plan-desc">Built for teams running large-scale studies and long-term projects. Pricing is tailored to your scope.</div>
         </div>
       </div>
-      <div style="display: flex; flex-direction: column; align-items: flex-end; justify-content: center; gap: 10px; flex-shrink: 0;">
-        <a href="https://getdots.in/contact" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background: var(--accent); color: #fff; border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none; transition: opacity 0.15s;" onmouseover="this.style.opacity=0.88" onmouseout="this.style.opacity=1">
-          Contact Dots →
-        </a>
-        <div style="font-size: 11px; color: var(--text3); text-align: right;">We'll get back within 1 business day</div>
+      <div class="features">
+        <div class="feat"><span class="feat-dot" style="background:var(--text3);"></span>Large datasets &amp; high volumes</div>
+        <div class="feat"><span class="feat-dot" style="background:var(--text3);"></span>Longer project durations</div>
+        <div class="feat"><span class="feat-dot" style="background:var(--text3);"></span>Custom integrations</div>
+        <div class="feat"><span class="feat-dot" style="background:var(--text3);"></span>Dedicated support</div>
+      </div>
+      <div style="margin-top: 16px; padding-top: 16px; border-top: 0.5px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+        <span style="font-size: 12px; color: var(--text2);">Pricing is tailored to your scope.</span>
+        <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px;">
+          <a href="https://getdots.in/contact" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background: var(--accent); color: #fff; border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none; transition: opacity 0.15s;" onmouseover="this.style.opacity=0.88" onmouseout="this.style.opacity=1">Contact Dots →</a>
+          <div style="font-size: 11px; color: var(--text3);">We'll get back within 1 business day</div>
+        </div>
       </div>
     </div>
   </div>
@@ -636,7 +633,6 @@ const PRICING = {
 
 let region = 'india';
 let collectOn = false;
-let qualBundle = 'none';
 
 function fmt(n) {
   const p = PRICING[region];
@@ -665,7 +661,6 @@ function setRegion(r) {
   document.getElementById('addon-collect-price').textContent = fmt(p.collect);
   document.getElementById('addon-setup-price').textContent = fmt(p.setup);
   document.getElementById('addon-qual250-price').textContent = fmt(p.qual250);
-  document.getElementById('addon-qual500-price').textContent = fmt(p.qual500);
   document.getElementById('addon-quant-price').textContent = fmt(p.quant);
 
   calc();
@@ -698,14 +693,6 @@ function toggleFeats(id, btn) {
   btn.textContent = open ? 'See all features ↓' : 'Hide features ↑';
 }
 
-function setQual(v) {
-  qualBundle = v;
-  ['none','250','500'].forEach(k => {
-    document.getElementById('qual-'+k).classList.toggle('active', k === v);
-  });
-  calc();
-}
-
 function syncCollectMax() {
   const months = Math.max(1, parseInt(document.getElementById('months').value) || 1);
   const cm = document.getElementById('collect-months');
@@ -736,7 +723,8 @@ function calc() {
   const costUsers = p.users * extraUsers * months;
   const costCollect = collectOn ? p.collect * collectMonths : 0;
   const costForms = p.setup * forms;
-  const costQual = qualBundle === '250' ? p.qual250 : qualBundle === '500' ? p.qual500 : 0;
+  const qualBundles = Math.max(0, parseInt(document.getElementById('qual-bundles').value)||0);
+  const costQual = p.qual250 * qualBundles;
   const costQuant = p.quant * quantRows;
 
   const platform = costPlatform + costUsers;
@@ -776,7 +764,7 @@ function resetCalc() {
   document.getElementById('forms').value = 0;
   document.getElementById('quant-rows').value = 0;
   if (collectOn) toggleCollect();
-  setQual('none');
+  document.getElementById('qual-bundles').value = 0;
   const formsRow = document.getElementById('forms-row');
   formsRow.style.opacity = '0.4';
   formsRow.style.pointerEvents = 'none';
