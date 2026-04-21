@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Dots — Research Project Pricing</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
     --bg: #FFFFFF;
-    --surface: #FFFFFF;
+    --surface: var(--bg);
     --surface-subtle: #F9F9F9;
     --border: #E5E7EB;
     --border-md: #D1D5DB;
@@ -19,23 +19,23 @@
     --text2: #6B7280;
     --text3: #9CA3AF;
     --accent: #22C55E;
-    --accent-light: #F0F0EE;
-    --accent-dark: #000000;
+    /*--accent-light: #F0F0EE;
+    --accent-dark: #000000;*/
     --accent-bg: #DCFCE7;
     --accent-text: #16A34A;
     --tag-bg: #EFEFED;
     --tag-text: #2A2A2A;
     --warn-bg: #F5F5F3;
     --warn-text: #5A5A5A;
-    --dark-bg: #111111;
+    /*--dark-bg: #111111;*/
     --radius: 12px;
     --radius-lg: 16px;
     --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-   --shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04);
   }
 
-   body {
-    font-family: 'Inter', -apple-system, sans-serif;
+ body {
+    font-family: 'DM Sans', -apple-system, sans-serif;
     background: var(--bg);
     color: var(--text);
     font-size: 15px;
@@ -78,14 +78,13 @@
     flex-wrap: wrap;
     box-shadow: var(--shadow);
   }
-  .region-label { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; color: var(--text); white-space: nowrap; }
+  .region-label {font-size: 13px; font-weight: 600; color: var(--text); white-space: nowrap; }
   .region-note { font-size: 12px; color: var(--text3); line-height: 1.5; max-width: 300px;}
   .region-pills { display: flex; gap: 8px; flex-wrap: wrap; }
   .pill {
     padding: 8px 18px;
     border-radius: 20px;
     border: 1px solid var(--border-md);
-    font-family: 'DM Sans', sans-serif;
     font-size: 13px;
     font-weight: 500;
     cursor: pointer;
@@ -97,7 +96,6 @@
   .pill:hover { border-color: var(--text); color: var(--text); }
   .pill.active { background: var(--text); color: #fff; border-color: var(--text); }
   .currency-badge {
-    font-family: 'DM Sans', sans-serif;
     margin-left: auto;
     font-size: 12px;
     font-weight: 600;
@@ -136,15 +134,15 @@
     margin-bottom: 16px;
   }
   .plan-badge {
-    font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
     background: var(--accent-bg); color: var(--accent-text);
     padding: 4px 10px; border-radius: 9999px; display: inline-block;
     text-transform: uppercase; margin-bottom: 6px;
   }
-  .plan-name { font-family: 'DM Sans', sans-serif; font-size: 18px; font-weight: 700; letter-spacing: -0.3px; color: var(--text) }
+  .plan-name { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; color: var(--text) }
   .plan-desc { font-size: 13px; color: var(--text2); margin-top: 3px; }
   .plan-price { text-align: right; flex-shrink: 0; }
-  .price-main { font-family: 'DM Sans', sans-serif; font-size: 26px; font-weight: 700; letter-spacing: -0.8px; color: var(--text); }
+  .price-main { font-size: 26px; font-weight: 700; letter-spacing: -0.8px; color: var(--text); }
   .price-unit { font-size: 12px; color: var(--text3); margin-top: 1px; }
   .features {
     display: grid; grid-template-columns: 1fr 1fr;
@@ -157,6 +155,10 @@
   .feat-dot {
     width: 5px; height: 5px; border-radius: 50%;
     background: var(--accent); flex-shrink: 0;
+  }
+ .feat-sm { 
+  font-size: 12px; color: var(--text2); 
+  margin-bottom: 5px; 
   }
 
   /* Add-on cards */
@@ -173,11 +175,11 @@
     box-shadow: var(--shadow);
   }
   .addon-tag {
-    font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px;
+    font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px;
     color: var(--text3); margin-bottom: 8px;
   }
-  .addon-name { font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; margin-bottom: 4px; }
-  .addon-price { font-family: 'DM Sans', sans-serif; font-size: 20px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+  .addon-name { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+  .addon-price { font-size: 20px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
   .addon-unit { font-size: 12px; color: var(--text3); margin-left: 3px; }
   .addon-note { font-size: 12px; color: var(--text2); margin-top: 6px; }
 
@@ -193,7 +195,7 @@
   /* Calculator */
   .calc-card {
     background: var(--surface);
-    border: 0.5px solid var(--border);
+    border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     overflow: hidden;
     box-shadow: var(--shadow-md);
@@ -204,10 +206,10 @@
     display: flex; align-items: center; justify-content: space-between; 
     background: var(--surface-subtle);
   }
-  .calc-head-title { font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; color: var(--text); }
+  .calc-head-title { font-size: 15px; font-weight: 600; color: var(--text); }
   .calc-head-sub { font-size: 12px; color: var(--text3); margin-top: 2px; }
   .reset-btn {
-    font-family: 'Inter', sans-serif; font-size: 12px; color: var(--text3); background: none; border: 1px solid var(--border);
+    font-size: 12px; color: var(--text3); background: none; border: 1px solid var(--border);
     cursor: pointer; padding: 4px 8px; border-radius: 5px;
     transition: background 0.1s;
   }
@@ -217,7 +219,7 @@
   .calc-row {
     display: flex; align-items: center; gap: 16px;
     padding: 10px 0;
-    border-bottom: 0.5px solid var(--border);
+    border-bottom: 1px solid var(--border);
   }
   .calc-row:last-child { border-bottom: none; }
   .calc-label { flex: 1; }
@@ -227,7 +229,7 @@
   .num-input {
     width: 72px; height: 34px;
     border: 1px solid var(--border-md);
-    border-radius: 7px; font-family: 'DM Sans', sans-serif; 
+    border-radius: 7px; 
     font-size: 14px; font-weight: 500;
     text-align: center; color: var(--text);
     background: var(--bg);
@@ -236,9 +238,9 @@
   .num-input:focus { border-color: var(--text); }
   .stepper-btn {
     width: 28px; height: 28px;
-    border: 0.5px solid var(--border-md);
+    border: 1px solid var(--border-md);
     border-radius: 6px; background: var(--surface);
-    cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 16px; color: var(--text2);
+    cursor: pointer; font-size: 16px; color: var(--text2);
     display: flex; align-items: center; justify-content: center;
     transition: all 0.1s;
   }
@@ -258,15 +260,15 @@
     background: #fff; top: 3px; left: 3px; transition: left 0.2s;
   }
   .toggle.on::after { left: 19px; }
-  .line-cost { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; color: var(--text); min-width: 80px; text-align: right; }
+  .line-cost { font-size: 13px; font-weight: 600; color: var(--text); min-width: 80px; text-align: right; }
   .line-cost.zero { color: var(--text3); font-weight: 400; }
 
   /* Radio for bundles */
   .bundle-opts { display: flex; gap: 7px; flex-wrap: wrap; }
   .bundle-btn {
     padding: 5px 11px; border-radius: 6px;
-    border: 0.5px solid var(--border-md);
-    font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500;
+    border: 1px solid var(--border-md);
+    font-size: 12px; font-weight: 500;
     cursor: pointer; background: transparent; color: var(--text2);
     transition: all 0.12s;
   }
@@ -281,10 +283,10 @@
   }
   .total-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
   .total-label { font-size: 13px; color: var(--text2); }
-  .total-value { font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--text2); font-weight: 500; }
+  .total-value { font-size: 13px; color: var(--text2); font-weight: 500; }
   .total-main { display: flex; align-items: baseline; justify-content: space-between; margin-top: 10px; }
-  .total-main-label { font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; }
-  .total-amount { font-family: 'DM Sans', sans-serif; font-size: 28px; font-weight: 700; color: var(--text); letter-spacing: -1px; }
+  .total-main-label { font-size: 15px; font-weight: 600; }
+  .total-amount { font-size: 28px; font-weight: 700; color: var(--text); letter-spacing: -1px; }
   .gst-row { display: none; }
   .gst-row.visible { display: flex; }
   .transcription-note {
@@ -402,15 +404,15 @@
         <span class="addon-unit">/ month</span>
       </div>
       <div style="margin-top: 10px;">
-        <div class="feat" style="font-size: 12px; color: var(--text2); margin-bottom: 5px;"><span class="feat-dot"></span>Form-based qualitative data collection</div>
-        <div class="feat" style="font-size: 12px; color: var(--text2); margin-bottom: 5px;"><span class="feat-dot"></span>Pre-task &amp; interview workflows</div>
+        <div class="feat feat-sm" <span class="feat-dot"></span>Form-based qualitative data collection</div>
+        <div class="feat feat-sm" <span class="feat-dot"></span>Pre-task &amp; interview workflows</div>
         <div id="collect-feats-extra" style="display: none;">
-          <div class="feat" style="font-size: 12px; color: var(--text2); margin-bottom: 5px;"><span class="feat-dot"></span>Multi-language form capability</div>
-          <div class="feat" style="font-size: 12px; color: var(--text2); margin-bottom: 5px;"><span class="feat-dot"></span>Audio upload support</div>
-          <div class="feat" style="font-size: 12px; color: var(--text2); margin-bottom: 5px;"><span class="feat-dot"></span>Structured data ingestion</div>
-          <div class="feat" style="font-size: 12px; color: var(--text2); margin-bottom: 5px;"><span class="feat-dot"></span>Video upload — <a href="https://getdots.in/contact" style="color: var(--accent); text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">contact for quote</a></div>
+          <div class="feat feat-sm" <span class="feat-dot"></span>Multi-language form capability</div>
+          <div class="feat feat-sm" <span class="feat-dot"></span>Audio upload support</div>
+          <div class="feat feat-sm" <span class="feat-dot"></span>Structured data ingestion</div>
+          <div class="feat feat-sm" <span class="feat-dot"></span>Video upload — <a href="https://getdots.in/contact" style="color: var(--accent); text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">contact for quote</a></div>
         </div>
-        <button onclick="toggleFeats('collect-feats-extra', this)" style="margin-top: 6px; font-size: 11px; font-weight: 500; color: var(--text); background: none; border: none; cursor: pointer; padding: 0; text-decoration: underline; text-underline-offset: 2px; font-weight: 500;">See all features ↓</button>
+        <button onclick="toggleFeats('collect-feats-extra', this)" style="margin-top: 6px; font-size: 11px; color: var(--text); background: none; border: none; cursor: pointer; padding: 0; text-decoration: underline; text-underline-offset: 2px; font-weight: 500;">See all features ↓</button>
         <div style="margin-top: 10px; padding-top: 10px; border-top: 0.5px solid var(--border);">
           <div style="font-size: 11px; color: var(--text3);">⚠ Recording not supported inside forms</div>
         </div>
@@ -432,7 +434,7 @@
           <div class="feat" style="font-size: 12px; color: var(--text2); margin-bottom: 5px;"><span class="feat-dot"></span>Pre-task hint setup</div>
           <div class="feat" style="font-size: 12px; color: var(--text2);"><span class="feat-dot"></span>Testing &amp; deployment</div>
         </div>
-        <button onclick="toggleFeats('setup-feats-extra', this)" style="margin-top: 6px; font-size: 11px; font-weight: 500; color: var(--text); background: none; border: none; cursor: pointer; padding: 0; text-decoration: underline; text-underline-offset: 2px; font-weight: 500;">See all features ↓</button>
+        <button onclick="toggleFeats('setup-feats-extra', this)" style="margin-top: 6px; font-size: 11px; color: var(--text); background: none; border: none; cursor: pointer; padding: 0; text-decoration: underline; text-underline-offset: 2px; font-weight: 500;">See all features ↓</button>
       </div>
     </div>
 
@@ -621,10 +623,10 @@
         </div>
       </div>
       <div class="features">
-        <div class="feat"><span class="feat-dot" style="font-size: 12px; color: var(--text2); margin-bottom: 5px;"></span>Large datasets &amp; high volumes</div>
-        <div class="feat"><span class="feat-dot" style="font-size: 12px; color: var(--text2); margin-bottom: 5px;"></span>Longer project durations</div>
-        <div class="feat"><span class="feat-dot" style="font-size: 12px; color: var(--text2); margin-bottom: 5px;"></span>Custom integrations</div>
-        <div class="feat"><span class="feat-dot" style="font-size: 12px; color: var(--text2); margin-bottom: 5px;"></span>Dedicated support</div>
+        <div class="feat"><span class="feat-dot"></span>Large datasets &amp; high volumes</div>
+        <div class="feat"><span class="feat-dot"></span>Longer project durations</div>
+        <div class="feat"><span class="feat-dot"></span>Custom integrations</div>
+        <div class="feat"><span class="feat-dot"></span>Dedicated support</div>
       </div>
       <div style="margin-top: 16px; padding-top: 16px; border-top: 0.5px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
         <span style="font-size: 12px; color: var(--text2);">Pricing is tailored to your scope.</span>
