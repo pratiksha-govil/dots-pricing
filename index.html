@@ -112,13 +112,13 @@
     display: flex; align-items: center; gap: 10px;
     margin-bottom: 14px; margin-top: 36px;
   }
-  .section-header h2 { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text3); }
-  .section-header .divider { flex: 1; height: 0.5px; background: var(--border); }
+  .section-header h2 { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text3); }
+  .section-header .divider { flex: 1; height: 1px; background: var(--border); }
 
   /* Cards */
   .card {
     background: var(--surface);
-    border: 0.5px solid var(--border);
+    border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     overflow: hidden;
     box-shadow: var(--shadow);
@@ -132,16 +132,16 @@
     border-width: 1.5px;
   }
   .plan-top {
-    display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
     margin-bottom: 16px;
   }
   .plan-badge {
-    font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
-    background: var(--surface2); color: var(--text2);
+    font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+    background: var(--accent-bg); color: var(--accent-text);
     padding: 3px 9px; border-radius: 5px; display: inline-block;
     text-transform: uppercase; margin-bottom: 6px;
   }
-  .plan-name { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; }
+  .plan-name { font-family: 'DM Sans', sans-serif; font-size: 18px; font-weight: 700; letter-spacing: -0.3px; color: var(--text) }
   .plan-desc { font-size: 13px; color: var(--text2); margin-top: 3px; }
   .plan-price { text-align: right; flex-shrink: 0; }
   .price-main { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; color: var(--text); }
