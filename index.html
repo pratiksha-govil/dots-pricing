@@ -21,22 +21,27 @@
     --accent: #22C55E;
     --accent-light: #F0F0EE;
     --accent-dark: #000000;
+    --accent-bg: #DCFCE7;
+    --accent-text: #16A34A;
     --tag-bg: #EFEFED;
     --tag-text: #2A2A2A;
     --warn-bg: #F5F5F3;
     --warn-text: #5A5A5A;
-    --radius: 10px;
+    --dark-bg: #111111;
+    --radius: 12px;
     --radius-lg: 16px;
-    --shadow: 0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+   --shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04);
   }
 
-  body {
-    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+   body {
+    font-family: 'Inter', -apple-system, sans-serif;
     background: var(--bg);
     color: var(--text);
     font-size: 15px;
     line-height: 1.6;
     min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
   }
 
   .page {
@@ -47,24 +52,34 @@
 
   /* Header */
   .header { margin-bottom: 40px; }
-  .logo-row { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .logo-row { margin-bottom: 20px; }
 
-  h1 { font-size: 30px; font-weight: 700; letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 8px; }
-  .subtitle { font-size: 15px; color: var(--text2); }
+  h1 { 
+    font-family: 'DM Sans', sans-serif; 
+    color: var(--text);
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: -0.8px;
+    line-height: 1.15;
+    margin-bottom: 10px; 
+    min-height: 100vh;
+     }
+  .subtitle { font-size: 15px; color: var(--text2); line-height: 1.6; max-width: 500px;}
 
   /* Region selector */
   .region-bar {
     background: var(--surface);
-    border: 0.5px solid var(--border-md);
+    border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    padding: 18px 22px;
-    margin-bottom: 32px;
+    padding: 20px 24px;
+    margin-bottom: 40px;
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 20px;
     flex-wrap: wrap;
+    box-shadow: var(--shadow);
   }
-  .region-label { font-size: 13px; font-weight: 500; color: var(--text2); white-space: nowrap; }
+  .region-label { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; color: var(--text); white-space: nowrap; }
   .region-pills { display: flex; gap: 8px; flex-wrap: wrap; }
   .pill {
     padding: 7px 16px;
