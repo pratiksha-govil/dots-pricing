@@ -266,31 +266,31 @@
   .bundle-btn {
     padding: 5px 11px; border-radius: 6px;
     border: 0.5px solid var(--border-md);
-    font-size: 12px; font-weight: 500;
+    font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500;
     cursor: pointer; background: transparent; color: var(--text2);
     transition: all 0.12s;
   }
-  .bundle-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .bundle-btn.active { background: var(--accent-light); color: var(--accent-dark); border-color: var(--accent); }
+  .bundle-btn:hover { border-color: var(--text); color: var(--text); }
+  .bundle-btn.active { background: var(--accent-bg); color: var(--accent-text); border-color: var(--accent); font-weight: 600; }
 
   /* Total */
   .calc-total {
     background: var(--surface2);
-    border-top: 0.5px solid var(--border);
+    border-top: 1px solid var(--border);
     padding: 18px 22px;
   }
   .total-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
   .total-label { font-size: 13px; color: var(--text2); }
-  .total-value { font-size: 13px; color: var(--text2); font-weight: 500; }
+  .total-value { font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--text2); font-weight: 500; }
   .total-main { display: flex; align-items: baseline; justify-content: space-between; margin-top: 10px; }
-  .total-main-label { font-size: 15px; font-weight: 600; }
-  .total-amount { font-size: 28px; font-weight: 700; color: var(--text); letter-spacing: -0.5px; }
+  .total-main-label { font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; }
+  .total-amount { font-family: 'DM Sans', sans-serif; font-size: 28px; font-weight: 700; color: var(--text); letter-spacing: -1px; }
   .gst-row { display: none; }
   .gst-row.visible { display: flex; }
   .transcription-note {
     margin-top: 10px; font-size: 12px; color: var(--text3);
     padding: 8px 12px; background: var(--surface); border-radius: 7px;
-    border: 0.5px dashed var(--border-md);
+    border: 1px dashed var(--border-md);
   }
 
   /* Responsive */
