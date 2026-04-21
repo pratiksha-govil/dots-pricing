@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dots Pricing for Teams</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #FFFFFF;
+  --surface: var(--bg);
+  --surface-subtle: #F9F9F9;
+  --border: #E5E7EB;
+  --border-md: #D1D5DB;
+  --text: #0D0D0D;
+  --text2: #6B7280;
+  --text3: #9CA3AF;
+  --accent: #22C55E;
+  --accent-bg: #DCFCE7;
+  --accent-text: #16A34A;
+  --tag-bg: #EFEFED;
+  --radius: 12px;
+  --radius-lg: 16px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04);
+}
+
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page { max-width: 1060px; margin: 0 auto; padding: 48px 24px 100px; }
+
+/* ── Header ── */
+.header { margin-bottom: 48px; }
+.logo-row { margin-bottom: 20px; }
+h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.15; margin-bottom: 10px; }
+.subtitle { font-size: 15px; color: var(--text2); max-width: 520px; line-height: 1.6; }
+
+/* ── Region bar ── */
+.region-bar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 18px 22px;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  box-shadow: var(--shadow);
+}
+.region-label { font-size: 13px; font-weight: 600; color: var(--text); white-space: nowrap; }
+.region-note { font-size: 12px; color: var(--text3); line-height: 1.5; max-width: 280px; }
+.region-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+.pill {
+  padding: 7px 16px; border-radius: 20px; border: 1px solid var(--border-md);
+  font-size: 13px; font-weight: 500; cursor: pointer; background: transparent;
+  color: var(--text2); transition: all 0.15s; white-space: nowrap;
+  font-family: 'DM Sans', sans-serif;
+}
+.pill:hover { border-color: var(--text); color: var(--text); }
+.pill.active { background: var(--text); color: #fff; border-color: var(--text); }
+.currency-badge {
+  margin-left: auto; font-size: 12px; font-weight: 600;
+  padding: 4px 10px; background: var(--accent-bg);
+  color: var(--accent-text); border-radius: 6px; white-space: nowrap;
+}
+
+/* ── Section header ── */
+.section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; margin-top: 44px; }
+.section-header h2 { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text3); white-space: nowrap; }
+.section-header .divider { flex: 1; height: 1px; background: var(--border); }
+
+/* ── Plan tabs ── */
+.plan-tabs { display: flex; gap: 6px; margin-bottom: 20px; }
+.plan-tab {
+  padding: 8px 20px; border-radius: 20px; border: 1px solid var(--border-md);
+  font-size: 13px; font-weight: 600; cursor: pointer; background: transparent;
+  color: var(--text2); transition: all 0.15s; font-family: 'DM Sans', sans-serif;
+}
+.plan-tab:hover { border-color: var(--text); color: var(--text); }
+.plan-tab.active { background: var(--text); color: #fff; border-color: var(--text); }
+
+/* ── Plans grid ── */
+.plans-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+
+.plan-card {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  display: flex; flex-direction: column;
+  transition: box-shadow 0.2s;
+}
+.plan-card:hover { box-shadow: var(--shadow-md); }
+.plan-card.highlighted {
+  border-color: var(--text);
+  border-width: 2px;
+  box-shadow: var(--shadow-md);
+}
+.plan-card.enterprise-card { border-color: var(--border); }
+
+.plan-head { padding: 22px 22px 18px; border-bottom: 1px solid var(--border); }
+.plan-eyebrow {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase;
+  background: var(--accent-bg); color: var(--accent-text); padding: 3px 9px;
+  border-radius: 9999px; display: inline-block; margin-bottom: 10px;
+}
+.plan-eyebrow.gray { background: var(--tag-bg); color: var(--text2); }
+.plan-name { font-size: 20px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 4px; }
+.plan-desc { font-size: 12px; color: var(--text2); line-height: 1.5; }
+.plan-price-area { margin-top: 16px; }
+.plan-price { font-size: 30px; font-weight: 800; letter-spacing: -1px; }
+.plan-period { font-size: 13px; color: var(--text3); font-weight: 400; }
+.plan-billing { font-size: 11px; color: var(--text3); margin-top: 3px; }
+
+.plan-body { padding: 18px 22px; flex: 1; }
+.plan-feat-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.plan-feat {
+  display: flex; align-items: flex-start; gap: 8px;
+  font-size: 13px; color: var(--text2);
+}
+.feat-check { color: var(--accent); font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+.feat-minus { color: var(--text3); font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+.feat-addon { font-size: 11px; font-weight: 600; color: var(--text3); background: var(--tag-bg); padding: 1px 6px; border-radius: 4px; }
+
+.plan-foot { padding: 16px 22px; border-top: 1px solid var(--border); }
+.cta-btn {
+  display: block; width: 100%; text-align: center; padding: 11px 20px;
+  border-radius: 9999px; font-size: 13px; font-weight: 600; text-decoration: none;
+  font-family: 'DM Sans', sans-serif; transition: opacity 0.15s; cursor: pointer;
+  border: none;
+}
+.cta-dark { background: var(--text); color: #fff; }
+.cta-dark:hover { opacity: 0.85; }
+.cta-outline { background: transparent; border: 1.5px solid var(--border-md); color: var(--text); }
+.cta-outline:hover { border-color: var(--text); }
+.cta-note { font-size: 11px; color: var(--text3); text-align: center; margin-top: 7px; }
+
+/* ── Recommended badge ── */
+.plan-badge-wrap { position: relative; }
+.recommended-badge {
+  position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+  background: var(--accent-bg); color: var(--accent-text); border: 1px solid var(--accent);
+  font-size: 11px; font-weight: 700; padding: 3px 12px; border-radius: 20px;
+  white-space: nowrap; pointer-events: none; z-index: 1;
+}
+
+/* ── Feature comparison table ── */
+.compare-toggle {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  margin: 32px 0 0; padding: 12px 24px; background: var(--surface-subtle);
+  border: 1px solid var(--border); border-radius: var(--radius-lg);
+  font-size: 14px; font-weight: 600; cursor: pointer; width: 100%;
+  font-family: 'DM Sans', sans-serif; color: var(--text);
+  transition: background 0.15s;
+}
+.compare-toggle:hover { background: var(--border); }
+.compare-toggle svg { transition: transform 0.25s; }
+.compare-toggle.open svg { transform: rotate(180deg); }
+
+.compare-section { display: none; margin-top: 16px; }
+.compare-section.visible { display: block; }
+
+.compare-table { width: 100%; border-collapse: collapse; }
+.compare-table th, .compare-table td {
+  padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+.compare-table th { font-weight: 600; font-size: 12px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.8px; }
+.compare-table th:first-child { width: 28%; color: var(--text); font-size: 13px; letter-spacing: 0; text-transform: none; font-weight: 700; }
+.compare-table td:first-child { color: var(--text2); font-weight: 500; font-size: 13px; }
+.compare-table td:not(:first-child) { text-align: center; }
+.compare-table th:not(:first-child) { text-align: center; }
+.compare-table th.col-pilot { color: var(--text); }
+.compare-table th.col-pro { color: var(--text); background: var(--surface-subtle); }
+.compare-table th.col-enterprise { color: var(--text); }
+.compare-table td.col-pro { background: rgba(249,249,249,0.6); }
+
+.group-header td {
+  background: var(--surface-subtle); font-weight: 700; font-size: 12px;
+  text-transform: uppercase; letter-spacing: 0.9px; color: var(--text3);
+  padding: 9px 14px; border-bottom: 1px solid var(--border);
+}
+.group-header td:not(:first-child) { background: var(--surface-subtle); }
+
+.check { color: var(--accent); font-size: 16px; }
+.cross { color: #E5E7EB; font-size: 16px; }
+.addon-tag-sm {
+  font-size: 10px; font-weight: 600; color: var(--text3); background: var(--tag-bg);
+  padding: 2px 6px; border-radius: 4px; display: inline-block;
+}
+.val-text { font-size: 12px; color: var(--text2); }
+.val-bold { font-size: 12px; font-weight: 600; color: var(--text); }
+
+/* ── Add-ons section ── */
+.addons-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.addon-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow);
+}
+.addon-plan-tag {
+  font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px;
+  color: var(--text3); background: var(--tag-bg); padding: 2px 7px; border-radius: 4px;
+  display: inline-block; margin-bottom: 8px;
+}
+.addon-name { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+.addon-price { font-size: 19px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+.addon-unit { font-size: 12px; color: var(--text3); font-weight: 400; }
+.addon-note { font-size: 12px; color: var(--text2); margin-top: 6px; line-height: 1.5; }
+
+/* ── GST note ── */
+.gst-note {
+  font-size: 12px; color: var(--text2); background: var(--surface-subtle);
+  padding: 8px 12px; border-radius: 7px; border: 1px solid var(--border);
+  margin-top: 12px; display: none;
+}
+.gst-note.visible { display: block; }
+
+/* ── Calculator ── */
+.calc-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md);
+}
+.calc-head {
+  padding: 18px 24px 16px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--surface-subtle);
+}
+.calc-head-title { font-size: 15px; font-weight: 600; }
+.calc-head-sub { font-size: 12px; color: var(--text3); margin-top: 2px; }
+.reset-btn {
+  font-size: 12px; color: var(--text3); background: none;
+  border: 1px solid var(--border); cursor: pointer; padding: 5px 10px;
+  border-radius: 5px; font-family: 'DM Sans', sans-serif; transition: all 0.1s;
+}
+.reset-btn:hover { border-color: var(--border-md); background: var(--surface); color: var(--text2); }
+
+/* Plan selector inside calc */
+.calc-plan-row {
+  padding: 16px 24px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  background: var(--bg);
+}
+.calc-plan-label { font-size: 13px; font-weight: 600; color: var(--text); flex-shrink: 0; }
+.calc-plan-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.calc-plan-btn {
+  padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border-md);
+  font-size: 12px; font-weight: 500; cursor: pointer; background: transparent;
+  color: var(--text2); font-family: 'DM Sans', sans-serif; transition: all 0.15s;
+}
+.calc-plan-btn:hover { border-color: var(--text); color: var(--text); }
+.calc-plan-btn.active { background: var(--text); color: #fff; border-color: var(--text); }
+
+.calc-body { padding: 4px 0; }
+.calc-row {
+  display: flex; align-items: center; gap: 16px;
+  padding: 12px 24px; border-bottom: 1px solid var(--border);
+}
+.calc-row:last-child { border-bottom: none; }
+.calc-row.disabled { opacity: 0.35; pointer-events: none; }
+.calc-label { flex: 1; }
+.calc-label-main { font-size: 14px; font-weight: 500; }
+.calc-label-sub { font-size: 12px; color: var(--text3); margin-top: 1px; }
+.calc-control { display: flex; align-items: center; gap: 8px; }
+.num-input {
+  width: 70px; height: 34px; border: 1px solid var(--border-md);
+  border-radius: 7px; font-size: 14px; font-weight: 500; text-align: center;
+  color: var(--text); background: var(--bg); outline: none;
+  font-family: 'DM Sans', sans-serif; transition: border-color 0.15s;
+}
+.num-input:focus { border-color: var(--text); }
+.stepper-btn {
+  width: 28px; height: 28px; border: 1px solid var(--border-md);
+  border-radius: 6px; background: var(--surface); cursor: pointer;
+  font-size: 16px; color: var(--text2); display: flex; align-items: center;
+  justify-content: center; transition: all 0.1s; font-family: inherit;
+}
+.stepper-btn:hover { border-color: var(--text); color: var(--text); }
+.stepper-btn:active { transform: scale(0.94); }
+.toggle-wrap { display: flex; align-items: center; gap: 7px; }
+.toggle {
+  width: 36px; height: 20px; border-radius: 10px; background: var(--border-md);
+  border: none; cursor: pointer; position: relative; transition: background 0.2s; flex-shrink: 0;
+}
+.toggle.on { background: var(--accent); }
+.toggle::after {
+  content: ''; position: absolute; width: 14px; height: 14px;
+  border-radius: 50%; background: #fff; top: 3px; left: 3px; transition: left 0.2s;
+}
+.toggle.on::after { left: 19px; }
+.toggle-lbl { font-size: 12px; color: var(--text3); }
+.line-cost { font-size: 13px; font-weight: 600; color: var(--text); min-width: 90px; text-align: right; }
+.line-cost.zero { color: var(--text3); font-weight: 400; }
+.line-cost.na { color: var(--text3); font-weight: 400; font-style: italic; font-size: 12px; }
+
+.calc-total {
+  background: var(--surface-subtle); border-top: 1px solid var(--border); padding: 20px 24px;
+}
+.total-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px; }
+.total-label { font-size: 13px; color: var(--text2); }
+.total-value { font-size: 13px; color: var(--text2); font-weight: 500; }
+.total-divider { height: 1px; background: var(--border); margin: 10px 0; }
+.total-main { display: flex; align-items: baseline; justify-content: space-between; margin-top: 8px; }
+.total-main-label { font-size: 15px; font-weight: 600; }
+.total-amount { font-size: 30px; font-weight: 800; color: var(--text); letter-spacing: -1px; }
+.gst-row { display: none; }
+.gst-row.visible { display: flex; }
+.calc-note {
+  margin-top: 10px; font-size: 12px; color: var(--text3); padding: 8px 12px;
+  background: var(--surface); border-radius: 7px; border: 1px dashed var(--border-md);
+}
+
+/* ── FAQ ── */
+.faq-item { border-bottom: 1px solid var(--border); }
+.faq-q {
+  width: 100%; text-align: left; padding: 16px 0; background: none; border: none;
+  font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; color: var(--text);
+  cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.faq-q:hover { color: var(--accent-text); }
+.faq-q svg { flex-shrink: 0; transition: transform 0.2s; }
+.faq-q.open svg { transform: rotate(180deg); }
+.faq-a { display: none; padding-bottom: 16px; font-size: 13px; color: var(--text2); line-height: 1.6; }
+.faq-a.visible { display: block; }
+
+/* ── CTA ── */
+.cta-section {
+  margin-top: 56px; background: var(--surface-subtle); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 36px 32px; text-align: center;
+}
+.cta-section h2 { font-size: 22px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.3px; }
+.cta-section p { font-size: 14px; color: var(--text2); margin-bottom: 20px; }
+.cta-section a {
+  display: inline-flex; align-items: center; gap: 6px; padding: 12px 28px;
+  background: var(--text); color: #fff; border-radius: 9999px;
+  font-size: 14px; font-weight: 600; text-decoration: none; transition: opacity 0.15s;
+}
+.cta-section a:hover { opacity: 0.85; }
+
+/* ── Responsive ── */
+@media (max-width: 800px) {
+  .plans-grid { grid-template-columns: 1fr; }
+  .addons-grid { grid-template-columns: 1fr 1fr; }
+  h1 { font-size: 28px; }
+  .compare-table th, .compare-table td { padding: 9px 8px; font-size: 12px; }
+}
+@media (max-width: 560px) {
+  .addons-grid { grid-template-columns: 1fr; }
+  .region-bar { flex-direction: column; align-items: flex-start; }
+  .currency-badge { margin-left: 0; }
+  .calc-row { flex-wrap: wrap; gap: 10px; }
+  .line-cost { min-width: 60px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="logo-row">
+      <img src="https://framerusercontent.com/images/uB1AWiA6HkyTs5iUu7VSs7YdsfA.png?scale-down-to=512" alt="Dots" style="height:28px;width:auto;display:block;" />
+    </div>
+    <h1>Pricing for projects at every scale</h1>
+    <p class="subtitle">Three plans built for different stages of project maturity, from short pilots to full-scale longitudinal studies.</p>
+  </div>
+
+  <!-- Region selector -->
+  <div class="region-bar">
+    <div>
+      <div class="region-label">Your region</div>
+      <div class="region-note" style="margin-top:3px;">Pricing is structured by region to reflect local market conditions. Rates apply based on your organisation's registered address.</div>
+    </div>
+    <div class="region-pills">
+      <button class="pill active" data-region="india" onclick="setRegion('india')">India</button>
+      <button class="pill" data-region="south" onclick="setRegion('south')">Asia / Africa</button>
+      <button class="pill" data-region="north" onclick="setRegion('north')">North America / Europe</button>
+    </div>
+    <span class="currency-badge" id="currency-badge">INR ₹</span>
+  </div>
+
+  <!-- Plans -->
+  <div class="section-header" style="margin-top:0;">
+    <h2>Plans</h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="plans-grid">
+
+    <!-- Pilot -->
+    <div class="plan-card" style="position:relative;">
+      <div class="plan-head">
+        <div class="plan-eyebrow gray">Monthly · Pilot</div>
+        <div class="plan-name">Pilot</div>
+        <div class="plan-desc">For shorter-duration or first-time qualitative projects.</div>
+        <div class="plan-price-area">
+          <span class="plan-price" id="price-pilot">₹50,000</span>
+          <span class="plan-period"> / month</span>
+          <div class="plan-billing">Billed Monthly · ≈ ₹9,000 / month · 18% GST not included</div>
+        </div>
+      </div>
+      <div class="plan-body">
+        <ul class="plan-feat-list">
+          <li class="plan-feat"><span class="feat-check">✓</span> 1 project workspace</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> 5 admin users included</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> 1 data bundle (150K words / 5K rows)</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> Tagging & qualitative structuring</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> AI-assisted analysis & synthesis</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> Dashboards & reporting widgets</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> Email support + onboarding docs</li>
+        </ul>
+      </div>
+      <div class="plan-foot">
+        <a href="https://getdots.in/contact" target="_blank" class="cta-btn cta-outline">Contact Dots →</a>
+        <div class="cta-note">Platform UI is in English only</div>
+      </div>
+    </div>
+
+    <!-- Pro (recommended) -->
+    <div class="plan-card highlighted plan-badge-wrap" style="position:relative;">
+      <div class="recommended-badge">✦ Most popular</div>
+      <div class="plan-head">
+        <div class="plan-eyebrow">Annual · Pro</div>
+        <div class="plan-name">Pro</div>
+        <div class="plan-desc">For teams running recurring or multi-phase programmes.</div>
+        <div class="plan-price-area">
+          <span class="plan-price" id="price-pro">₹8,00,000</span>
+          <span class="plan-period"> / year</span>
+          <div class="plan-billing" id="price-pro-monthly">≈ ₹66,667 / month · 18% GST not included</div>
+        </div>
+      </div>
+      <div class="plan-body">
+        <ul class="plan-feat-list">
+          <li class="plan-feat"><span class="feat-check">✓</span> Everything in Pilot</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> 15 admin users included</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> 5 data bundles included</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> Standard integrations &amp; Data Connectors</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> Global Search</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> Unlimited reports</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> <strong>AI Chat</strong></li>
+          <li class="plan-feat"><span class="feat-check">✓</span> 3–4 pre-set roles (Researcher + Admin)</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> Workshop onboarding + data structure support</li>
+          <li class="plan-feat"><span style="display:inline-block;font-size:12px;background:var(--tag-bg);color:var(--text2);padding:1px 6px;border-radius:4px;margin-right:2px;">Add-on</span> Collect module, Translation, Custom integrations</li>
+        </ul>
+      </div>
+      <div class="plan-foot">
+        <a href="https://getdots.in/contact" target="_blank" class="cta-btn cta-dark">Contact Dots →</a>
+        <div class="cta-note">We'll get back within 1 business day</div>
+      </div>
+    </div>
+
+    <!-- Enterprise -->
+    <div class="plan-card">
+      <div class="plan-head">
+        <div class="plan-eyebrow gray">Annual · Enterprise</div>
+        <div class="plan-name">Enterprise</div>
+        <div class="plan-desc">For large-scale longitudinal studies &amp; custom deployments.</div>
+        <div class="plan-price-area">
+          <span class="plan-price" id="price-enterprise">₹18,00,000</span>
+          <span class="plan-period"> / year</span>
+          <div class="plan-billing" id="price-enterprise-monthly">≈ ₹1,50,000 / month · 18% GST not included</div>
+        </div>
+      </div>
+      <div class="plan-body">
+        <ul class="plan-feat-list">
+          <li class="plan-feat"><span class="feat-check">✓</span> Everything in Pro</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> Custom user count &amp; roles</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> Custom data bundles</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> Custom &amp; standard integrations</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> <strong>Collect module included</strong> (surveys + continuous collection)</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> White Labelling</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> User Analytics</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> Custom roles &amp; complex access control</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> Data Architecture Consultation</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> Dedicated Slack support channel</li>
+          <li class="plan-feat"><span style="display:inline-block;font-size:12px;background:var(--tag-bg);color:var(--text2);padding:1px 6px;border-radius:4px;margin-right:2px;">Add-on</span> WhatsApp Chatbot, Translation, Custom integrations</li>
+        </ul>
+      </div>
+      <div class="plan-foot">
+        <a href="https://getdots.in/contact" target="_blank" class="cta-btn cta-dark">Contact Dots →</a>
+        <div class="cta-note">Tailored scope &amp; pricing</div>
+      </div>
+    </div>
+
+  </div><!-- /plans-grid -->
+
+  <!-- Feature comparison toggle -->
+  <button class="compare-toggle" id="compare-toggle" onclick="toggleCompare()">
+    <span id="compare-toggle-label">Compare all features</span>
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+      <path d="M2 4.5L7 9.5L12 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    </svg>
+  </button>
+
+  <div class="compare-section" id="compare-section">
+    <div style="border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th class="col-pilot">Pilot</th>
+          <th class="col-pro">Pro</th>
+          <th class="col-enterprise">Enterprise</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- Basics -->
+        <tr class="group-header"><td colspan="4">Basics</td></tr>
+        <tr>
+          <td>Price</td>
+          <td><span class="val-bold price-cell" data-key="pilot-short">₹50K/mo</span></td>
+          <td class="col-pro"><span class="val-bold price-cell" data-key="pro-short">₹8L/yr</span></td>
+          <td><span class="val-bold price-cell" data-key="ent-short">₹18L/yr</span></td>
+        </tr>
+        <tr>
+          <td>Billing cycle</td>
+          <td><span class="val-text">Monthly</span></td>
+          <td class="col-pro"><span class="val-text">Annual</span></td>
+          <td><span class="val-text">Annual</span></td>
+        </tr>
+        <tr>
+          <td>Admin users included</td>
+          <td><span class="val-bold">5</span></td>
+          <td class="col-pro"><span class="val-bold">15</span></td>
+          <td><span class="val-bold">Custom / Unlimited</span></td>
+        </tr>
+        <tr>
+          <td>Data forms (import)</td>
+          <td><span class="val-text">Unlimited</span></td>
+          <td class="col-pro"><span class="val-text">Unlimited</span></td>
+          <td><span class="val-text">Unlimited</span></td>
+        </tr>
+        <tr>
+          <td>Data bundles included</td>
+          <td><span class="val-text">1 <span class="addon-tag-sm">add-on</span></span></td>
+          <td class="col-pro"><span class="val-text">5 <span class="addon-tag-sm">add-on</span></span></td>
+          <td><span class="val-text">Custom</span></td>
+        </tr>
+        <tr>
+          <td>Data import</td>
+          <td><span class="val-text">Batch import</span></td>
+          <td class="col-pro"><span class="val-text">Batch + standard integrations</span></td>
+          <td><span class="val-text">Batch + standard + custom</span></td>
+        </tr>
+        <tr>
+          <td>Access roles</td>
+          <td><span class="val-text">Admin only</span></td>
+          <td class="col-pro"><span class="val-text">3–4 pre-set roles</span></td>
+          <td><span class="val-text">Custom roles &amp; complex access</span></td>
+        </tr>
+        <tr>
+          <td>Custom integrations</td>
+          <td><span class="cross">✕</span></td>
+          <td class="col-pro"><span class="addon-tag-sm">Add-on</span></td>
+          <td><span class="addon-tag-sm">Add-on</span></td>
+        </tr>
+
+        <!-- Core Analysis -->
+        <tr class="group-header"><td colspan="4">Core Analysis</td></tr>
+        <tr>
+          <td>Themes Manager</td>
+          <td><span class="check">✓</span></td>
+          <td class="col-pro"><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Response-wise Analysis</td>
+          <td><span class="check">✓</span></td>
+          <td class="col-pro"><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Overview Dashboard</td>
+          <td><span class="check">✓</span></td>
+          <td class="col-pro"><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Annotation Explorer</td>
+          <td><span class="check">✓</span></td>
+          <td class="col-pro"><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Data Connectors</td>
+          <td><span class="cross">✕</span></td>
+          <td class="col-pro"><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Global Search</td>
+          <td><span class="cross">✕</span></td>
+          <td class="col-pro"><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Reports</td>
+          <td><span class="val-text">Limited</span></td>
+          <td class="col-pro"><span class="val-text">Unlimited</span></td>
+          <td><span class="val-text">Unlimited</span></td>
+        </tr>
+
+        <!-- AI Features -->
+        <tr class="group-header"><td colspan="4">AI Features</td></tr>
+        <tr>
+          <td>AI Categorisation</td>
+          <td><span class="check">✓</span></td>
+          <td class="col-pro"><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>AI Summarisation</td>
+          <td><span class="check">✓</span></td>
+          <td class="col-pro"><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>AI Annotations</td>
+          <td><span class="check">✓</span></td>
+          <td class="col-pro"><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>AI Chat</td>
+          <td><span class="cross">✕</span></td>
+          <td class="col-pro"><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+
+        <!-- Data Collection -->
+        <tr class="group-header"><td colspan="4">Data Collection</td></tr>
+        <tr>
+          <td>Survey Forms (Collect)</td>
+          <td><span class="cross">✕</span></td>
+          <td class="col-pro"><span class="addon-tag-sm">Add-on</span></td>
+          <td><span class="val-text">✓ Surveys + continuous</span></td>
+        </tr>
+        <tr>
+          <td>Setup support for forms</td>
+          <td><span class="cross">✕</span></td>
+          <td class="col-pro"><span class="addon-tag-sm">Add-on</span></td>
+          <td><span class="addon-tag-sm">Add-on</span></td>
+        </tr>
+        <tr>
+          <td>WhatsApp Chatbot</td>
+          <td><span class="cross">✕</span></td>
+          <td class="col-pro"><span class="cross">✕</span></td>
+          <td><span class="addon-tag-sm">Add-on</span></td>
+        </tr>
+        <tr>
+          <td>Transcription &amp; Translation</td>
+          <td><span class="val-text">Custom quote</span></td>
+          <td class="col-pro"><span class="addon-tag-sm">Add-on</span></td>
+          <td><span class="addon-tag-sm">Add-on</span></td>
+        </tr>
+        <tr>
+          <td>Platform Translation</td>
+          <td><span class="cross">✕</span></td>
+          <td class="col-pro"><span class="addon-tag-sm">Add-on</span></td>
+          <td><span class="addon-tag-sm">Add-on</span></td>
+        </tr>
+
+        <!-- Other Features -->
+        <tr class="group-header"><td colspan="4">Other Features</td></tr>
+        <tr>
+          <td>User Analytics</td>
+          <td><span class="cross">✕</span></td>
+          <td class="col-pro"><span class="cross">✕</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>White Labelling</td>
+          <td><span class="cross">✕</span></td>
+          <td class="col-pro"><span class="cross">✕</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Data Architecture Consultation</td>
+          <td><span class="cross">✕</span></td>
+          <td class="col-pro"><span class="cross">✕</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+
+        <!-- Support -->
+        <tr class="group-header"><td colspan="4">Support</td></tr>
+        <tr>
+          <td>Onboarding</td>
+          <td><span class="val-text">Documentation</span></td>
+          <td class="col-pro"><span class="val-text">Workshop + themes &amp; data structure guidance</span></td>
+          <td><span class="val-text">Data architecture consultation + dedicated support</span></td>
+        </tr>
+        <tr>
+          <td>Communication channel</td>
+          <td><span class="val-text">Email</span></td>
+          <td class="col-pro"><span class="val-text">Email</span></td>
+          <td><span class="val-text">Dedicated Slack channel</span></td>
+        </tr>
+
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <!-- Add-ons -->
+  <div class="section-header">
+    <h2>Add-ons</h2>
+    <div class="divider"></div>
+  </div>
+
+  <div style="margin-bottom:10px;">
+    <span style="font-size:13px;color:var(--text2);">For <strong>Pilot</strong> — additional monthly add-ons. For <strong>Pro &amp; Enterprise</strong> — annual add-ons priced separately.</span>
+  </div>
+
+  <div class="addons-grid">
+    <div class="addon-card">
+      <div class="addon-plan-tag">All Plans</div>
+      <div class="addon-name">Extra Users</div>
+      <div><span class="addon-price" id="ao-users">₹4,000</span><span class="addon-unit"> / user / month</span></div>
+      <div class="addon-note">Additional seats beyond those included in your plan</div>
+    </div>
+
+    <div class="addon-card">
+      <div class="addon-plan-tag">Pilot · Monthly</div>
+      <div class="addon-name">Collect Module</div>
+      <div><span class="addon-price" id="ao-collect">₹20,000</span><span class="addon-unit"> / month</span></div>
+      <div class="addon-note">Survey forms, pre-task workflows, audio upload, multi-language forms</div>
+    </div>
+
+    <div class="addon-card">
+      <div class="addon-plan-tag">Pilot · Per Form</div>
+      <div class="addon-name">Form Setup Support</div>
+      <div><span class="addon-price" id="ao-setup">₹9,000</span><span class="addon-unit"> / form</span></div>
+      <div class="addon-note">Dots-assisted form logic, workflows, testing &amp; deployment</div>
+    </div>
+
+    <div class="addon-card">
+      <div class="addon-plan-tag">Pro &amp; Enterprise · Annual</div>
+      <div class="addon-name">Collect Add-on</div>
+      <div><span class="addon-price" id="ao-collect-yr">₹2,30,000</span><span class="addon-unit"> / year</span></div>
+      <div class="addon-note">Survey forms, form testing &amp; iteration, setup support</div>
+    </div>
+
+    <div class="addon-card">
+      <div class="addon-plan-tag">All Plans · Per Bundle</div>
+      <div class="addon-name">Qual Bundle</div>
+      <div><span class="addon-price" id="ao-qual">₹25,000</span><span class="addon-unit"> / 250K words</span></div>
+      <div class="addon-note">Pilot: add-on per project. Pro/Enterprise: yearly bundle starts at ₹15,000 / 125K words</div>
+    </div>
+
+    <div class="addon-card">
+      <div class="addon-plan-tag">All Plans · Per Bundle</div>
+      <div class="addon-name">Quant Bundle</div>
+      <div><span class="addon-price" id="ao-quant">₹25,000</span><span class="addon-unit"> / 10K rows</span></div>
+      <div class="addon-note">Large dataset filtering &amp; analysis support. Pilot base includes 5K rows.</div>
+    </div>
+
+    <div class="addon-card">
+      <div class="addon-plan-tag">Pro &amp; Enterprise</div>
+      <div class="addon-name">Custom Integration</div>
+      <div><span class="addon-price" id="ao-integration">₹2,50,000</span><span class="addon-unit"> / integration / yr</span></div>
+      <div class="addon-note">Custom data import/export integrations</div>
+    </div>
+
+    <div class="addon-card">
+      <div class="addon-plan-tag">Pro &amp; Enterprise</div>
+      <div class="addon-name">Platform Translation</div>
+      <div><span class="addon-price" id="ao-translation">₹1,20,000</span><span class="addon-unit"> / language / yr</span></div>
+      <div class="addon-note">Full platform translated into an additional language</div>
+    </div>
+
+    <div class="addon-card">
+      <div class="addon-plan-tag">Enterprise</div>
+      <div class="addon-name">WhatsApp Chatbot</div>
+      <div><span class="addon-price" id="ao-whatsapp">₹3,20,000</span><span class="addon-unit"> / year</span></div>
+      <div class="addon-note">Conversational data collection via WhatsApp</div>
+    </div>
+  </div>
+
+  <div class="gst-note" id="gst-note">
+    ⓘ GST (18%) applies to all India pricing. All figures above are exclusive of GST.
+  </div>
+
+  <!-- Calculator -->
+  <div class="section-header">
+    <h2>Estimate your cost</h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="calc-card">
+    <div class="calc-head">
+      <div>
+        <div class="calc-head-title">Project calculator</div>
+        <div class="calc-head-sub">Select a plan and adjust inputs to estimate your total</div>
+      </div>
+      <button class="reset-btn" onclick="resetCalc()">Reset</button>
+    </div>
+
+    <!-- Plan selector -->
+    <div class="calc-plan-row">
+      <div class="calc-plan-label">Plan</div>
+      <div class="calc-plan-tabs">
+        <button class="calc-plan-btn active" data-plan="pilot" onclick="setCalcPlan('pilot')">Pilot (monthly)</button>
+        <button class="calc-plan-btn" data-plan="pro" onclick="setCalcPlan('pro')">Pro (annual)</button>
+        <button class="calc-plan-btn" data-plan="enterprise" onclick="setCalcPlan('enterprise')">Enterprise (annual)</button>
+      </div>
+    </div>
+
+    <div class="calc-body">
+
+      <!-- Pilot: months -->
+      <div class="calc-row" id="row-months">
+        <div class="calc-label">
+          <div class="calc-label-main">Project duration</div>
+          <div class="calc-label-sub">Number of months on platform (Pilot plan)</div>
+        </div>
+        <div class="calc-control">
+          <button class="stepper-btn" onclick="step('c-months',-1)">−</button>
+          <input class="num-input" id="c-months" type="number" min="1" max="24" value="2" oninput="calc()"/>
+          <button class="stepper-btn" onclick="step('c-months',1)">+</button>
+        </div>
+        <div class="line-cost" id="lc-base"></div>
+      </div>
+
+      <!-- Pro/Enterprise: years (fixed, display only) -->
+      <div class="calc-row disabled" id="row-annual" style="display:none;">
+        <div class="calc-label">
+          <div class="calc-label-main">Annual plan</div>
+          <div class="calc-label-sub">Pro &amp; Enterprise are billed yearly</div>
+        </div>
+        <div class="calc-control">
+          <button class="stepper-btn" onclick="step('c-years',-1)">−</button>
+          <input class="num-input" id="c-years" type="number" min="1" max="5" value="1" oninput="calc()"/>
+          <button class="stepper-btn" onclick="step('c-years',1)">+</button>
+          <span style="font-size:12px;color:var(--text3);">yr</span>
+        </div>
+        <div class="line-cost" id="lc-annual"></div>
+      </div>
+
+      <!-- Extra users -->
+      <div class="calc-row">
+        <div class="calc-label">
+          <div class="calc-label-main">Extra users</div>
+          <div class="calc-label-sub" id="extra-users-sub">Beyond 5 included · priced per user per month</div>
+        </div>
+        <div class="calc-control">
+          <button class="stepper-btn" onclick="step('c-users',-1)">−</button>
+          <input class="num-input" id="c-users" type="number" min="0" max="100" value="0" oninput="calc()"/>
+          <button class="stepper-btn" onclick="step('c-users',1)">+</button>
+        </div>
+        <div class="line-cost" id="lc-users"></div>
+      </div>
+
+      <!-- Data bundles (Pro/Enterprise only) -->
+      <div class="calc-row" id="row-databundles">
+        <div class="calc-label">
+          <div class="calc-label-main">Extra data bundles</div>
+          <div class="calc-label-sub" id="bundles-sub">Additional bundles beyond plan inclusion · ₹15,000/bundle/yr</div>
+        </div>
+        <div class="calc-control">
+          <button class="stepper-btn" onclick="step('c-databundles',-1)">−</button>
+          <input class="num-input" id="c-databundles" type="number" min="0" max="50" value="0" oninput="calc()"/>
+          <button class="stepper-btn" onclick="step('c-databundles',1)">+</button>
+        </div>
+        <div class="line-cost" id="lc-databundles"></div>
+      </div>
+
+      <!-- Collect module (Pilot) -->
+      <div class="calc-row" id="row-collect-pilot">
+        <div class="calc-label">
+          <div class="calc-label-main">Collect module</div>
+          <div class="calc-label-sub">Forms, workflows &amp; audio upload</div>
+        </div>
+        <div class="calc-control" style="flex-direction:column;align-items:flex-end;gap:6px;">
+          <div class="toggle-wrap">
+            <span class="toggle-lbl" id="collect-pilot-lbl">Off</span>
+            <button class="toggle" id="collect-pilot-toggle" onclick="togglePilotCollect()"></button>
+          </div>
+          <div id="collect-pilot-months-row" style="display:none;align-items:center;gap:6px;flex-direction:row;">
+            <span style="font-size:12px;color:var(--text3);">months</span>
+            <button class="stepper-btn" onclick="step('c-collect-months',-1)">−</button>
+            <input class="num-input" id="c-collect-months" type="number" min="1" max="24" value="2" oninput="calc()" style="width:56px;"/>
+            <button class="stepper-btn" onclick="step('c-collect-months',1)">+</button>
+          </div>
+        </div>
+        <div class="line-cost" id="lc-collect"></div>
+      </div>
+
+      <!-- Form setups (Pilot, only when collect on) -->
+      <div class="calc-row" id="row-forms" style="opacity:0.4;pointer-events:none;">
+        <div class="calc-label">
+          <div class="calc-label-main">Forms to set up</div>
+          <div class="calc-label-sub" id="forms-sub-lbl">Enable Collect module to add forms</div>
+        </div>
+        <div class="calc-control">
+          <button class="stepper-btn" onclick="step('c-forms',-1)">−</button>
+          <input class="num-input" id="c-forms" type="number" min="0" max="20" value="0" oninput="calc()"/>
+          <button class="stepper-btn" onclick="step('c-forms',1)">+</button>
+        </div>
+        <div class="line-cost" id="lc-forms"></div>
+      </div>
+
+      <!-- Collect add-on yearly (Pro/Enterprise) -->
+      <div class="calc-row" id="row-collect-yr" style="display:none;">
+        <div class="calc-label">
+          <div class="calc-label-main">Collect add-on</div>
+          <div class="calc-label-sub">Surveys, form testing &amp; setup support · annual</div>
+        </div>
+        <div class="calc-control">
+          <div class="toggle-wrap">
+            <span class="toggle-lbl" id="collect-yr-lbl">Off</span>
+            <button class="toggle" id="collect-yr-toggle" onclick="toggleYrCollect()"></button>
+          </div>
+        </div>
+        <div class="line-cost" id="lc-collect-yr"></div>
+      </div>
+
+      <!-- Qual bundles -->
+      <div class="calc-row">
+        <div class="calc-label">
+          <div class="calc-label-main">Qual bundles</div>
+          <div class="calc-label-sub" id="qual-sub">Base includes 150K words · add per 250K words</div>
+        </div>
+        <div class="calc-control">
+          <button class="stepper-btn" onclick="step('c-qual',-1)">−</button>
+          <input class="num-input" id="c-qual" type="number" min="0" max="50" value="0" oninput="calc()"/>
+          <button class="stepper-btn" onclick="step('c-qual',1)">+</button>
+        </div>
+        <div class="line-cost" id="lc-qual"></div>
+      </div>
+
+      <!-- Quant bundles -->
+      <div class="calc-row">
+        <div class="calc-label">
+          <div class="calc-label-main">Quant bundles</div>
+          <div class="calc-label-sub" id="quant-sub">Base includes 5K rows · add per 10K rows</div>
+        </div>
+        <div class="calc-control">
+          <button class="stepper-btn" onclick="step('c-quant',-1)">−</button>
+          <input class="num-input" id="c-quant" type="number" min="0" max="100" value="0" oninput="calc()"/>
+          <button class="stepper-btn" onclick="step('c-quant',1)">+</button>
+        </div>
+        <div class="line-cost" id="lc-quant"></div>
+      </div>
+
+      <!-- Custom integration (Pro/Enterprise) -->
+      <div class="calc-row" id="row-integration" style="display:none;">
+        <div class="calc-label">
+          <div class="calc-label-main">Custom integrations</div>
+          <div class="calc-label-sub">Number of custom data integrations · annual</div>
+        </div>
+        <div class="calc-control">
+          <button class="stepper-btn" onclick="step('c-integration',-1)">−</button>
+          <input class="num-input" id="c-integration" type="number" min="0" max="10" value="0" oninput="calc()"/>
+          <button class="stepper-btn" onclick="step('c-integration',1)">+</button>
+        </div>
+        <div class="line-cost" id="lc-integration"></div>
+      </div>
+
+      <!-- Platform translation (Pro/Enterprise) -->
+      <div class="calc-row" id="row-translation" style="display:none;">
+        <div class="calc-label">
+          <div class="calc-label-main">Platform translation</div>
+          <div class="calc-label-sub">Additional languages · annual</div>
+        </div>
+        <div class="calc-control">
+          <button class="stepper-btn" onclick="step('c-translation',-1)">−</button>
+          <input class="num-input" id="c-translation" type="number" min="0" max="10" value="0" oninput="calc()"/>
+          <button class="stepper-btn" onclick="step('c-translation',1)">+</button>
+        </div>
+        <div class="line-cost" id="lc-translation"></div>
+      </div>
+
+      <!-- WhatsApp (Enterprise) -->
+      <div class="calc-row" id="row-whatsapp" style="display:none;">
+        <div class="calc-label">
+          <div class="calc-label-main">WhatsApp Chatbot</div>
+          <div class="calc-label-sub">Conversational data collection · annual</div>
+        </div>
+        <div class="calc-control">
+          <div class="toggle-wrap">
+            <span class="toggle-lbl" id="whatsapp-lbl">Off</span>
+            <button class="toggle" id="whatsapp-toggle" onclick="toggleWhatsapp()"></button>
+          </div>
+        </div>
+        <div class="line-cost" id="lc-whatsapp"></div>
+      </div>
+
+    </div><!-- /calc-body -->
+
+    <div class="calc-total">
+      <div class="total-row">
+        <span class="total-label">Base plan</span>
+        <span class="total-value" id="sum-base">—</span>
+      </div>
+      <div class="total-row">
+        <span class="total-label">Users</span>
+        <span class="total-value" id="sum-users">—</span>
+      </div>
+      <div class="total-row">
+        <span class="total-label">Add-ons</span>
+        <span class="total-value" id="sum-addons">—</span>
+      </div>
+      <div class="total-row gst-row" id="calc-gst-row">
+        <span class="total-label">GST (18%)</span>
+        <span class="total-value" id="sum-gst">—</span>
+      </div>
+      <div class="total-divider"></div>
+      <div class="total-main">
+        <div>
+          <div class="total-main-label">Estimated total</div>
+          <div style="font-size:12px;color:var(--text3);" id="total-period">for 2 months</div>
+        </div>
+        <span class="total-amount" id="grand-total">₹1,00,000</span>
+      </div>
+      <div class="calc-note">
+        Transcription &amp; Translation is custom-priced and not included in this estimate. <a href="https://getdots.in/contact" style="color:var(--accent-text);text-decoration:underline;text-underline-offset:2px;">Contact Dots for a quote →</a>
+      </div>
+    </div>
+
+  </div><!-- /calc-card -->
+
+  <!-- FAQ -->
+  <div class="section-header">
+    <h2>Common questions</h2>
+    <div class="divider"></div>
+  </div>
+  <div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What is a data bundle and how many do I need?
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 4.5L7 9.5L12 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <div class="faq-a">A Qual Bundle covers ~125K words of qualitative data (about 25 hours of long-form interview transcriptions) used for AI processing. A Quant Bundle covers ~10K rows of survey or structured data. Pilot plans start with 1 bundle; Pro plans with 5. You can add more bundles as your dataset grows.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Can I switch from Pilot to Pro mid-project?
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 4.5L7 9.5L12 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <div class="faq-a">Yes. Contact the Dots team and they'll help you transition. Your data and configurations will be preserved. The Pro plan starts a new annual billing cycle from the upgrade date.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Does GST apply to my invoice?
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 4.5L7 9.5L12 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <div class="faq-a">GST at 18% applies to organisations with registered offices in India. All prices shown on this page are exclusive of GST. For Asia/Africa and North America/Europe customers, local tax rules apply.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What transcription languages are supported?
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 4.5L7 9.5L12 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <div class="faq-a">Dots supports multilingual transcription and translation through Sarvam AI. Coverage spans major Indian and global languages. Pricing for transcription &amp; translation is usage-based — contact Dots for a quote tailored to your language mix and volume.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Is there a free trial?
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 4.5L7 9.5L12 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <div class="faq-a">Dots offers a guided onboarding experience. Contact the team to discuss a pilot or proof-of-concept arrangement before committing to a full subscription.</div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h2>Not sure which plan fits?</h2>
+    <p>Tell us about your research goals and we'll recommend the right setup.</p>
+    <a href="https://getdots.in/contact" target="_blank">Talk to the Dots team →</a>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+const PRICING = {
+  india: {
+    currency: 'INR', symbol: '₹', gst: true, badge: 'INR ₹',
+    pilot:      { base: 50000,   userUnit: 4000,  collect: 20000, collectSetup: 9000, qual: 25000, quant: 25000 },
+    pro:        { base: 800000,  userUnit: 4000,  dataBundle: 15000, collectYr: 230000, qual: 15000, quant: 15000, integration: 250000, translation: 120000 },
+    enterprise: { base: 1800000, userUnit: 4000,  dataBundle: 15000, collectYr: 230000, qual: 15000, quant: 15000, integration: 250000, translation: 120000, whatsapp: 320000 },
+  },
+  south: {
+    currency: 'USD', symbol: '$', gst: false, badge: 'USD $',
+    pilot:      { base: 600,    userUnit: 50,   collect: 240,  collectSetup: 110, qual: 300, quant: 300 },
+    pro:        { base: 9500,   userUnit: 50,   dataBundle: 180, collectYr: 2750, qual: 180, quant: 180, integration: 3000, translation: 1450 },
+    enterprise: { base: 21500,  userUnit: 50,   dataBundle: 180, collectYr: 2750, qual: 180, quant: 180, integration: 3000, translation: 1450, whatsapp: 3800 },
+  },
+  north: {
+    currency: 'USD', symbol: '$', gst: false, badge: 'USD $',
+    pilot:      { base: 900,    userUnit: 75,   collect: 360,  collectSetup: 165, qual: 450, quant: 450 },
+    pro:        { base: 14250,  userUnit: 75,   dataBundle: 270, collectYr: 4125, qual: 270, quant: 270, integration: 4500, translation: 2175 },
+    enterprise: { base: 32250,  userUnit: 75,   dataBundle: 270, collectYr: 4125, qual: 270, quant: 270, integration: 4500, translation: 2175, whatsapp: 5700 },
+  }
+};
+
+let region = 'india';
+let calcPlan = 'pilot';
+let pilotCollectOn = false;
+let yrCollectOn = false;
+let whatsappOn = false;
+
+/* ── Formatting ── */
+function fmt(n) {
+  const p = PRICING[region];
+  if (p.currency === 'INR') {
+    if (n >= 10000000) return '₹' + (n/10000000).toFixed(2) + 'Cr';
+    if (n >= 100000)   return '₹' + (n/100000).toFixed(n%100000===0?0:2) + 'L';
+    return '₹' + n.toLocaleString('en-IN');
+  }
+  return '$' + n.toLocaleString('en-US');
+}
+function fmtFull(n) {
+  const p = PRICING[region];
+  if (p.currency === 'INR') return '₹' + n.toLocaleString('en-IN');
+  return '$' + n.toLocaleString('en-US');
+}
+
+/* ── Region ── */
+function setRegion(r) {
+  region = r;
+  document.querySelectorAll('.pill').forEach(el => el.classList.toggle('active', el.dataset.region === r));
+  const p = PRICING[r];
+  document.getElementById('currency-badge').textContent = p.badge;
+  document.getElementById('gst-note').classList.toggle('visible', p.gst);
+
+  // Plan card prices
+  document.getElementById('price-pilot').textContent = fmt(p.pilot.base);
+  document.getElementById('price-pro').textContent = fmt(p.pro.base);
+  document.getElementById('price-enterprise').textContent = fmt(p.enterprise.base);
+
+  // Monthly equivalents
+  if (p.currency === 'INR') {
+    document.getElementById('price-pro-monthly').textContent = '≈ ₹' + Math.round(p.pro.base/12).toLocaleString('en-IN') + ' / month · 18% GST not included';
+    document.getElementById('price-enterprise-monthly').textContent = '≈ ₹' + Math.round(p.enterprise.base/12).toLocaleString('en-IN') + ' / month · 18% GST not included';
+  } else {
+    document.getElementById('price-pro-monthly').textContent = '≈ $' + Math.round(p.pro.base/12).toLocaleString('en-US') + ' / month';
+    document.getElementById('price-enterprise-monthly').textContent = '≈ $' + Math.round(p.enterprise.base/12).toLocaleString('en-US') + ' / month';
+  }
+
+  // Add-on cards
+  document.getElementById('ao-users').textContent = fmt(p.pilot.userUnit);
+  document.getElementById('ao-collect').textContent = fmt(p.pilot.collect);
+  document.getElementById('ao-setup').textContent = fmt(p.pilot.collectSetup);
+  document.getElementById('ao-collect-yr').textContent = fmt(p.pro.collectYr);
+  document.getElementById('ao-qual').textContent = fmt(p.pilot.qual);
+  document.getElementById('ao-quant').textContent = fmt(p.pilot.quant);
+  document.getElementById('ao-integration').textContent = fmt(p.pro.integration);
+  document.getElementById('ao-translation').textContent = fmt(p.pro.translation);
+  document.getElementById('ao-whatsapp').textContent = fmt(p.enterprise.whatsapp);
+
+  // Compare table short prices
+  if (p.currency === 'INR') {
+    document.querySelectorAll('[data-key="pilot-short"]').forEach(el => el.textContent = '₹50K/mo');
+    document.querySelectorAll('[data-key="pro-short"]').forEach(el => el.textContent = '₹8L/yr');
+    document.querySelectorAll('[data-key="ent-short"]').forEach(el => el.textContent = '₹18L/yr');
+  } else {
+    const pilotS = '$' + p.pilot.base.toLocaleString('en-US') + '/mo';
+    const proS   = '$' + p.pro.base.toLocaleString('en-US') + '/yr';
+    const entS   = '$' + p.enterprise.base.toLocaleString('en-US') + '/yr';
+    document.querySelectorAll('[data-key="pilot-short"]').forEach(el => el.textContent = pilotS);
+    document.querySelectorAll('[data-key="pro-short"]').forEach(el => el.textContent = proS);
+    document.querySelectorAll('[data-key="ent-short"]').forEach(el => el.textContent = entS);
+  }
+
+  // Bundle sub label
+  const bundlePrice = p.pro.dataBundle;
+  document.getElementById('bundles-sub').textContent = 'Additional bundles beyond plan inclusion · ' + fmt(bundlePrice) + '/bundle/yr';
+
+  calc();
+}
+
+/* ── Compare toggle ── */
+function toggleCompare() {
+  const btn = document.getElementById('compare-toggle');
+  const sec = document.getElementById('compare-section');
+  const lbl = document.getElementById('compare-toggle-label');
+  const open = sec.classList.toggle('visible');
+  btn.classList.toggle('open', open);
+  lbl.textContent = open ? 'Hide feature comparison' : 'Compare all features';
+}
+
+/* ── FAQ ── */
+function toggleFaq(btn) {
+  const answer = btn.nextElementSibling;
+  const open = answer.classList.toggle('visible');
+  btn.classList.toggle('open', open);
+}
+
+/* ── Calculator plan switch ── */
+function setCalcPlan(plan) {
+  calcPlan = plan;
+  document.querySelectorAll('.calc-plan-btn').forEach(el => el.classList.toggle('active', el.dataset.plan === plan));
+
+  const isPilot = plan === 'pilot';
+  const isPro = plan === 'pro';
+  const isEnt = plan === 'enterprise';
+
+  show('row-months', isPilot);
+  show('row-annual', !isPilot);
+  show('row-collect-pilot', isPilot);
+  show('row-forms', isPilot);
+  show('row-collect-yr', !isPilot);
+  show('row-databundles', !isPilot);
+  show('row-integration', !isPilot);
+  show('row-translation', !isPilot);
+  show('row-whatsapp', isEnt);
+
+  // Update sub-labels
+  const p = PRICING[region];
+  if (!isPilot) {
+    document.getElementById('extra-users-sub').textContent =
+      'Beyond ' + (isPro ? '15' : 'included') + ' users · ' + fmt(p[plan].userUnit) + ' / user / month';
+  } else {
+    document.getElementById('extra-users-sub').textContent = 'Beyond 5 included · ' + fmt(p.pilot.userUnit) + ' / user / month';
+  }
+
+  if (!isPilot) {
+    document.getElementById('qual-sub').textContent = 'Additional qual bundles · ' + fmt(p[plan].qual) + '/bundle/yr';
+    document.getElementById('quant-sub').textContent = 'Additional quant bundles · ' + fmt(p[plan].quant) + '/bundle/yr';
+  } else {
+    document.getElementById('qual-sub').textContent = 'Base includes 150K words · add per 250K words';
+    document.getElementById('quant-sub').textContent = 'Base includes 5K rows · add per 10K rows';
+  }
+
+  // Reset toggles when switching
+  if (yrCollectOn && !isPilot) { /* keep */ } else if (isPilot) { resetYrCollect(); }
+  if (!isEnt && whatsappOn) { resetWhatsapp(); }
+
+  calc();
+}
+
+function show(id, visible) {
+  const el = document.getElementById(id);
+  if (el) el.style.display = visible ? '' : 'none';
+}
+
+/* ── Collect toggle (Pilot) ── */
+function togglePilotCollect() {
+  pilotCollectOn = !pilotCollectOn;
+  const t = document.getElementById('collect-pilot-toggle');
+  t.classList.toggle('on', pilotCollectOn);
+  document.getElementById('collect-pilot-lbl').textContent = pilotCollectOn ? 'On' : 'Off';
+  const row = document.getElementById('collect-pilot-months-row');
+  row.style.display = pilotCollectOn ? 'flex' : 'none';
+  const formsRow = document.getElementById('row-forms');
+  formsRow.style.opacity = pilotCollectOn ? '1' : '0.4';
+  formsRow.style.pointerEvents = pilotCollectOn ? 'auto' : 'none';
+  document.getElementById('forms-sub-lbl').textContent = pilotCollectOn
+    ? 'Dots-assisted setup per form — logic, testing & deployment'
+    : 'Enable Collect module to add forms';
+  if (!pilotCollectOn) document.getElementById('c-forms').value = 0;
+  calc();
+}
+
+/* ── Collect toggle (yearly) ── */
+function toggleYrCollect() {
+  yrCollectOn = !yrCollectOn;
+  const t = document.getElementById('collect-yr-toggle');
+  t.classList.toggle('on', yrCollectOn);
+  document.getElementById('collect-yr-lbl').textContent = yrCollectOn ? 'On' : 'Off';
+  calc();
+}
+function resetYrCollect() {
+  yrCollectOn = false;
+  const t = document.getElementById('collect-yr-toggle');
+  if (t) { t.classList.remove('on'); document.getElementById('collect-yr-lbl').textContent = 'Off'; }
+}
+
+/* ── WhatsApp toggle ── */
+function toggleWhatsapp() {
+  whatsappOn = !whatsappOn;
+  const t = document.getElementById('whatsapp-toggle');
+  t.classList.toggle('on', whatsappOn);
+  document.getElementById('whatsapp-lbl').textContent = whatsappOn ? 'On' : 'Off';
+  calc();
+}
+function resetWhatsapp() {
+  whatsappOn = false;
+  const t = document.getElementById('whatsapp-toggle');
+  if (t) { t.classList.remove('on'); document.getElementById('whatsapp-lbl').textContent = 'Off'; }
+}
+
+/* ── Stepper ── */
+function step(id, delta) {
+  const el = document.getElementById(id);
+  const min = parseInt(el.min) || 0;
+  const max = parseInt(el.max) || 9999;
+  el.value = Math.max(min, Math.min(max, (parseInt(el.value) || 0) + delta));
+  calc();
+}
+
+function getVal(id) { return Math.max(0, parseInt(document.getElementById(id).value) || 0); }
+
+/* ── Main calc ── */
+function calc() {
+  const p = PRICING[region][calcPlan];
+  const base_p = PRICING[region];
+  let costBase = 0, costUsers = 0, costAddons = 0;
+
+  if (calcPlan === 'pilot') {
+    const months = Math.max(1, getVal('c-months'));
+    costBase  = base_p.pilot.base * months;
+    costUsers = base_p.pilot.userUnit * getVal('c-users') * months;
+    const collectMonths = Math.max(1, getVal('c-collect-months'));
+    const costCollect   = pilotCollectOn ? base_p.pilot.collect * collectMonths : 0;
+    const costForms     = base_p.pilot.collectSetup * getVal('c-forms');
+    const costQual      = base_p.pilot.qual  * getVal('c-qual');
+    const costQuant     = base_p.pilot.quant * getVal('c-quant');
+    costAddons = costCollect + costForms + costQual + costQuant;
+
+    lc('lc-base',    costBase);
+    lc('lc-users',   costUsers);
+    lc('lc-collect', costCollect);
+    lc('lc-forms',   costForms);
+    lc('lc-qual',    costQual);
+    lc('lc-quant',   costQuant);
+    document.getElementById('total-period').textContent = 'for ' + months + ' month' + (months>1?'s':'');
+  } else {
+    const years = Math.max(1, getVal('c-years'));
+    costBase  = p.base * years;
+    costUsers = p.userUnit * getVal('c-users') * 12 * years; // user seats priced monthly
+    const costBundles     = p.dataBundle * getVal('c-databundles') * years;
+    const costCollectYr   = yrCollectOn ? p.collectYr * years : 0;
+    const costQual        = p.qual  * getVal('c-qual') * years;
+    const costQuant       = p.quant * getVal('c-quant') * years;
+    const costIntegration = p.integration * getVal('c-integration') * years;
+    const costTranslation = p.translation * getVal('c-translation') * years;
+    const costWhatsapp    = (calcPlan === 'enterprise' && whatsappOn) ? p.whatsapp * years : 0;
+    costAddons = costBundles + costCollectYr + costQual + costQuant + costIntegration + costTranslation + costWhatsapp;
+
+    lc('lc-annual',      costBase);
+    lc('lc-users',       costUsers);
+    lc('lc-databundles', costBundles);
+    lc('lc-collect-yr',  costCollectYr);
+    lc('lc-qual',        costQual);
+    lc('lc-quant',       costQuant);
+    lc('lc-integration', costIntegration);
+    lc('lc-translation', costTranslation);
+    if (calcPlan === 'enterprise') lc('lc-whatsapp', costWhatsapp);
+    document.getElementById('total-period').textContent = 'for ' + years + ' year' + (years>1?'s':'');
+  }
+
+  const subtotal = costBase + costUsers + costAddons;
+  const gstAmt   = base_p.gst ? Math.round(subtotal * 0.18) : 0;
+  const total    = subtotal + gstAmt;
+
+  document.getElementById('sum-base').textContent   = fmtFull(costBase);
+  document.getElementById('sum-users').textContent  = costUsers === 0 ? '—' : fmtFull(costUsers);
+  document.getElementById('sum-addons').textContent = costAddons === 0 ? '—' : fmtFull(costAddons);
+
+  const gstRowEl = document.getElementById('calc-gst-row');
+  gstRowEl.classList.toggle('visible', base_p.gst);
+  if (base_p.gst) document.getElementById('sum-gst').textContent = fmtFull(gstAmt);
+
+  document.getElementById('grand-total').textContent = fmtFull(total);
+}
+
+function lc(id, n) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = n === 0 ? '—' : fmtFull(n);
+  el.className = 'line-cost' + (n === 0 ? ' zero' : '');
+}
+
+/* ── Reset ── */
+function resetCalc() {
+  ['c-months','c-years','c-users','c-collect-months','c-forms','c-qual','c-quant','c-databundles','c-integration','c-translation'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = id === 'c-months' || id === 'c-years' || id === 'c-collect-months' ? (id === 'c-months' ? 2 : 1) : 0;
+  });
+  if (pilotCollectOn) togglePilotCollect();
+  resetYrCollect();
+  resetWhatsapp();
+  document.getElementById('row-forms').style.opacity = '0.4';
+  document.getElementById('row-forms').style.pointerEvents = 'none';
+  document.getElementById('forms-sub-lbl').textContent = 'Enable Collect module to add forms';
+  calc();
+}
+
+// Init
+setRegion('india');
+</script>
+</body>
+</html>
