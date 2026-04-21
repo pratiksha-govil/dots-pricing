@@ -12,7 +12,7 @@
   :root {
     --bg: #FFFFFF;
     --surface: #FFFFFF;
-    --surface2: #F9F9F9;
+    --surface-subtle: #F9F9F9;
     --border: #E5E7EB;
     --border-md: #D1D5DB;
     --text: #0D0D0D;
@@ -145,16 +145,6 @@
   .plan-desc { font-size: 13px; color: var(--text2); margin-top: 3px; }
   .plan-price { text-align: right; flex-shrink: 0; }
   .price-main { font-family: 'DM Sans', sans-serif; font-size: 26px; font-weight: 700; letter-spacing: -0.8px; color: var(--text); }
-  .plan-cta-link {
-    display: inline-block;
-    margin-top: 10px;
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--text2);
-    text-decoration: none;
-    transition: color 0.15s;
-                }
-  .plan-cta-link:hover { color: var(--text); }
   .price-unit { font-size: 12px; color: var(--text3); margin-top: 1px; }
   .features {
     display: grid; grid-template-columns: 1fr 1fr;
@@ -166,7 +156,7 @@
   }
   .feat-dot {
     width: 5px; height: 5px; border-radius: 50%;
-    background: var(--text); flex-shrink: 0;
+    background: var(--accent); flex-shrink: 0;
   }
 
   /* Add-on cards */
@@ -177,25 +167,25 @@
   }
   .addon-card {
     background: var(--surface);
-    border: 0.5px solid var(--border);
+    border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 18px 18px 16px;
     box-shadow: var(--shadow);
   }
   .addon-tag {
-    font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+    font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px;
     color: var(--text3); margin-bottom: 8px;
   }
-  .addon-name { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
-  .addon-price { font-size: 20px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+  .addon-name { font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+  .addon-price { font-family: 'DM Sans', sans-serif; font-size: 20px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
   .addon-unit { font-size: 12px; color: var(--text3); margin-left: 3px; }
   .addon-note { font-size: 12px; color: var(--text2); margin-top: 6px; }
 
   /* GST note */
   .gst-note {
-    font-size: 12px; color: var(--warn-text);
-    background: var(--warn-bg); padding: 8px 12px;
-    border-radius: 7px; margin-top: 12px;
+    font-size: 12px; color: var(--text2);
+    background: var(--surface-subtle); padding: 8px 12px;
+    border-radius: 7px; border: 1px solid var(--border); margin-top: 12px;
     display: none;
   }
   .gst-note.visible { display: block; }
@@ -206,21 +196,22 @@
     border: 0.5px solid var(--border);
     border-radius: var(--radius-lg);
     overflow: hidden;
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-md);
   }
   .calc-head {
     padding: 18px 22px 16px;
-    border-bottom: 0.5px solid var(--border);
-    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between; 
+    background: var(--surface-subtle);
   }
-  .calc-head-title { font-size: 15px; font-weight: 600; }
+  .calc-head-title { font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; color: var(--text); }
   .calc-head-sub { font-size: 12px; color: var(--text3); margin-top: 2px; }
   .reset-btn {
-    font-size: 12px; color: var(--text3); background: none; border: none;
+    font-family: 'Inter', sans-serif; font-size: 12px; color: var(--text3); background: none; border: none;
     cursor: pointer; padding: 4px 8px; border-radius: 5px;
     transition: background 0.1s;
   }
-  .reset-btn:hover { background: var(--surface2); color: var(--text2); }
+  .reset-btn:hover { background: var(--surface); color: var(--text2); }
 
   .calc-body { padding: 20px 22px; }
   .calc-row {
