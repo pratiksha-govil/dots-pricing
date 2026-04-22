@@ -363,9 +363,10 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
 }
 .cta-section h2 { font-size: 22px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.3px; }
 .cta-section p { font-size: 14px; color: var(--text2); margin-bottom: 20px; }
+.cta-section l { font-size: 12px; color: var(--text3); margin-top: 12px; }
 .cta-section a {
   display: inline-flex; align-items: center; gap: 6px; padding: 12px 28px;
-  background: var(--text); color: #fff; border-radius: 9999px;
+  background: var(--text); color: #fff; border-radius: 9999px; margin-bottom: 20px;
   font-size: 14px; font-weight: 600; text-decoration: none; transition: opacity 0.15s;
 }
 .cta-section a:hover { opacity: 0.85; }
@@ -572,7 +573,7 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
   <div class="cta-section">
     <h2>Questions about which plan is right for you?</h2>
     <a href="https://getdots.in/contact" target="_blank">Talk to the Dots team →</a>
-    <p style="font-size: 11px; color: var(--text3);">We'll get back to you in 2-3 business day.</p>
+    <l>We'll get back to you in 2-3 business day.</l>
   </div>
 
   <!-- Feature comparison toggle -->
@@ -891,7 +892,7 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
       <div class="calc-row" id="row-months">
         <div class="calc-label">
           <div class="calc-label-main">Project duration</div>
-          <div class="calc-label-sub">Number of months on platform (Pilot plan)</div>
+          <div class="calc-label-sub">Number of months on platform</div>
         </div>
         <div class="calc-control">
           <button class="stepper-btn" onclick="step('c-months',-1)">−</button>
@@ -930,25 +931,11 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
         <div class="line-cost" id="lc-users"></div>
       </div>
 
-      <!-- Data bundles (Pro/Enterprise only) -->
-      <div class="calc-row" id="row-databundles">
-        <div class="calc-label">
-          <div class="calc-label-main">Extra data bundles</div>
-          <div class="calc-label-sub" id="bundles-sub">Additional bundles beyond plan inclusion · ₹15,000/bundle/yr</div>
-        </div>
-        <div class="calc-control">
-          <button class="stepper-btn" onclick="step('c-databundles',-1)">−</button>
-          <input class="num-input" id="c-databundles" type="number" min="0" max="50" value="0" oninput="calc()"/>
-          <button class="stepper-btn" onclick="step('c-databundles',1)">+</button>
-        </div>
-        <div class="line-cost" id="lc-databundles"></div>
-      </div>
-
       <!-- Collect module (Pilot) -->
       <div class="calc-row" id="row-collect-pilot">
         <div class="calc-label">
           <div class="calc-label-main">Collect module</div>
-          <div class="calc-label-sub">Forms, workflows &amp; audio upload</div>
+          <div class="calc-label-sub">Forms, workflows,&amp; audio upload</div>
         </div>
         <div class="calc-control" style="flex-direction:column;align-items:flex-end;gap:6px;">
           <div class="toggle-wrap">
@@ -983,7 +970,7 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
       <div class="calc-row" id="row-collect-yr" style="display:none;">
         <div class="calc-label">
           <div class="calc-label-main">Collect add-on</div>
-          <div class="calc-label-sub">Surveys, form testing &amp; setup support · annual</div>
+          <div class="calc-label-sub">Surveys, form testing &amp; setup support · Billed annually</div>
         </div>
         <div class="calc-control">
           <div class="toggle-wrap">
@@ -1026,7 +1013,7 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
       <div class="calc-row" id="row-integration" style="display:none;">
         <div class="calc-label">
           <div class="calc-label-main">Custom integrations</div>
-          <div class="calc-label-sub">Number of custom data integrations · annual</div>
+          <div class="calc-label-sub">Number of custom data integrations · Billed annually</div>
         </div>
         <div class="calc-control">
           <button class="stepper-btn" onclick="step('c-integration',-1)">−</button>
@@ -1040,7 +1027,7 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
       <div class="calc-row" id="row-translation" style="display:none;">
         <div class="calc-label">
           <div class="calc-label-main">Platform translation</div>
-          <div class="calc-label-sub">Additional languages · annual</div>
+          <div class="calc-label-sub">Additional languages · Billed annually</div>
         </div>
         <div class="calc-control">
           <button class="stepper-btn" onclick="step('c-translation',-1)">−</button>
@@ -1054,7 +1041,7 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
       <div class="calc-row" id="row-whatsapp" style="display:none;">
         <div class="calc-label">
           <div class="calc-label-main">WhatsApp Chatbot</div>
-          <div class="calc-label-sub">Conversational data collection · annual</div>
+          <div class="calc-label-sub">Conversational data collection · Billed annually</div>
         </div>
         <div class="calc-control">
           <div class="toggle-wrap">
