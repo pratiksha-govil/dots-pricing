@@ -90,29 +90,39 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
 .plan-tab:hover { border-color: var(--text); color: var(--text); }
 .plan-tab.active { background: var(--text); color: #fff; border-color: var(--text); }
 
-/* ── Plans grid ── */
-.plans-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+/* ── Plans grid — subgrid for cross-card row alignment ── */
+.plans-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto auto auto auto; /* head | seats | features | addons | foot */
+  gap: 0 14px;
+}
 
+/* Each card spans all 5 row tracks and subgrids internally */
 .plan-card {
   background: var(--surface);
   border: 1.5px solid var(--border);
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow);
-  display: flex; flex-direction: column;
+  display: grid;
+  grid-row: 1 / -1;
+  grid-template-rows: subgrid;
   transition: box-shadow 0.2s;
 }
 .plan-card:hover { box-shadow: var(--shadow-md); }
 .plan-card.highlighted {
-  border-color: var(--text);
-  border-width: 2px;
-  box-shadow: var(--shadow-md);
-  overflow: visible;
+  border-color: var(--text); border-width: 2px;
+  box-shadow: var(--shadow-md); overflow: visible;
 }
-.plan-badge-wrap { position: relative; padding-top: 18px; }
-.plan-card.enterprise-card { border-color: var(--border); }
+.plan-badge-wrap { position: relative; }
 
+/* Card sections */
 .plan-head { padding: 22px 22px 18px; border-bottom: 1px solid var(--border); }
+.plan-body-section { padding: 14px 22px; border-bottom: 1px solid var(--border); }
+.plan-foot { padding: 14px 22px; }
+
+/* Plan head typography */
 .plan-eyebrow {
   font-size: 11px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase;
   background: var(--accent-bg); color: var(--accent-text); padding: 3px 9px;
@@ -126,19 +136,37 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
 .plan-period { font-size: 13px; color: var(--text3); font-weight: 400; }
 .plan-billing { font-size: 11px; color: var(--text3); margin-top: 3px; }
 
-.plan-body { padding: 18px 22px; flex: 1; }
-.plan-feat-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
-.plan-feat {
-  display: flex; align-items: flex-start; gap: 8px;
-  font-size: 13px; color: var(--text);
+/* GST hover badge on price */
+.price-gst-tip {
+  position: relative; display: inline-flex; align-items: baseline; cursor: default;
 }
+.price-gst-tip .gst-bubble {
+  visibility: hidden; opacity: 0;
+  position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+  background: var(--text); color: #fff; font-size: 11px; font-weight: 500;
+  padding: 5px 10px; border-radius: 7px; white-space: nowrap; pointer-events: none;
+  transition: opacity 0.15s; z-index: 10; box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+.price-gst-tip .gst-bubble::after {
+  content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+  border: 5px solid transparent; border-top-color: var(--text);
+}
+.price-gst-tip:hover .gst-bubble { visibility: visible; opacity: 1; }
+.gst-badge {
+  font-size: 10px; font-weight: 600; color: var(--text3); background: var(--tag-bg);
+  padding: 2px 6px; border-radius: 4px; margin-left: 6px; vertical-align: middle;
+  border-bottom: 1px dashed var(--text3); cursor: default;
+}
+
+/* Feature lists */
+.plan-feat-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.plan-feat { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: var(--text); }
 .feat-check { color: var(--accent); font-size: 14px; flex-shrink: 0; margin-top: 2px; font-weight: 700; }
 .feat-minus { color: var(--text3); font-size: 14px; flex-shrink: 0; margin-top: 1px; }
 .feat-addon { font-size: 11px; font-weight: 600; color: var(--text3); background: var(--tag-bg); padding: 1px 6px; border-radius: 4px; }
 .plan-section-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text3); margin-bottom: 9px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
-.plan-text { display:inline-block;font-size:11px;background:var(--tag-bg);color:var(--text2);padding:1px 6px;border-radius:4px;margin-right:4px;flex-shrink:0; }
-  
-.plan-foot { padding: 16px 22px; border-top: 1px solid var(--border); }
+.plan-text { display:inline-block; font-size:11px; background:var(--tag-bg); color:var(--text2); padding:1px 6px; border-radius:4px; margin-right:4px; flex-shrink:0; margin-top:1px; }
+.cta-note { font-size: 11px; color: var(--text3); text-align: center; }
 .cta-btn {
   display: block; width: 100%; text-align: center; padding: 11px 20px;
   border-radius: 9999px; font-size: 13px; font-weight: 600; text-decoration: none;
@@ -149,10 +177,8 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
 .cta-dark:hover { opacity: 0.85; }
 .cta-outline { background: transparent; border: 1.5px solid var(--border-md); color: var(--text); }
 .cta-outline:hover { border-color: var(--text); }
-.cta-note { font-size: 11px; color: var(--text3); text-align: center; margin-top: 7px; }
 
 /* ── Recommended badge ── */
-.plan-badge-wrap { position: relative; }
 .recommended-badge {
   position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
   background: var(--accent-bg); color: var(--accent-text); border: 1px solid var(--accent);
@@ -358,17 +384,16 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
 
 /* ── CTA ── */
 .cta-section {
-  margin-top: 24px; background: var(--surface-subtle); border: 1px solid var(--border);
-  border-radius: var(--radius-lg); padding: 24px 28px; display: flex;
-  align-items: center; justify-content: space-between; gap: 20px;
+  margin-top: 56px; background: var(--surface-subtle); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 36px 32px; text-align: center;
 }
-.cta-section h2 { font-size: 15px; font-weight: 600; margin-bottom: 4px; letter-spacing: -0.2px; color: var(--text); }
-.cta-section p { font-size: 12px; color: var(--text3); margin: 0; }
+.cta-section h2 { font-size: 22px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.3px; color: var(--text); }
+.cta-section p { font-size: 14px; color: var(--text2); margin-bottom: 20px; }
 .cta-section l { display: none; }
 .cta-section a {
   display: inline-flex; align-items: center; gap: 6px; padding: 12px 28px;
-  background: var(--text); color: #fff; border-radius: 9999px; flex-shrink: 0;
-  font-size: 15px; font-weight: 700; text-decoration: none; transition: opacity 0.15s;
+  background: var(--text); color: #fff; border-radius: 9999px;
+  font-size: 14px; font-weight: 700; text-decoration: none; transition: opacity 0.15s;
 }
 .cta-section a:hover { opacity: 0.85; }
 
@@ -425,98 +450,94 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
   <div class="plans-grid">
 
     <!-- Pilot -->
-    <div class="plan-card" style="position:relative;">
+    <div class="plan-card">
       <div class="plan-head">
         <div class="plan-eyebrow gray">Monthly</div>
         <div class="plan-name">Pilot</div>
         <div class="plan-desc">For shorter-duration or first-time qualitative projects.</div>
         <div class="plan-price-area">
-          <span class="plan-price" id="price-pilot">₹50,000</span>
-          <span class="plan-period"> / month</span>
-          <div class="plan-billing">≈ ₹9,000 / month · 18% GST not included</div>
+          <span class="price-gst-tip">
+            <span class="plan-price" id="price-pilot">₹50,000</span><span class="plan-period"> / month</span>
+            <span class="gst-badge">+GST</span>
+            <span class="gst-bubble" id="pilot-gst-bubble">18% GST applies for India</span>
+          </span>
+          <div class="plan-billing" id="pilot-per-user">≈ ₹10,000 / user / month (5 users)</div>
         </div>
       </div>
-      <div class="plan-body">
-        <!-- Seats & bundles -->
-        <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border);">
-          <div class="plan-section-label">Seats &amp; Data</div>
-          <ul class="plan-feat-list">
-            <li class="plan-feat"><span class="feat-check">✓</span> <strong>5 admin users</strong> included</li>
-            <li class="plan-feat"><span class="feat-check">✓</span> <strong>150K words / 5K rows)</strong></li>
-          </ul>
-        </div>
-        <!-- Core features -->
-        <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border);">
-          <div class="plan-section-label">What's included</div>
-          <ul class="plan-feat-list">
-            <li class="plan-feat"><span class="feat-check">✓</span> 1 project workspace</li>
-            <li class="plan-feat"><span class="feat-check">✓</span> Unlimited data forms for import</li>
-            <li class="plan-feat"><span class="feat-check">✓</span> Tagging &amp; qualitative structuring</li>
-            <li class="plan-feat"><span class="feat-check">✓</span> AI analysis, annotations &amp; summarisation</li>
-            <li class="plan-feat"><span class="feat-check">✓</span> Dashboards &amp; limited reporting widgets</li>
-            <li class="plan-feat"><span class="feat-check">✓</span> Email support &amp; onboarding docs</li>
-          </ul>
-        </div>
-        <!-- Add-ons available -->
-        <div>
-          <div class="plan-section-label">Available add-ons</div>
-          <ul class="plan-feat-list">
-            <li class="plan-feat"><span class="plan-text">+</span> Collect module with setup support</li>
-            <li class="plan-feat"><span class="plan-text">+</span> Transcription &amp; Translation </li>
-            <li class="plan-feat"><span class="plan-text">+</span> Extra users &amp; data bundles</li>
-          </ul>
-        </div>
+      <div class="plan-body-section">
+        <div class="plan-section-label">Seats &amp; Data</div>
+        <ul class="plan-feat-list">
+          <li class="plan-feat"><span class="feat-check">✓</span> <strong>5 admin users</strong> included</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> <strong>1 data bundle</strong> <span style="color:var(--text3);font-size:12px;">(150K words / 5K rows)</span></li>
+        </ul>
+      </div>
+      <div class="plan-body-section">
+        <div class="plan-section-label">What's included</div>
+        <ul class="plan-feat-list">
+          <li class="plan-feat"><span class="feat-check">✓</span> 1 project workspace</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> Unlimited data forms for import</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> Tagging &amp; qualitative structuring</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> AI analysis, annotations &amp; summarisation</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> Dashboards &amp; limited reporting widgets</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> Email support &amp; onboarding docs</li>
+        </ul>
+      </div>
+      <div class="plan-body-section">
+        <div class="plan-section-label">Available add-ons</div>
+        <ul class="plan-feat-list">
+          <li class="plan-feat"><span class="plan-text">+</span> Collect module with setup support</li>
+          <li class="plan-feat"><span class="plan-text">+</span> Transcription &amp; Translation</li>
+          <li class="plan-feat"><span class="plan-text">+</span> Extra users &amp; data bundles</li>
+        </ul>
       </div>
       <div class="plan-foot">
-        <div class="cta-note" style="margin-top:0;">Platform UI is in English only</div>
+        <div class="cta-note">Platform UI is in English only</div>
       </div>
     </div>
 
     <!-- Pro (recommended) -->
-    <div class="plan-card highlighted plan-badge-wrap" style="position:relative;">
+    <div class="plan-card highlighted plan-badge-wrap">
       <div class="recommended-badge">✦ Most popular</div>
-      <div class="plan-head">
+      <div class="plan-head" style="padding-top:30px;">
         <div class="plan-eyebrow">Annual</div>
         <div class="plan-name">Pro</div>
         <div class="plan-desc">For teams running recurring or multi-phase programmes.</div>
         <div class="plan-price-area">
-          <span class="plan-price" id="price-pro">₹8,00,000</span>
-          <span class="plan-period"> / year</span>
-          <div class="plan-billing" id="price-pro-monthly">≈ ₹66,667 / month · 18% GST not included</div>
+          <span class="price-gst-tip">
+            <span class="plan-price" id="price-pro">₹8,00,000</span><span class="plan-period"> / year</span>
+            <span class="gst-badge">+GST</span>
+            <span class="gst-bubble" id="pro-gst-bubble">18% GST applies for India</span>
+          </span>
+          <div class="plan-billing" id="price-pro-monthly">≈ ₹4,444 / user / month (15 users)</div>
         </div>
       </div>
-      <div class="plan-body">
-        <!-- Seats & bundles -->
-        <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border);">
-          <div class="plan-section-label">Seats &amp; Data</div>
-          <ul class="plan-feat-list">
-            <li class="plan-feat"><span class="feat-check">✓</span><strong>15 admin users</strong></li>
-            <li class="plan-feat"><span class="feat-check">✓</span><strong>750K words / 25K rows</strong></li>
-          </ul>
-        </div>
-        <!-- Everything in Pilot + extras -->
-        <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border);">
-          <div class="plan-section-label">Everything in Pilot, plus</div>
-          <ul class="plan-feat-list">
-            <li class="plan-feat"><span class="feat-check">✓</span> Standard import/export integrations</li>
-            <li class="plan-feat"><span class="feat-check">✓</span> Unlimited reports</li>
-            <li class="plan-feat"><span class="feat-check">✓</span> 3–4 pre-set roles (Researcher + Admin)</li>
-            <li class="plan-feat"><span class="feat-check">✓</span> Workshop onboarding &amp; data structure support</li>
-          </ul>
-        </div>
-        <!-- Add-ons available -->
-        <div>
-          <div class="plan-section-label">Available add-ons</div>
-          <ul class="plan-feat-list">
-            <li class="plan-feat"><span class="plan-text">+</span> Collect module (surveys) with setup support</li>
-            <li class="plan-feat"><span class="plan-text">+</span> Custom integrations</li>
-            <li class="plan-feat"><span class="plan-text">+</span> Transcription &amp; Translation</li>
-            <li class="plan-feat"><span class="plan-text">+</span> Extra users &amp; data bundles</li>
-            <li class="plan-feat"><span class="plan-text">+</span> Platform Translation</li>
-          </ul>
-        </div>
+      <div class="plan-body-section">
+        <div class="plan-section-label">Seats &amp; Data</div>
+        <ul class="plan-feat-list">
+          <li class="plan-feat"><span class="feat-check">✓</span> <strong>15 admin users</strong> included</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> <strong>5 data bundles</strong> <span style="color:var(--text3);font-size:12px;">(750K words / 25K rows)</span></li>
+        </ul>
       </div>
-      <div class="plan-foot" style="border-top:none;padding-top:0;"></div>
+      <div class="plan-body-section">
+        <div class="plan-section-label">Everything in Pilot, plus</div>
+        <ul class="plan-feat-list">
+          <li class="plan-feat"><span class="feat-check">✓</span> Standard import/export integrations</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> Unlimited reports</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> 3–4 pre-set roles (Researcher + Admin)</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> Workshop onboarding &amp; data structure support</li>
+        </ul>
+      </div>
+      <div class="plan-body-section">
+        <div class="plan-section-label">Available add-ons</div>
+        <ul class="plan-feat-list">
+          <li class="plan-feat"><span class="plan-text">+</span> Collect module (surveys) with setup support</li>
+          <li class="plan-feat"><span class="plan-text">+</span> Custom integrations</li>
+          <li class="plan-feat"><span class="plan-text">+</span> Transcription &amp; Translation</li>
+          <li class="plan-feat"><span class="plan-text">+</span> Extra users &amp; data bundles</li>
+          <li class="plan-feat"><span class="plan-text">+</span> Platform Translation</li>
+        </ul>
+      </div>
+      <div class="plan-foot"></div>
     </div>
 
     <!-- Enterprise -->
@@ -526,42 +547,38 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
         <div class="plan-name">Enterprise</div>
         <div class="plan-desc">For large-scale longitudinal studies &amp; custom deployments.</div>
         <div class="plan-price-area">
-          <span class="plan-price">Custom</span>
+          <span class="plan-price" id="price-enterprise">Custom</span>
+          <div class="plan-billing" id="price-enterprise-monthly">Tailored scope &amp; pricing</div>
         </div>
       </div>
-      <div class="plan-body">
-        <!-- Seats & bundles -->
-        <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border);">
-          <div class="plan-section-label">Seats &amp; Data</div>
-          <ul class="plan-feat-list">
-            <li class="plan-feat"><span class="feat-check">✓</span> <strong>Custom / unlimited users &amp; roles</strong></li>
-            <li class="plan-feat"><span class="feat-check">✓</span> <strong>Custom data bundles</strong></li>
-          </ul>
-        </div>
-        <!-- Everything in Pro + extras -->
-        <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border);">
-          <div class="plan-section-label">Everything in Pro, plus</div>
-          <ul class="plan-feat-list">
-            <li class="plan-feat"><span class="feat-check">✓</span> Collect module (surveys + continuous)</li>
-            <li class="plan-feat"><span class="feat-check">✓</span> White Labelling</li>
-            <li class="plan-feat"><span class="feat-check">✓</span> Custom roles &amp; complex access control</li>
-            <li class="plan-feat"><span class="feat-check">✓</span> Data Architecture Consultation</li>
-            <li class="plan-feat"><span class="feat-check">✓</span> Dedicated Slack support channel</li>
-          </ul>
-        </div>
-        <!-- Add-ons available -->
-        <div>
-          <div class="plan-section-label">Available add-ons</div>
-          <ul class="plan-feat-list">
-            <li class="plan-feat"><span class="plan-text">+</span> Transcription &amp; Translation</li>
-            <li class="plan-feat"><span class="plan-text">+</span> WhatsApp Chatbot</li>
-            <li class="plan-feat"><span class="plan-text">+</span> Custom integrations</li>
-            <li class="plan-feat"><span class="plan-text">+</span> Platform Translation</li>
-          </ul>
-        </div>
+      <div class="plan-body-section">
+        <div class="plan-section-label">Seats &amp; Data</div>
+        <ul class="plan-feat-list">
+          <li class="plan-feat"><span class="feat-check">✓</span> <strong>Custom / unlimited users &amp; roles</strong></li>
+          <li class="plan-feat"><span class="feat-check">✓</span> <strong>Custom data bundles</strong></li>
+        </ul>
+      </div>
+      <div class="plan-body-section">
+        <div class="plan-section-label">Everything in Pro, plus</div>
+        <ul class="plan-feat-list">
+          <li class="plan-feat"><span class="feat-check">✓</span> Collect module (surveys + continuous)</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> White Labelling</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> Custom roles &amp; complex access control</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> Data Architecture Consultation</li>
+          <li class="plan-feat"><span class="feat-check">✓</span> Dedicated Slack support channel</li>
+        </ul>
+      </div>
+      <div class="plan-body-section">
+        <div class="plan-section-label">Available add-ons</div>
+        <ul class="plan-feat-list">
+          <li class="plan-feat"><span class="plan-text">+</span> Transcription &amp; Translation</li>
+          <li class="plan-feat"><span class="plan-text">+</span> WhatsApp Chatbot</li>
+          <li class="plan-feat"><span class="plan-text">+</span> Custom integrations</li>
+          <li class="plan-feat"><span class="plan-text">+</span> Platform Translation</li>
+        </ul>
       </div>
       <div class="plan-foot">
-        <div class="cta-note" style="margin-top:0;">Fully tailored scope &amp; pricing</div>
+        <div class="cta-note">Fully tailored scope &amp; pricing</div>
       </div>
     </div>
 
@@ -803,7 +820,7 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
           <td><span class="cross">✕</span></td>
           <td class="col-pro"><span class="cross">✕</span></td>
           <td><span class="addon-tip">
-            <span class="addon-tag-sm"></span>
+            <span class="addon-tag-sm">Add-on</span>
             <span class="tip-bubble" data-tip="whatsapp"><span class="tip-price" data-tip-key="whatsapp-price">₹3,20,000</span> / yr</span>
           </span></td>
         </tr>
@@ -929,19 +946,6 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
         <div class="line-cost" id="lc-users"></div>
       </div>
       
-     <!-- Data bundles (hidden - use qual/quant instead) -->
-      <div class="calc-row" id="row-databundles" style="display:none;">
-        <div class="calc-label">
-          <div class="calc-label-main">Extra data bundles</div>
-          <div class="calc-label-sub" id="bundles-sub">Additional bundles beyond plan inclusion · ₹15,000/bundle/yr</div>
-        </div>
-        <div class="calc-control">
-          <button class="stepper-btn" onclick="step('c-databundles',-1)">−</button>
-          <input class="num-input" id="c-databundles" type="number" min="0" max="50" value="0" oninput="calc()"/>
-          <button class="stepper-btn" onclick="step('c-databundles',1)">+</button>
-        </div>
-        <div class="line-cost" id="lc-databundles"></div>
-      </div>
       
       <!-- Collect module (Pilot) -->
       <div class="calc-row" id="row-collect-pilot">
@@ -1066,7 +1070,15 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
 
     </div><!-- /calc-body -->
 
-    <div class="calc-total">
+    <!-- Enterprise custom quote panel -->
+    <div id="enterprise-quote-panel" style="display:none;padding:32px 24px;text-align:center;">
+      <div style="font-size:22px;margin-bottom:12px;">✦</div>
+      <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px;letter-spacing:-0.2px;">Enterprise pricing is custom</div>
+      <div style="font-size:13px;color:var(--text2);margin-bottom:24px;line-height:1.6;max-width:380px;margin-left:auto;margin-right:auto;">Scope, users, bundles and add-ons are tailored to your organisation. Talk to the Dots team and we'll put together a quote.</div>
+      <a href="https://getdots.in/contact" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:12px 28px;background:var(--text);color:#fff;border-radius:9999px;font-size:14px;font-weight:700;text-decoration:none;transition:opacity 0.15s;" onmouseover="this.style.opacity=0.85" onmouseout="this.style.opacity=1">Contact Dots for a quote →</a>
+    </div>
+
+    <div class="calc-total" id="calc-total">
       <div class="total-row">
         <span class="total-label">Base plan</span>
         <span class="total-value" id="sum-base">—</span>
@@ -1195,9 +1207,9 @@ function updateTooltips() {
   // Update dynamic price spans inside tip-bubbles
   const tipPrices = {
     'qual-pilot-price':    fmt(p.pilot.qual),
-    'qual-pro-price':      fmt(p.pro.qual),
+    'qual-pro-price':      fmt(p.pilot.qual),
     'quant-pilot-price':   fmt(p.pilot.quant),
-    'quant-pro-price':     fmt(p.pro.quant),
+    'quant-pro-price':     fmt(p.pilot.quant),
     'users-price':         fmt(p.pilot.userUnit),
     'collect-yr-price':    fmt(p.pro.collectYr),
     'whatsapp-price':      fmt(p.enterprise.whatsapp),
@@ -1220,29 +1232,32 @@ function setRegion(r) {
   // Plan card prices
   document.getElementById('price-pilot').textContent = fmt(p.pilot.base);
   document.getElementById('price-pro').textContent = fmt(p.pro.base);
-  document.getElementById('price-enterprise').textContent = fmt(p.enterprise.base);
+  // Enterprise is always custom pricing — no numeric update
 
-  // Monthly equivalents
+  // Per-user billing lines
+  const pilotPerUser = Math.round(p.pilot.base / 5);
+  const proPerUser   = Math.round(p.pro.base / 12 / 15);
   if (p.currency === 'INR') {
-    document.getElementById('price-pro-monthly').textContent = '≈ ₹' + Math.round(p.pro.base/12).toLocaleString('en-IN') + ' / month · 18% GST not included';
-    document.getElementById('price-enterprise-monthly').textContent = '≈ ₹' + Math.round(p.enterprise.base/12).toLocaleString('en-IN') + ' / month · 18% GST not included';
+    document.getElementById('pilot-per-user').textContent   = '≈ ₹' + pilotPerUser.toLocaleString('en-IN') + ' / user / month (5 users)';
+    document.getElementById('price-pro-monthly').textContent = '≈ ₹' + proPerUser.toLocaleString('en-IN') + ' / user / month (15 users)';
+    document.getElementById('pilot-gst-bubble').textContent  = '18% GST applies for India';
+    document.getElementById('pro-gst-bubble').textContent    = '18% GST applies for India';
   } else {
-    document.getElementById('price-pro-monthly').textContent = '≈ $' + Math.round(p.pro.base/12).toLocaleString('en-US') + ' / month';
-    document.getElementById('price-enterprise-monthly').textContent = '≈ $' + Math.round(p.enterprise.base/12).toLocaleString('en-US') + ' / month';
+    document.getElementById('pilot-per-user').textContent   = '≈ ' + p.symbol + pilotPerUser.toLocaleString('en-US') + ' / user / month (5 users)';
+    document.getElementById('price-pro-monthly').textContent = '≈ ' + p.symbol + proPerUser.toLocaleString('en-US') + ' / user / month (15 users)';
+    document.getElementById('pilot-gst-bubble').textContent  = 'Excl. local taxes';
+    document.getElementById('pro-gst-bubble').textContent    = 'Excl. local taxes';
   }
 
   // Compare table short prices
   if (p.currency === 'INR') {
     document.querySelectorAll('[data-key="pilot-short"]').forEach(el => el.textContent = '₹50K/mo');
     document.querySelectorAll('[data-key="pro-short"]').forEach(el => el.textContent = '₹8L/yr');
-    document.querySelectorAll('[data-key="ent-short"]').forEach(el => el.textContent = '₹18L/yr');
   } else {
     const pilotS = '$' + p.pilot.base.toLocaleString('en-US') + '/mo';
     const proS   = '$' + p.pro.base.toLocaleString('en-US') + '/yr';
-    const entS   = '$' + p.enterprise.base.toLocaleString('en-US') + '/yr';
     document.querySelectorAll('[data-key="pilot-short"]').forEach(el => el.textContent = pilotS);
     document.querySelectorAll('[data-key="pro-short"]').forEach(el => el.textContent = proS);
-    document.querySelectorAll('[data-key="ent-short"]').forEach(el => el.textContent = entS);
   }
 
   updateTooltips();
@@ -1276,14 +1291,14 @@ function setCalcPlan(plan) {
   const isEnt = plan === 'enterprise';
 
   show('row-months', isPilot);
-  show('row-annual', !isPilot);
+  show('row-annual', isPro);
   show('row-collect-pilot', isPilot);
   show('row-forms', isPilot);
   show('row-collect-yr', isPro);
   show('row-databundles', false);
-  show('row-integration', !isPilot);
-  show('row-translation', !isPilot);
-  show('row-whatsapp', isEnt);
+  show('row-integration', isPro);
+  show('row-translation', isPro);
+  show('row-whatsapp', false);
   show('row-users', !isEnt);
   show('row-qual', !isEnt);
   show('row-quant', !isEnt);
@@ -1299,6 +1314,10 @@ function setCalcPlan(plan) {
     document.getElementById('qual-sub').textContent = 'Additional qual bundles · ' + fmt(p.pro.qual) + '/bundle/yr';
     document.getElementById('quant-sub').textContent = 'Additional quant bundles · ' + fmt(p.pro.quant) + '/bundle/yr';
   }
+
+  // Show custom quote panel for Enterprise, hide calculator total
+  document.getElementById('enterprise-quote-panel').style.display = isEnt ? 'block' : 'none';
+  document.getElementById('calc-total').style.display = isEnt ? 'none' : '';
 
   // Reset toggles when switching
   if (yrCollectOn && !isPilot) { /* keep */ } else if (isPilot) { resetYrCollect(); }
@@ -1478,6 +1497,7 @@ function resetCalc() {
 
 // Init
 setRegion('india');
+setCalcPlan('pilot');
 </script>
 </body>
 </html>
