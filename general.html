@@ -358,16 +358,17 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
 
 /* ── CTA ── */
 .cta-section {
-  margin-top: 56px; background: var(--surface-subtle); border: 1px solid var(--border);
-  border-radius: var(--radius-lg); padding: 36px 32px; text-align: center;
+  margin-top: 24px; background: var(--surface-subtle); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 24px 28px; display: flex;
+  align-items: center; justify-content: space-between; gap: 20px;
 }
-.cta-section h2 { font-size: 22px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.3px; }
-.cta-section p { font-size: 14px; color: var(--text2); margin-bottom: 20px; }
-.cta-section l { font-size: 12px; color: var(--text3); margin-top: 12px; }
+.cta-section h2 { font-size: 15px; font-weight: 600; margin-bottom: 4px; letter-spacing: -0.2px; color: var(--text); }
+.cta-section p { font-size: 12px; color: var(--text3); margin: 0; }
+.cta-section l { display: none; }
 .cta-section a {
   display: inline-flex; align-items: center; gap: 6px; padding: 12px 28px;
-  background: var(--text); color: #fff; border-radius: 9999px; margin-bottom: 20px;
-  font-size: 14px; font-weight: 600; text-decoration: none; transition: opacity 0.15s;
+  background: var(--text); color: #fff; border-radius: 9999px; flex-shrink: 0;
+  font-size: 15px; font-weight: 700; text-decoration: none; transition: opacity 0.15s;
 }
 .cta-section a:hover { opacity: 0.85; }
 
@@ -571,9 +572,11 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
 
   <!-- Single shared contact CTA -->
   <div class="cta-section">
-    <h2>Questions about which plan is right for you?</h2>
+    <div>
+      <h2>Questions about which plan is right for you?</h2>
+      <p>We'll get back to you within 1 business day.</p>
+    </div>
     <a href="https://getdots.in/contact" target="_blank">Talk to the Dots team →</a>
-    <l>We'll get back to you in 2-3 business day.</l>
   </div>
 
   <!-- Feature comparison toggle -->
@@ -896,7 +899,7 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
         </div>
         <div class="calc-control">
           <button class="stepper-btn" onclick="step('c-months',-1)">−</button>
-          <input class="num-input" id="c-months" type="number" min="1" max="24" value="2" oninput="calc()"/>
+          <input class="num-input" id="c-months" type="number" min="1" max="24" value="2" oninput="clampCollectMonths('c-months');calc()"/>
           <button class="stepper-btn" onclick="step('c-months',1)">+</button>
         </div>
         <div class="line-cost" id="lc-base"></div>
@@ -918,7 +921,7 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
       </div>
 
       <!-- Extra users -->
-      <div class="calc-row">
+      <div class="calc-row" id="row-users">
         <div class="calc-label">
           <div class="calc-label-main">Extra users</div>
           <div class="calc-label-sub" id="extra-users-sub">Beyond 5 included · priced per user per month</div>
@@ -931,8 +934,8 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
         <div class="line-cost" id="lc-users"></div>
       </div>
       
-     <!-- Data bundles (Pro/Enterprise only) -->
-      <div class="calc-row" id="row-databundles">
+     <!-- Data bundles (hidden - use qual/quant instead) -->
+      <div class="calc-row" id="row-databundles" style="display:none;">
         <div class="calc-label">
           <div class="calc-label-main">Extra data bundles</div>
           <div class="calc-label-sub" id="bundles-sub">Additional bundles beyond plan inclusion · ₹15,000/bundle/yr</div>
@@ -959,7 +962,7 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
           <div id="collect-pilot-months-row" style="display:none;align-items:center;gap:6px;flex-direction:row;">
             <span style="font-size:12px;color:var(--text3);">months</span>
             <button class="stepper-btn" onclick="step('c-collect-months',-1)">−</button>
-            <input class="num-input" id="c-collect-months" type="number" min="1" max="24" value="2" oninput="calc()" style="width:56px;"/>
+            <input class="num-input" id="c-collect-months" type="number" min="1" max="24" value="2" oninput="clampCollectMonths('c-collect-months');calc()" style="width:56px;"/>
             <button class="stepper-btn" onclick="step('c-collect-months',1)">+</button>
           </div>
         </div>
@@ -996,7 +999,7 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
       </div>
 
       <!-- Qual bundles -->
-      <div class="calc-row">
+      <div class="calc-row" id="row-qual">
         <div class="calc-label">
           <div class="calc-label-main">Qual bundles</div>
           <div class="calc-label-sub" id="qual-sub">Base includes 150K words · add per 250K words</div>
@@ -1010,7 +1013,7 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
       </div>
 
       <!-- Quant bundles -->
-      <div class="calc-row">
+      <div class="calc-row" id="row-quant">
         <div class="calc-label">
           <div class="calc-label-main">Quant bundles</div>
           <div class="calc-label-sub" id="quant-sub">Base includes 5K rows · add per 10K rows</div>
@@ -1281,27 +1284,25 @@ function setCalcPlan(plan) {
   show('row-annual', !isPilot);
   show('row-collect-pilot', isPilot);
   show('row-forms', isPilot);
-  show('row-collect-yr', !isPilot);
-  show('row-databundles', !isPilot);
+  show('row-collect-yr', isPro);
+  show('row-databundles', false);
   show('row-integration', !isPilot);
   show('row-translation', !isPilot);
   show('row-whatsapp', isEnt);
+  show('row-users', !isEnt);
+  show('row-qual', !isEnt);
+  show('row-quant', !isEnt);
 
   // Update sub-labels
   const p = PRICING[region];
-  if (!isPilot) {
-    document.getElementById('extra-users-sub').textContent =
-      'Beyond ' + (isPro ? '15' : 'included') + ' users · ' + fmt(p[plan].userUnit) + ' / user / month';
-  } else {
+  if (isPilot) {
     document.getElementById('extra-users-sub').textContent = 'Beyond 5 included · ' + fmt(p.pilot.userUnit) + ' / user / month';
-  }
-
-  if (!isPilot) {
-    document.getElementById('qual-sub').textContent = 'Additional qual bundles · ' + fmt(p[plan].qual) + '/bundle/yr';
-    document.getElementById('quant-sub').textContent = 'Additional quant bundles · ' + fmt(p[plan].quant) + '/bundle/yr';
-  } else {
     document.getElementById('qual-sub').textContent = 'Base includes 150K words · add per 250K words';
     document.getElementById('quant-sub').textContent = 'Base includes 5K rows · add per 10K rows';
+  } else if (isPro) {
+    document.getElementById('extra-users-sub').textContent = 'Beyond 15 users · ' + fmt(p.pro.userUnit) + ' / user / month';
+    document.getElementById('qual-sub').textContent = 'Additional qual bundles · ' + fmt(p.pro.qual) + '/bundle/yr';
+    document.getElementById('quant-sub').textContent = 'Additional quant bundles · ' + fmt(p.pro.quant) + '/bundle/yr';
   }
 
   // Reset toggles when switching
@@ -1324,6 +1325,13 @@ function togglePilotCollect() {
   document.getElementById('collect-pilot-lbl').textContent = pilotCollectOn ? 'On' : 'Off';
   const row = document.getElementById('collect-pilot-months-row');
   row.style.display = pilotCollectOn ? 'flex' : 'none';
+  if (pilotCollectOn) {
+    // Default collect months to project duration
+    const projectMonths = Math.max(1, getVal('c-months'));
+    const cm = document.getElementById('c-collect-months');
+    cm.max = projectMonths;
+    cm.value = projectMonths;
+  }
   const formsRow = document.getElementById('row-forms');
   formsRow.style.opacity = pilotCollectOn ? '1' : '0.4';
   formsRow.style.pointerEvents = pilotCollectOn ? 'auto' : 'none';
@@ -1368,7 +1376,23 @@ function step(id, delta) {
   const min = parseInt(el.min) || 0;
   const max = parseInt(el.max) || 9999;
   el.value = Math.max(min, Math.min(max, (parseInt(el.value) || 0) + delta));
+  clampCollectMonths(id);
   calc();
+}
+
+function clampCollectMonths(changedId) {
+  if (changedId === 'c-months') {
+    // Project duration changed — clamp collect months down if needed
+    const projectMonths = Math.max(1, getVal('c-months'));
+    const cm = document.getElementById('c-collect-months');
+    cm.max = projectMonths;
+    if (getVal('c-collect-months') > projectMonths) cm.value = projectMonths;
+  } else if (changedId === 'c-collect-months') {
+    // Collect months changed — can't exceed project duration
+    const projectMonths = Math.max(1, getVal('c-months'));
+    const cm = document.getElementById('c-collect-months');
+    if (getVal('c-collect-months') > projectMonths) cm.value = projectMonths;
+  }
 }
 
 function getVal(id) { return Math.max(0, parseInt(document.getElementById(id).value) || 0); }
@@ -1400,19 +1424,17 @@ function calc() {
   } else {
     const years = Math.max(1, getVal('c-years'));
     costBase  = p.base * years;
-    costUsers = p.userUnit * getVal('c-users') * 12 * years; // user seats priced monthly
-    const costBundles     = p.dataBundle * getVal('c-databundles') * years;
-    const costCollectYr   = yrCollectOn ? p.collectYr * years : 0;
-    const costQual        = p.qual  * getVal('c-qual') * years;
-    const costQuant       = p.quant * getVal('c-quant') * years;
+    costUsers = (calcPlan === 'enterprise') ? 0 : p.userUnit * getVal('c-users') * 12 * years;
+    const costCollectYr   = (calcPlan === 'pro' && yrCollectOn) ? p.collectYr * years : 0;
+    const costQual        = (calcPlan === 'enterprise') ? 0 : p.qual  * getVal('c-qual') * years;
+    const costQuant       = (calcPlan === 'enterprise') ? 0 : p.quant * getVal('c-quant') * years;
     const costIntegration = p.integration * getVal('c-integration') * years;
     const costTranslation = p.translation * getVal('c-translation') * years;
     const costWhatsapp    = (calcPlan === 'enterprise' && whatsappOn) ? p.whatsapp * years : 0;
-    costAddons = costBundles + costCollectYr + costQual + costQuant + costIntegration + costTranslation + costWhatsapp;
+    costAddons = costCollectYr + costQual + costQuant + costIntegration + costTranslation + costWhatsapp;
 
     lc('lc-annual',      costBase);
     lc('lc-users',       costUsers);
-    lc('lc-databundles', costBundles);
     lc('lc-collect-yr',  costCollectYr);
     lc('lc-qual',        costQual);
     lc('lc-quant',       costQuant);
@@ -1446,7 +1468,7 @@ function lc(id, n) {
 
 /* ── Reset ── */
 function resetCalc() {
-  ['c-months','c-years','c-users','c-collect-months','c-forms','c-qual','c-quant','c-databundles','c-integration','c-translation'].forEach(id => {
+  ['c-months','c-years','c-users','c-collect-months','c-forms','c-qual','c-quant','c-integration','c-translation'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.value = id === 'c-months' || id === 'c-years' || id === 'c-collect-months' ? (id === 'c-months' ? 2 : 1) : 0;
   });
