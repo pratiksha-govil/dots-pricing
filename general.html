@@ -1162,20 +1162,20 @@ const PRICING = {
   india: {
     currency: 'INR', symbol: '₹', gst: true, badge: 'INR ₹',
     pilot:      { base: 50000,   userUnit: 4000,  collect: 20000, collectSetup: 9000, qual: 25000, quant: 25000 },
-    pro:        { base: 800000,  userUnit: 4000,  dataBundle: 25000, collectYr: 230000, qual: 25000, quant: 25000, integration: 250000, translation: 120000 },
-    enterprise: { base: 1800000, userUnit: 4000,  dataBundle: 25000, collectYr: 230000, qual: 25000, quant: 25000, integration: 250000, translation: 120000, whatsapp: 320000 },
+    pro:        { base: 800000,  userUnit: 4000,  collectYr: 230000, qual: 25000, quant: 25000, integration: 250000, translation: 120000 },
+    enterprise: { userUnit: 4000,  qual: 25000, quant: 25000, integration: 250000, translation: 120000, whatsapp: 320000 },
   },
   south: {
     currency: 'USD', symbol: '$', gst: false, badge: 'USD $',
-    pilot:      { base: 600,    userUnit: 50,   collect: 240,  collectSetup: 110, qual: 300, quant: 300 },
-    pro:        { base: 9500,   userUnit: 50,   dataBundle: 180, collectYr: 2750, qual: 180, quant: 180, integration: 3000, translation: 1450 },
-    enterprise: { base: 21500,  userUnit: 50,   dataBundle: 180, collectYr: 2750, qual: 180, quant: 180, integration: 3000, translation: 1450, whatsapp: 3800 },
+    pilot:      { base: 550,    userUnit: 50,   collect: 220,  collectSetup: 100, qual: 270, quant: 270 },
+    pro:        { base: 9000,   userUnit: 50,   collectYr: 2500, qual: 270, quant: 270, integration: 2500, translation: 1300 },
+    enterprise: { userUnit: 50, qual: 270, quant: 270, integration: 2500, translation: 1300, whatsapp: 3500 },
   },
   north: {
     currency: 'USD', symbol: '$', gst: false, badge: 'USD $',
-    pilot:      { base: 900,    userUnit: 75,   collect: 360,  collectSetup: 165, qual: 450, quant: 450 },
-    pro:        { base: 14250,  userUnit: 75,   dataBundle: 270, collectYr: 4125, qual: 270, quant: 270, integration: 4500, translation: 2175 },
-    enterprise: { base: 32250,  userUnit: 75,   dataBundle: 270, collectYr: 4125, qual: 270, quant: 270, integration: 4500, translation: 2175, whatsapp: 5700 },
+    pilot:      { base: 825,    userUnit: 75,   collect: 330,  collectSetup: 150, qual: 270, quant: 270 },
+    pro:        { base: 13500,  userUnit: 75,   collectYr: 3750, qual: 270, quant: 270, integration: 3750, translation: 1950 },
+    enterprise: { userUnit: 75,  qual: 270, quant: 270, integration: 3750, translation: 1950, whatsapp: 5250 },
   }
 };
 
@@ -1295,7 +1295,6 @@ function setCalcPlan(plan) {
   show('row-collect-pilot', isPilot);
   show('row-forms', isPilot);
   show('row-collect-yr', isPro);
-  show('row-databundles', false);
   show('row-integration', isPro);
   show('row-translation', isPro);
   show('row-whatsapp', false);
