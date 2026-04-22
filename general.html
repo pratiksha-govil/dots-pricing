@@ -59,7 +59,7 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
   box-shadow: var(--shadow);
 }
 .region-label { font-size: 13px; font-weight: 600; color: var(--text); white-space: nowrap; }
-.region-note { font-size: 12px; color: var(--text3); line-height: 1.5; max-width: 280px; }
+.region-note { font-size: 12px; color: var(--text3); line-height: 1.5; }
 .region-pills { display: flex; gap: 8px; flex-wrap: wrap; }
 .pill {
   padding: 7px 16px; border-radius: 20px; border: 1px solid var(--border-md);
@@ -107,7 +107,9 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
   border-color: var(--text);
   border-width: 2px;
   box-shadow: var(--shadow-md);
+  overflow: visible;
 }
+.plan-badge-wrap { position: relative; padding-top: 18px; }
 .plan-card.enterprise-card { border-color: var(--border); }
 
 .plan-head { padding: 22px 22px 18px; border-bottom: 1px solid var(--border); }
@@ -125,14 +127,15 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
 .plan-billing { font-size: 11px; color: var(--text3); margin-top: 3px; }
 
 .plan-body { padding: 18px 22px; flex: 1; }
-.plan-feat-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.plan-feat-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
 .plan-feat {
   display: flex; align-items: flex-start; gap: 8px;
-  font-size: 13px; color: var(--text2);
+  font-size: 13px; color: var(--text);
 }
-.feat-check { color: var(--accent); font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+.feat-check { color: var(--accent); font-size: 14px; flex-shrink: 0; margin-top: 2px; font-weight: 700; }
 .feat-minus { color: var(--text3); font-size: 14px; flex-shrink: 0; margin-top: 1px; }
 .feat-addon { font-size: 11px; font-weight: 600; color: var(--text3); background: var(--tag-bg); padding: 1px 6px; border-radius: 4px; }
+.plan-section-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text3); margin-bottom: 9px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
 
 .plan-foot { padding: 16px 22px; border-top: 1px solid var(--border); }
 .cta-btn {
@@ -161,9 +164,9 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
   display: flex; align-items: center; justify-content: center; gap: 8px;
   margin: 32px 0 0; padding: 12px 24px; background: var(--surface-subtle);
   border: 1px solid var(--border); border-radius: var(--radius-lg);
-  font-size: 14px; font-weight: 600; cursor: pointer; width: 100%;
+  font-size: 14px; font-weight: 700; cursor: pointer; width: 100%;
   font-family: 'DM Sans', sans-serif; color: var(--text);
-  transition: background 0.15s;
+  transition: background 0.15s; letter-spacing: -0.1px;
 }
 .compare-toggle:hover { background: var(--border); }
 .compare-toggle svg { transition: transform 0.25s; }
@@ -195,11 +198,29 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
 .group-header td:not(:first-child) { background: var(--surface-subtle); }
 
 .check { color: var(--accent); font-size: 16px; }
-.cross { color: #E5E7EB; font-size: 16px; }
+.cross { color: #9CA3AF; font-size: 15px; font-weight: 600; }
 .addon-tag-sm {
   font-size: 10px; font-weight: 600; color: var(--text3); background: var(--tag-bg);
   padding: 2px 6px; border-radius: 4px; display: inline-block;
 }
+
+/* Tooltip wrapper for add-on tags in compare table */
+.addon-tip {
+  position: relative; display: inline-block; cursor: default;
+}
+.addon-tip .tip-bubble {
+  visibility: hidden; opacity: 0;
+  position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+  background: var(--text); color: #fff; font-size: 11px; font-weight: 500; line-height: 1.4;
+  padding: 6px 10px; border-radius: 7px; white-space: nowrap; pointer-events: none;
+  transition: opacity 0.15s; z-index: 10;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+.addon-tip .tip-bubble::after {
+  content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+  border: 5px solid transparent; border-top-color: var(--text);
+}
+.addon-tip:hover .tip-bubble { visibility: visible; opacity: 1; }
 .val-text { font-size: 12px; color: var(--text2); }
 .val-bold { font-size: 12px; font-weight: 600; color: var(--text); }
 
@@ -377,17 +398,19 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
   </div>
 
   <!-- Region selector -->
-  <div class="region-bar">
-    <div>
+  <div class="region-bar" style="flex-direction:column;align-items:flex-start;gap:10px;">
+    <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;">
       <div class="region-label">Your region</div>
-      <div class="region-note" style="margin-top:3px;">Pricing is structured by region to reflect local market conditions. Rates apply based on your organisation's registered address.</div>
+      <div class="region-note" style="margin-top:0;">Pricing is structured by region to reflect local market conditions. Rates apply based on your organisation's registered address.</div>
     </div>
-    <div class="region-pills">
-      <button class="pill active" data-region="india" onclick="setRegion('india')">India</button>
-      <button class="pill" data-region="south" onclick="setRegion('south')">Asia / Africa</button>
-      <button class="pill" data-region="north" onclick="setRegion('north')">North America / Europe</button>
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;width:100%;">
+      <div class="region-pills">
+        <button class="pill active" data-region="india" onclick="setRegion('india')">India</button>
+        <button class="pill" data-region="south" onclick="setRegion('south')">Asia / Africa</button>
+        <button class="pill" data-region="north" onclick="setRegion('north')">North America / Europe</button>
+      </div>
+      <span class="currency-badge" id="currency-badge" style="margin-left:auto;">INR ₹</span>
     </div>
-    <span class="currency-badge" id="currency-badge">INR ₹</span>
   </div>
 
   <!-- Plans -->
@@ -401,7 +424,7 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
     <!-- Pilot -->
     <div class="plan-card" style="position:relative;">
       <div class="plan-head">
-        <div class="plan-eyebrow gray">Monthly · Pilot</div>
+        <div class="plan-eyebrow gray">Monthly</div>
         <div class="plan-name">Pilot</div>
         <div class="plan-desc">For shorter-duration or first-time qualitative projects.</div>
         <div class="plan-price-area">
@@ -411,19 +434,38 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
         </div>
       </div>
       <div class="plan-body">
-        <ul class="plan-feat-list">
-          <li class="plan-feat"><span class="feat-check">✓</span> 1 project workspace</li>
-          <li class="plan-feat"><span class="feat-check">✓</span> 5 admin users included</li>
-          <li class="plan-feat"><span class="feat-check">✓</span> 1 data bundle (150K words / 5K rows)</li>
-          <li class="plan-feat"><span class="feat-check">✓</span> Tagging & qualitative structuring</li>
-          <li class="plan-feat"><span class="feat-check">✓</span> AI-assisted analysis & synthesis</li>
-          <li class="plan-feat"><span class="feat-check">✓</span> Dashboards & reporting widgets</li>
-          <li class="plan-feat"><span class="feat-check">✓</span> Email support + onboarding docs</li>
-        </ul>
+        <!-- Seats & bundles -->
+        <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border);">
+          <div class="plan-section-label">Seats &amp; Data</div>
+          <ul class="plan-feat-list">
+            <li class="plan-feat"><span class="feat-check">✓</span> <strong>5 admin users</strong> included</li>
+            <li class="plan-feat"><span class="feat-check">✓</span> <strong>1 data bundle</strong> <span style="color:var(--text3);font-size:12px;">(150K words / 5K rows)</span></li>
+            <li class="plan-feat"><span class="feat-check">✓</span> 1 project workspace</li>
+          </ul>
+        </div>
+        <!-- Core features -->
+        <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border);">
+          <div class="plan-section-label">What's included</div>
+          <ul class="plan-feat-list">
+            <li class="plan-feat"><span class="feat-check">✓</span> Tagging &amp; qualitative structuring</li>
+            <li class="plan-feat"><span class="feat-check">✓</span> AI analysis, annotations &amp; summarisation</li>
+            <li class="plan-feat"><span class="feat-check">✓</span> Dashboards &amp; reporting widgets</li>
+            <li class="plan-feat"><span class="feat-check">✓</span> Email support + onboarding docs</li>
+          </ul>
+        </div>
+        <!-- Add-ons available -->
+        <div>
+          <div class="plan-section-label">Available add-ons</div>
+          <ul class="plan-feat-list">
+            <li class="plan-feat"><span style="display:inline-block;font-size:11px;background:var(--tag-bg);color:var(--text2);padding:1px 6px;border-radius:4px;margin-right:4px;flex-shrink:0;">+</span> Collect module <span style="color:var(--text3);font-size:12px;">(₹20K/mo)</span></li>
+            <li class="plan-feat"><span style="display:inline-block;font-size:11px;background:var(--tag-bg);color:var(--text2);padding:1px 6px;border-radius:4px;margin-right:4px;flex-shrink:0;">+</span> Form setup support <span style="color:var(--text3);font-size:12px;">(₹9K/form)</span></li>
+            <li class="plan-feat"><span style="display:inline-block;font-size:11px;background:var(--tag-bg);color:var(--text2);padding:1px 6px;border-radius:4px;margin-right:4px;flex-shrink:0;">+</span> Transcription &amp; Translation <span style="color:var(--text3);font-size:12px;">(custom quote)</span></li>
+            <li class="plan-feat"><span style="display:inline-block;font-size:11px;background:var(--tag-bg);color:var(--text2);padding:1px 6px;border-radius:4px;margin-right:4px;flex-shrink:0;">+</span> Extra users, Qual &amp; Quant bundles</li>
+          </ul>
+        </div>
       </div>
       <div class="plan-foot">
-        <a href="https://getdots.in/contact" target="_blank" class="cta-btn cta-outline">Contact Dots →</a>
-        <div class="cta-note">Platform UI is in English only</div>
+        <div class="cta-note" style="margin-top:0;">Platform UI is in English only</div>
       </div>
     </div>
 
@@ -431,7 +473,7 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
     <div class="plan-card highlighted plan-badge-wrap" style="position:relative;">
       <div class="recommended-badge">✦ Most popular</div>
       <div class="plan-head">
-        <div class="plan-eyebrow">Annual · Pro</div>
+        <div class="plan-eyebrow">Annual</div>
         <div class="plan-name">Pro</div>
         <div class="plan-desc">For teams running recurring or multi-phase programmes.</div>
         <div class="plan-price-area">
@@ -441,29 +483,44 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
         </div>
       </div>
       <div class="plan-body">
-        <ul class="plan-feat-list">
-          <li class="plan-feat"><span class="feat-check">✓</span> Everything in Pilot</li>
-          <li class="plan-feat"><span class="feat-check">✓</span> 15 admin users included</li>
-          <li class="plan-feat"><span class="feat-check">✓</span> 5 data bundles included</li>
-          <li class="plan-feat"><span class="feat-check">✓</span> Standard integrations &amp; Data Connectors</li>
-          <li class="plan-feat"><span class="feat-check">✓</span> Global Search</li>
-          <li class="plan-feat"><span class="feat-check">✓</span> Unlimited reports</li>
-          <li class="plan-feat"><span class="feat-check">✓</span> <strong>AI Chat</strong></li>
-          <li class="plan-feat"><span class="feat-check">✓</span> 3–4 pre-set roles (Researcher + Admin)</li>
-          <li class="plan-feat"><span class="feat-check">✓</span> Workshop onboarding + data structure support</li>
-          <li class="plan-feat"><span style="display:inline-block;font-size:12px;background:var(--tag-bg);color:var(--text2);padding:1px 6px;border-radius:4px;margin-right:2px;">Add-on</span> Collect module, Translation, Custom integrations</li>
-        </ul>
+        <!-- Seats & bundles -->
+        <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border);">
+          <div class="plan-section-label">Seats &amp; Data</div>
+          <ul class="plan-feat-list">
+            <li class="plan-feat"><span class="feat-check">✓</span> <strong>15 admin users</strong> included</li>
+            <li class="plan-feat"><span class="feat-check">✓</span> <strong>5 data bundles</strong> included</li>
+            <li class="plan-feat" style="color:var(--text3);font-size:11px;padding-left:22px;">Additional users &amp; bundles available as add-ons</li>
+          </ul>
+        </div>
+        <!-- Everything in Pilot + extras -->
+        <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border);">
+          <div class="plan-section-label">Everything in Pilot, plus</div>
+          <ul class="plan-feat-list">
+            <li class="plan-feat"><span class="feat-check">✓</span> Standard integrations &amp; Data Connectors</li>
+            <li class="plan-feat"><span class="feat-check">✓</span> Global Search &amp; unlimited reports</li>
+            <li class="plan-feat"><span class="feat-check">✓</span> <strong>AI Chat</strong></li>
+            <li class="plan-feat"><span class="feat-check">✓</span> 3–4 pre-set roles (Researcher + Admin)</li>
+            <li class="plan-feat"><span class="feat-check">✓</span> Workshop onboarding &amp; data structure support</li>
+          </ul>
+        </div>
+        <!-- Add-ons available -->
+        <div>
+          <div class="plan-section-label">Available add-ons</div>
+          <ul class="plan-feat-list">
+            <li class="plan-feat"><span style="display:inline-block;font-size:11px;background:var(--tag-bg);color:var(--text2);padding:1px 6px;border-radius:4px;margin-right:4px;flex-shrink:0;">+</span> Collect module</li>
+            <li class="plan-feat"><span style="display:inline-block;font-size:11px;background:var(--tag-bg);color:var(--text2);padding:1px 6px;border-radius:4px;margin-right:4px;flex-shrink:0;">+</span> Transcription &amp; Translation</li>
+            <li class="plan-feat"><span style="display:inline-block;font-size:11px;background:var(--tag-bg);color:var(--text2);padding:1px 6px;border-radius:4px;margin-right:4px;flex-shrink:0;">+</span> Custom integrations</li>
+            <li class="plan-feat"><span style="display:inline-block;font-size:11px;background:var(--tag-bg);color:var(--text2);padding:1px 6px;border-radius:4px;margin-right:4px;flex-shrink:0;">+</span> Extra users &amp; data bundles</li>
+          </ul>
+        </div>
       </div>
-      <div class="plan-foot">
-        <a href="https://getdots.in/contact" target="_blank" class="cta-btn cta-dark">Contact Dots →</a>
-        <div class="cta-note">We'll get back within 1 business day</div>
-      </div>
+      <div class="plan-foot" style="border-top:none;padding-top:0;"></div>
     </div>
 
     <!-- Enterprise -->
     <div class="plan-card">
       <div class="plan-head">
-        <div class="plan-eyebrow gray">Annual · Enterprise</div>
+        <div class="plan-eyebrow gray">Annual</div>
         <div class="plan-name">Enterprise</div>
         <div class="plan-desc">For large-scale longitudinal studies &amp; custom deployments.</div>
         <div class="plan-price-area">
@@ -473,27 +530,51 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
         </div>
       </div>
       <div class="plan-body">
-        <ul class="plan-feat-list">
-          <li class="plan-feat"><span class="feat-check">✓</span> Everything in Pro</li>
-          <li class="plan-feat"><span class="feat-check">✓</span> Custom user count &amp; roles</li>
-          <li class="plan-feat"><span class="feat-check">✓</span> Custom data bundles</li>
-          <li class="plan-feat"><span class="feat-check">✓</span> Custom &amp; standard integrations</li>
-          <li class="plan-feat"><span class="feat-check">✓</span> <strong>Collect module included</strong> (surveys + continuous collection)</li>
-          <li class="plan-feat"><span class="feat-check">✓</span> White Labelling</li>
-          <li class="plan-feat"><span class="feat-check">✓</span> User Analytics</li>
-          <li class="plan-feat"><span class="feat-check">✓</span> Custom roles &amp; complex access control</li>
-          <li class="plan-feat"><span class="feat-check">✓</span> Data Architecture Consultation</li>
-          <li class="plan-feat"><span class="feat-check">✓</span> Dedicated Slack support channel</li>
-          <li class="plan-feat"><span style="display:inline-block;font-size:12px;background:var(--tag-bg);color:var(--text2);padding:1px 6px;border-radius:4px;margin-right:2px;">Add-on</span> WhatsApp Chatbot, Translation, Custom integrations</li>
-        </ul>
+        <!-- Seats & bundles -->
+        <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border);">
+          <div class="plan-section-label">Seats &amp; Data</div>
+          <ul class="plan-feat-list">
+            <li class="plan-feat"><span class="feat-check">✓</span> <strong>Custom / unlimited users</strong> &amp; roles</li>
+            <li class="plan-feat"><span class="feat-check">✓</span> <strong>Custom data bundles</strong></li>
+            <li class="plan-feat" style="color:var(--text3);font-size:11px;padding-left:22px;">Fully tailored scope &amp; pricing</li>
+          </ul>
+        </div>
+        <!-- Everything in Pro + extras -->
+        <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border);">
+          <div class="plan-section-label">Everything in Pro, plus</div>
+          <ul class="plan-feat-list">
+            <li class="plan-feat"><span class="feat-check">✓</span> <strong>Collect module included</strong> (surveys + continuous)</li>
+            <li class="plan-feat"><span class="feat-check">✓</span> White Labelling &amp; User Analytics</li>
+            <li class="plan-feat"><span class="feat-check">✓</span> Custom roles &amp; complex access control</li>
+            <li class="plan-feat"><span class="feat-check">✓</span> Data Architecture Consultation</li>
+            <li class="plan-feat"><span class="feat-check">✓</span> Dedicated Slack support channel</li>
+          </ul>
+        </div>
+        <!-- Add-ons available -->
+        <div>
+          <div class="plan-section-label">Available add-ons</div>
+          <ul class="plan-feat-list">
+            <li class="plan-feat"><span style="display:inline-block;font-size:11px;background:var(--tag-bg);color:var(--text2);padding:1px 6px;border-radius:4px;margin-right:4px;flex-shrink:0;">+</span> WhatsApp Chatbot</li>
+            <li class="plan-feat"><span style="display:inline-block;font-size:11px;background:var(--tag-bg);color:var(--text2);padding:1px 6px;border-radius:4px;margin-right:4px;flex-shrink:0;">+</span> Transcription &amp; Translation</li>
+            <li class="plan-feat"><span style="display:inline-block;font-size:11px;background:var(--tag-bg);color:var(--text2);padding:1px 6px;border-radius:4px;margin-right:4px;flex-shrink:0;">+</span> Custom integrations</li>
+          </ul>
+        </div>
       </div>
       <div class="plan-foot">
-        <a href="https://getdots.in/contact" target="_blank" class="cta-btn cta-dark">Contact Dots →</a>
-        <div class="cta-note">Tailored scope &amp; pricing</div>
+        <div class="cta-note" style="margin-top:0;">Tailored scope &amp; pricing</div>
       </div>
     </div>
 
   </div><!-- /plans-grid -->
+
+  <!-- Single shared contact CTA -->
+  <div style="margin-top:16px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 24px;background:var(--surface-subtle);border:1px solid var(--border);border-radius:var(--radius-lg);">
+    <div>
+      <div style="font-size:14px;font-weight:600;color:var(--text);">Questions about which plan is right for you?</div>
+      <div style="font-size:12px;color:var(--text3);margin-top:3px;">We'll get back within 1 business day</div>
+    </div>
+    <a href="https://getdots.in/contact" target="_blank" class="cta-btn cta-dark" style="width:auto;padding:12px 28px;font-size:15px;font-weight:700;display:inline-block;letter-spacing:-0.2px;flex-shrink:0;">Contact Dots →</a>
+  </div>
 
   <!-- Feature comparison toggle -->
   <button class="compare-toggle" id="compare-toggle" onclick="toggleCompare()">
@@ -532,8 +613,18 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
         </tr>
         <tr>
           <td>Admin users included</td>
-          <td><span class="val-bold">5</span></td>
-          <td class="col-pro"><span class="val-bold">15</span></td>
+          <td>
+            <span class="addon-tip">
+              <span class="val-bold" style="cursor:default;border-bottom:1px dashed var(--border-md);">5</span>
+              <span class="tip-bubble" data-tip="users-pilot">Extra users: <span class="tip-price" data-tip-key="users-price">₹4,000</span> / user / month</span>
+            </span>
+          </td>
+          <td class="col-pro">
+            <span class="addon-tip">
+              <span class="val-bold" style="cursor:default;border-bottom:1px dashed var(--border-md);">15</span>
+              <span class="tip-bubble" data-tip="users-pro">Extra users: <span class="tip-price" data-tip-key="users-price">₹4,000</span> / user / month</span>
+            </span>
+          </td>
           <td><span class="val-bold">Custom / Unlimited</span></td>
         </tr>
         <tr>
@@ -543,9 +634,27 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
           <td><span class="val-text">Unlimited</span></td>
         </tr>
         <tr>
-          <td>Data bundles included</td>
-          <td><span class="val-text">1 <span class="addon-tag-sm">add-on</span></span></td>
-          <td class="col-pro"><span class="val-text">5 <span class="addon-tag-sm">add-on</span></span></td>
+          <td>Qual Bundle included <span style="font-size:11px;color:var(--text3);">(words)</span></td>
+          <td>
+            <span class="val-text">150K words</span><br>
+            <span class="addon-tip"><span class="addon-tag-sm">+add-on</span><span class="tip-bubble" data-tip="qual-pilot">+250K words: <span class="tip-price" data-tip-key="qual-pilot-price">₹25,000</span> one-time</span></span>
+          </td>
+          <td class="col-pro">
+            <span class="val-text">Included in bundles</span><br>
+            <span class="addon-tip"><span class="addon-tag-sm">+add-on</span><span class="tip-bubble" data-tip="qual-pro">+125K words: <span class="tip-price" data-tip-key="qual-pro-price">₹15,000</span> / yr</span></span>
+          </td>
+          <td><span class="val-text">Custom</span></td>
+        </tr>
+        <tr>
+          <td>Quant Bundle included <span style="font-size:11px;color:var(--text3);">(rows)</span></td>
+          <td>
+            <span class="val-text">5K rows</span><br>
+            <span class="addon-tip"><span class="addon-tag-sm">+add-on</span><span class="tip-bubble" data-tip="quant-pilot">+10K rows: <span class="tip-price" data-tip-key="quant-pilot-price">₹25,000</span> one-time</span></span>
+          </td>
+          <td class="col-pro">
+            <span class="val-text">Included in bundles</span><br>
+            <span class="addon-tip"><span class="addon-tag-sm">+add-on</span><span class="tip-bubble" data-tip="quant-pro">+10K rows: <span class="tip-price" data-tip-key="quant-pro-price">₹15,000</span> / yr</span></span>
+          </td>
           <td><span class="val-text">Custom</span></td>
         </tr>
         <tr>
@@ -561,13 +670,10 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
           <td><span class="val-text">Custom roles &amp; complex access</span></td>
         </tr>
         <tr>
-          <td>Custom integrations</td>
+          <td>Custom integrations <span style="font-size:11px;color:var(--text3);">(Fathom, Zoom, Slack…)</span></td>
           <td><span class="cross">✕</span></td>
-          <td class="col-pro"><span class="addon-tag-sm">Add-on</span></td>
-          <td><span class="addon-tag-sm">Add-on</span></td>
-        </tr>
-
-        <!-- Core Analysis -->
+          <td class="col-pro"><span class="addon-tip"><span class="addon-tag-sm">Add-on</span><span class="tip-bubble" data-tip="integration"></span></span></td>
+          <td><span class="addon-tip"><span class="addon-tag-sm">Add-on</span><span class="tip-bubble" data-tip="integration"></span></span></td>
         <tr class="group-header"><td colspan="4">Core Analysis</td></tr>
         <tr>
           <td>Themes Manager</td>
@@ -642,34 +748,38 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
         <!-- Data Collection -->
         <tr class="group-header"><td colspan="4">Data Collection</td></tr>
         <tr>
-          <td>Survey Forms (Collect)</td>
-          <td><span class="cross">✕</span></td>
-          <td class="col-pro"><span class="addon-tag-sm">Add-on</span></td>
+          <td>Survey Forms (Collect module)</td>
+          <td>
+            <span class="addon-tip"><span class="addon-tag-sm">Add-on</span><span class="tip-bubble" data-tip="collect-pilot">₹20,000 / month</span></span>
+          </td>
+          <td class="col-pro"><span class="addon-tip"><span class="addon-tag-sm">Add-on</span><span class="tip-bubble" data-tip="collect-yr">Collect add-on: <span class="tip-price" data-tip-key="collect-yr-price">₹2,30,000</span> / yr</span></span></td>
           <td><span class="val-text">✓ Surveys + continuous</span></td>
         </tr>
         <tr>
-          <td>Setup support for forms</td>
-          <td><span class="cross">✕</span></td>
-          <td class="col-pro"><span class="addon-tag-sm">Add-on</span></td>
-          <td><span class="addon-tag-sm">Add-on</span></td>
+          <td>Form setup support</td>
+          <td>
+            <span class="addon-tip"><span class="addon-tag-sm">Add-on</span><span class="tip-bubble" data-tip="form-setup">₹9,000 / form</span></span>
+          </td>
+          <td class="col-pro"><span class="addon-tip"><span class="addon-tag-sm">Add-on</span><span class="tip-bubble" data-tip="form-setup-pro">Included with Collect add-on</span></span></td>
+          <td><span class="addon-tip"><span class="addon-tag-sm">Add-on</span><span class="tip-bubble" data-tip="form-setup-pro">Included with Collect module</span></span></td>
         </tr>
         <tr>
           <td>WhatsApp Chatbot</td>
           <td><span class="cross">✕</span></td>
           <td class="col-pro"><span class="cross">✕</span></td>
-          <td><span class="addon-tag-sm">Add-on</span></td>
+          <td><span class="addon-tip"><span class="addon-tag-sm">Add-on</span><span class="tip-bubble" data-tip="whatsapp">WhatsApp Chatbot: <span class="tip-price" data-tip-key="whatsapp-price">₹3,20,000</span> / yr</span></span></td>
         </tr>
         <tr>
           <td>Transcription &amp; Translation</td>
           <td><span class="val-text">Custom quote</span></td>
-          <td class="col-pro"><span class="addon-tag-sm">Add-on</span></td>
-          <td><span class="addon-tag-sm">Add-on</span></td>
+          <td class="col-pro"><span class="addon-tip"><span class="addon-tag-sm">Add-on</span><span class="tip-bubble" data-tip="transcription">Custom quote — contact Dots</span></span></td>
+          <td><span class="addon-tip"><span class="addon-tag-sm">Add-on</span><span class="tip-bubble" data-tip="transcription">Custom quote — contact Dots</span></span></td>
         </tr>
         <tr>
           <td>Platform Translation</td>
           <td><span class="cross">✕</span></td>
-          <td class="col-pro"><span class="addon-tag-sm">Add-on</span></td>
-          <td><span class="addon-tag-sm">Add-on</span></td>
+          <td class="col-pro"><span class="addon-tip"><span class="addon-tag-sm">Add-on</span><span class="tip-bubble" data-tip="translation">Platform translation: <span class="tip-price" data-tip-key="translation-price">₹1,20,000</span> / language / yr</span></span></td>
+          <td><span class="addon-tip"><span class="addon-tag-sm">Add-on</span><span class="tip-bubble" data-tip="translation">Platform translation: <span class="tip-price" data-tip-key="translation-price">₹1,20,000</span> / language / yr</span></span></td>
         </tr>
 
         <!-- Other Features -->
@@ -710,81 +820,6 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
 
       </tbody>
     </table>
-    </div>
-  </div>
-
-  <!-- Add-ons -->
-  <div class="section-header">
-    <h2>Add-ons</h2>
-    <div class="divider"></div>
-  </div>
-
-  <div style="margin-bottom:10px;">
-    <span style="font-size:13px;color:var(--text2);">For <strong>Pilot</strong> — additional monthly add-ons. For <strong>Pro &amp; Enterprise</strong> — annual add-ons priced separately.</span>
-  </div>
-
-  <div class="addons-grid">
-    <div class="addon-card">
-      <div class="addon-plan-tag">All Plans</div>
-      <div class="addon-name">Extra Users</div>
-      <div><span class="addon-price" id="ao-users">₹4,000</span><span class="addon-unit"> / user / month</span></div>
-      <div class="addon-note">Additional seats beyond those included in your plan</div>
-    </div>
-
-    <div class="addon-card">
-      <div class="addon-plan-tag">Pilot · Monthly</div>
-      <div class="addon-name">Collect Module</div>
-      <div><span class="addon-price" id="ao-collect">₹20,000</span><span class="addon-unit"> / month</span></div>
-      <div class="addon-note">Survey forms, pre-task workflows, audio upload, multi-language forms</div>
-    </div>
-
-    <div class="addon-card">
-      <div class="addon-plan-tag">Pilot · Per Form</div>
-      <div class="addon-name">Form Setup Support</div>
-      <div><span class="addon-price" id="ao-setup">₹9,000</span><span class="addon-unit"> / form</span></div>
-      <div class="addon-note">Dots-assisted form logic, workflows, testing &amp; deployment</div>
-    </div>
-
-    <div class="addon-card">
-      <div class="addon-plan-tag">Pro &amp; Enterprise · Annual</div>
-      <div class="addon-name">Collect Add-on</div>
-      <div><span class="addon-price" id="ao-collect-yr">₹2,30,000</span><span class="addon-unit"> / year</span></div>
-      <div class="addon-note">Survey forms, form testing &amp; iteration, setup support</div>
-    </div>
-
-    <div class="addon-card">
-      <div class="addon-plan-tag">All Plans · Per Bundle</div>
-      <div class="addon-name">Qual Bundle</div>
-      <div><span class="addon-price" id="ao-qual">₹25,000</span><span class="addon-unit"> / 250K words</span></div>
-      <div class="addon-note">Pilot: add-on per project. Pro/Enterprise: yearly bundle starts at ₹15,000 / 125K words</div>
-    </div>
-
-    <div class="addon-card">
-      <div class="addon-plan-tag">All Plans · Per Bundle</div>
-      <div class="addon-name">Quant Bundle</div>
-      <div><span class="addon-price" id="ao-quant">₹25,000</span><span class="addon-unit"> / 10K rows</span></div>
-      <div class="addon-note">Large dataset filtering &amp; analysis support. Pilot base includes 5K rows.</div>
-    </div>
-
-    <div class="addon-card">
-      <div class="addon-plan-tag">Pro &amp; Enterprise</div>
-      <div class="addon-name">Custom Integration</div>
-      <div><span class="addon-price" id="ao-integration">₹2,50,000</span><span class="addon-unit"> / integration / yr</span></div>
-      <div class="addon-note">Custom data import/export integrations</div>
-    </div>
-
-    <div class="addon-card">
-      <div class="addon-plan-tag">Pro &amp; Enterprise</div>
-      <div class="addon-name">Platform Translation</div>
-      <div><span class="addon-price" id="ao-translation">₹1,20,000</span><span class="addon-unit"> / language / yr</span></div>
-      <div class="addon-note">Full platform translated into an additional language</div>
-    </div>
-
-    <div class="addon-card">
-      <div class="addon-plan-tag">Enterprise</div>
-      <div class="addon-name">WhatsApp Chatbot</div>
-      <div><span class="addon-price" id="ao-whatsapp">₹3,20,000</span><span class="addon-unit"> / year</span></div>
-      <div class="addon-note">Conversational data collection via WhatsApp</div>
     </div>
   </div>
 
@@ -1122,6 +1157,26 @@ function fmtFull(n) {
   return '$' + n.toLocaleString('en-US');
 }
 
+/* ── Addon tooltips ── */
+function updateTooltips() {
+  const p = PRICING[region];
+  // Update dynamic price spans inside tip-bubbles
+  const tipPrices = {
+    'qual-pilot-price':    fmt(p.pilot.qual),
+    'qual-pro-price':      fmt(p.pro.qual),
+    'quant-pilot-price':   fmt(p.pilot.quant),
+    'quant-pro-price':     fmt(p.pro.quant),
+    'users-price':         fmt(p.pilot.userUnit),
+    'collect-yr-price':    fmt(p.pro.collectYr),
+    'whatsapp-price':      fmt(p.enterprise.whatsapp),
+    'translation-price':   fmt(p.pro.translation),
+    'integration-price':   fmt(p.pro.integration),
+  };
+  Object.entries(tipPrices).forEach(([key, val]) => {
+    document.querySelectorAll('[data-tip-key="' + key + '"]').forEach(el => el.textContent = val);
+  });
+}
+
 /* ── Region ── */
 function setRegion(r) {
   region = r;
@@ -1144,17 +1199,6 @@ function setRegion(r) {
     document.getElementById('price-enterprise-monthly').textContent = '≈ $' + Math.round(p.enterprise.base/12).toLocaleString('en-US') + ' / month';
   }
 
-  // Add-on cards
-  document.getElementById('ao-users').textContent = fmt(p.pilot.userUnit);
-  document.getElementById('ao-collect').textContent = fmt(p.pilot.collect);
-  document.getElementById('ao-setup').textContent = fmt(p.pilot.collectSetup);
-  document.getElementById('ao-collect-yr').textContent = fmt(p.pro.collectYr);
-  document.getElementById('ao-qual').textContent = fmt(p.pilot.qual);
-  document.getElementById('ao-quant').textContent = fmt(p.pilot.quant);
-  document.getElementById('ao-integration').textContent = fmt(p.pro.integration);
-  document.getElementById('ao-translation').textContent = fmt(p.pro.translation);
-  document.getElementById('ao-whatsapp').textContent = fmt(p.enterprise.whatsapp);
-
   // Compare table short prices
   if (p.currency === 'INR') {
     document.querySelectorAll('[data-key="pilot-short"]').forEach(el => el.textContent = '₹50K/mo');
@@ -1169,10 +1213,7 @@ function setRegion(r) {
     document.querySelectorAll('[data-key="ent-short"]').forEach(el => el.textContent = entS);
   }
 
-  // Bundle sub label
-  const bundlePrice = p.pro.dataBundle;
-  document.getElementById('bundles-sub').textContent = 'Additional bundles beyond plan inclusion · ' + fmt(bundlePrice) + '/bundle/yr';
-
+  updateTooltips();
   calc();
 }
 
