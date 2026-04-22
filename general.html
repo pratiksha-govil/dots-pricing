@@ -1234,19 +1234,13 @@ function setRegion(r) {
   document.getElementById('price-pro').textContent = fmt(p.pro.base);
   // Enterprise is always custom pricing — no numeric update
 
-  // Per-user billing lines
-  const pilotPerUser = Math.round(p.pilot.base / 5);
-  const proPerUser   = Math.round(p.pro.base / 12 / 15);
+   // Monthly equivalents + billing notes (GST only for India)
   if (p.currency === 'INR') {
-    document.getElementById('pilot-per-user').textContent   = '≈ ₹' + pilotPerUser.toLocaleString('en-IN') + ' / user / month (5 users)';
-    document.getElementById('price-pro-monthly').textContent = '≈ ₹' + proPerUser.toLocaleString('en-IN') + ' / user / month (15 users)';
-    document.getElementById('pilot-gst-bubble').textContent  = '18% GST applies for India';
-    document.getElementById('pro-gst-bubble').textContent    = '18% GST applies for India';
+    document.getElementById('price-pro-monthly').textContent = '≈ ₹' + Math.round(p.pro.base/12).toLocaleString('en-IN') + ' / month · 18% GST not included';
+    document.getElementById('price-enterprise-monthly').textContent = '≈ ₹' + Math.round(p.enterprise.base/12).toLocaleString('en-IN') + ' / month · 18% GST not included';
   } else {
-    document.getElementById('pilot-per-user').textContent   = '≈ ' + p.symbol + pilotPerUser.toLocaleString('en-US') + ' / user / month (5 users)';
-    document.getElementById('price-pro-monthly').textContent = '≈ ' + p.symbol + proPerUser.toLocaleString('en-US') + ' / user / month (15 users)';
-    document.getElementById('pilot-gst-bubble').textContent  = 'Excl. local taxes';
-    document.getElementById('pro-gst-bubble').textContent    = 'Excl. local taxes';
+    document.getElementById('price-pro-monthly').textContent = '≈ $' + Math.round(p.pro.base/12).toLocaleString('en-US') + ' / month';
+    document.getElementById('price-enterprise-monthly').textContent = '≈ $' + Math.round(p.enterprise.base/12).toLocaleString('en-US') + ' / month';
   }
 
   // Compare table short prices
