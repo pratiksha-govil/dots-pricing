@@ -136,7 +136,8 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
 .feat-minus { color: var(--text3); font-size: 14px; flex-shrink: 0; margin-top: 1px; }
 .feat-addon { font-size: 11px; font-weight: 600; color: var(--text3); background: var(--tag-bg); padding: 1px 6px; border-radius: 4px; }
 .plan-section-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text3); margin-bottom: 9px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
-
+.plan-text { display:inline-block;font-size:11px;background:var(--tag-bg);color:var(--text2);padding:1px 6px;border-radius:4px;margin-right:4px;flex-shrink:0; }
+  
 .plan-foot { padding: 16px 22px; border-top: 1px solid var(--border); }
 .cta-btn {
   display: block; width: 100%; text-align: center; padding: 11px 20px;
@@ -430,7 +431,7 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
         <div class="plan-price-area">
           <span class="plan-price" id="price-pilot">₹50,000</span>
           <span class="plan-period"> / month</span>
-          <div class="plan-billing">Billed Monthly · ≈ ₹9,000 / month · 18% GST not included</div>
+          <div class="plan-billing">≈ ₹9,000 / month · 18% GST not included</div>
         </div>
       </div>
       <div class="plan-body">
@@ -440,27 +441,28 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
           <ul class="plan-feat-list">
             <li class="plan-feat"><span class="feat-check">✓</span> <strong>5 admin users</strong> included</li>
             <li class="plan-feat"><span class="feat-check">✓</span> <strong>1 data bundle</strong> <span style="color:var(--text3);font-size:12px;">(150K words / 5K rows)</span></li>
-            <li class="plan-feat"><span class="feat-check">✓</span> 1 project workspace</li>
           </ul>
         </div>
         <!-- Core features -->
         <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border);">
           <div class="plan-section-label">What's included</div>
           <ul class="plan-feat-list">
+            <li class="plan-feat"><span class="feat-check">✓</span> 1 project workspace</li>
+            <li class="plan-feat"><span class="feat-check">✓</span> Unlimited data forms for import</li>
             <li class="plan-feat"><span class="feat-check">✓</span> Tagging &amp; qualitative structuring</li>
             <li class="plan-feat"><span class="feat-check">✓</span> AI analysis, annotations &amp; summarisation</li>
-            <li class="plan-feat"><span class="feat-check">✓</span> Dashboards &amp; reporting widgets</li>
-            <li class="plan-feat"><span class="feat-check">✓</span> Email support + onboarding docs</li>
+            <li class="plan-feat"><span class="feat-check">✓</span> Dashboards &amp; limited reporting widgets</li>
+            <li class="plan-feat"><span class="feat-check">✓</span> Email support &amp; onboarding docs</li>
           </ul>
         </div>
         <!-- Add-ons available -->
         <div>
           <div class="plan-section-label">Available add-ons</div>
           <ul class="plan-feat-list">
-            <li class="plan-feat"><span style="display:inline-block;font-size:11px;background:var(--tag-bg);color:var(--text2);padding:1px 6px;border-radius:4px;margin-right:4px;flex-shrink:0;">+</span> Collect module <span style="color:var(--text3);font-size:12px;">(₹20K/mo)</span></li>
-            <li class="plan-feat"><span style="display:inline-block;font-size:11px;background:var(--tag-bg);color:var(--text2);padding:1px 6px;border-radius:4px;margin-right:4px;flex-shrink:0;">+</span> Form setup support <span style="color:var(--text3);font-size:12px;">(₹9K/form)</span></li>
-            <li class="plan-feat"><span style="display:inline-block;font-size:11px;background:var(--tag-bg);color:var(--text2);padding:1px 6px;border-radius:4px;margin-right:4px;flex-shrink:0;">+</span> Transcription &amp; Translation <span style="color:var(--text3);font-size:12px;">(custom quote)</span></li>
-            <li class="plan-feat"><span style="display:inline-block;font-size:11px;background:var(--tag-bg);color:var(--text2);padding:1px 6px;border-radius:4px;margin-right:4px;flex-shrink:0;">+</span> Extra users, Qual &amp; Quant bundles</li>
+            <li class="plan-feat"><span class="plan-text">+</span> Collect module </li>
+            <li class="plan-feat"><span class="plan-text">+</span> Form setup support </li>
+            <li class="plan-feat"><span class="plan-text">+</span> Transcription &amp; Translation </li>
+            <li class="plan-feat"><span class="plan-text">+</span> Extra users &amp; data bundles</li>
           </ul>
         </div>
       </div>
@@ -487,18 +489,18 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
         <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border);">
           <div class="plan-section-label">Seats &amp; Data</div>
           <ul class="plan-feat-list">
-            <li class="plan-feat"><span class="feat-check">✓</span> <strong>15 admin users</strong> included</li>
-            <li class="plan-feat"><span class="feat-check">✓</span> <strong>5 data bundles</strong> included</li>
-            <li class="plan-feat" style="color:var(--text3);font-size:11px;padding-left:22px;">Additional users &amp; bundles available as add-ons</li>
+            <li class="plan-feat"><span class="feat-check">✓</span> <strong>15 admin users</strong></li>
+            <li class="plan-feat"><span class="feat-check">✓</span> <strong>5 data bundles</strong></li>
           </ul>
         </div>
         <!-- Everything in Pilot + extras -->
         <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border);">
           <div class="plan-section-label">Everything in Pilot, plus</div>
           <ul class="plan-feat-list">
-            <li class="plan-feat"><span class="feat-check">✓</span> Standard integrations &amp; Data Connectors</li>
-            <li class="plan-feat"><span class="feat-check">✓</span> Global Search &amp; unlimited reports</li>
-            <li class="plan-feat"><span class="feat-check">✓</span> <strong>AI Chat</strong></li>
+            <li class="plan-feat"><span class="feat-check">✓</span> Standard available integrations</li>
+            <li class="plan-feat"><span class="feat-check">✓</span> Data Conneectors &amp; Global Search</li>
+            <li class="plan-feat"><span class="feat-check">✓</span> AI Chat</li>
+            <li class="plan-feat"><span class="feat-check">✓</span> Unlimited reports</li>
             <li class="plan-feat"><span class="feat-check">✓</span> 3–4 pre-set roles (Researcher + Admin)</li>
             <li class="plan-feat"><span class="feat-check">✓</span> Workshop onboarding &amp; data structure support</li>
           </ul>
@@ -507,10 +509,11 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
         <div>
           <div class="plan-section-label">Available add-ons</div>
           <ul class="plan-feat-list">
-            <li class="plan-feat"><span style="display:inline-block;font-size:11px;background:var(--tag-bg);color:var(--text2);padding:1px 6px;border-radius:4px;margin-right:4px;flex-shrink:0;">+</span> Collect module</li>
-            <li class="plan-feat"><span style="display:inline-block;font-size:11px;background:var(--tag-bg);color:var(--text2);padding:1px 6px;border-radius:4px;margin-right:4px;flex-shrink:0;">+</span> Transcription &amp; Translation</li>
-            <li class="plan-feat"><span style="display:inline-block;font-size:11px;background:var(--tag-bg);color:var(--text2);padding:1px 6px;border-radius:4px;margin-right:4px;flex-shrink:0;">+</span> Custom integrations</li>
-            <li class="plan-feat"><span style="display:inline-block;font-size:11px;background:var(--tag-bg);color:var(--text2);padding:1px 6px;border-radius:4px;margin-right:4px;flex-shrink:0;">+</span> Extra users &amp; data bundles</li>
+            <li class="plan-feat"><span class="plan-text">+</span> Collect module with setup support</li>
+            <li class="plan-feat"><span class="plan-text">+</span> Transcription &amp; Translation</li>
+            <li class="plan-feat"><span class="plan-text">+</span> Existing integrations &amp; Data Migration</li>
+            <li class="plan-feat"><span class="plan-text">+</span> Extra users &amp; data bundles</li>
+            <li class="plan-feat"><span class="plan-text">+</span> Platform Translation</li>
           </ul>
         </div>
       </div>
@@ -534,16 +537,15 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
         <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border);">
           <div class="plan-section-label">Seats &amp; Data</div>
           <ul class="plan-feat-list">
-            <li class="plan-feat"><span class="feat-check">✓</span> <strong>Custom / unlimited users</strong> &amp; roles</li>
+            <li class="plan-feat"><span class="feat-check">✓</span> <strong>Custom / unlimited users &amp; roles</strong></li>
             <li class="plan-feat"><span class="feat-check">✓</span> <strong>Custom data bundles</strong></li>
-            <li class="plan-feat" style="color:var(--text3);font-size:11px;padding-left:22px;">Fully tailored scope &amp; pricing</li>
           </ul>
         </div>
         <!-- Everything in Pro + extras -->
         <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border);">
           <div class="plan-section-label">Everything in Pro, plus</div>
           <ul class="plan-feat-list">
-            <li class="plan-feat"><span class="feat-check">✓</span> <strong>Collect module included</strong> (surveys + continuous)</li>
+            <li class="plan-feat"><span class="feat-check">✓</span> Collect module (surveys + continuous)</li>
             <li class="plan-feat"><span class="feat-check">✓</span> White Labelling &amp; User Analytics</li>
             <li class="plan-feat"><span class="feat-check">✓</span> Custom roles &amp; complex access control</li>
             <li class="plan-feat"><span class="feat-check">✓</span> Data Architecture Consultation</li>
@@ -554,14 +556,14 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
         <div>
           <div class="plan-section-label">Available add-ons</div>
           <ul class="plan-feat-list">
-            <li class="plan-feat"><span style="display:inline-block;font-size:11px;background:var(--tag-bg);color:var(--text2);padding:1px 6px;border-radius:4px;margin-right:4px;flex-shrink:0;">+</span> WhatsApp Chatbot</li>
-            <li class="plan-feat"><span style="display:inline-block;font-size:11px;background:var(--tag-bg);color:var(--text2);padding:1px 6px;border-radius:4px;margin-right:4px;flex-shrink:0;">+</span> Transcription &amp; Translation</li>
-            <li class="plan-feat"><span style="display:inline-block;font-size:11px;background:var(--tag-bg);color:var(--text2);padding:1px 6px;border-radius:4px;margin-right:4px;flex-shrink:0;">+</span> Custom integrations</li>
+            <li class="plan-feat"><span class="plan-text">+</span> WhatsApp Chatbot</li>
+            <li class="plan-feat"><span class="plan-text">+</span> Transcription &amp; Translation</li>
+            <li class="plan-feat"><span class="plan-text">+</span> Custom integrations</li>
           </ul>
         </div>
       </div>
       <div class="plan-foot">
-        <div class="cta-note" style="margin-top:0;">Tailored scope &amp; pricing</div>
+        <div class="cta-note" style="margin-top:0;">Fully tailored scope &amp; pricing</div>
       </div>
     </div>
 
