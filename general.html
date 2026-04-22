@@ -930,7 +930,21 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
         </div>
         <div class="line-cost" id="lc-users"></div>
       </div>
-
+      
+     <!-- Data bundles (Pro/Enterprise only) -->
+      <div class="calc-row" id="row-databundles">
+        <div class="calc-label">
+          <div class="calc-label-main">Extra data bundles</div>
+          <div class="calc-label-sub" id="bundles-sub">Additional bundles beyond plan inclusion · ₹15,000/bundle/yr</div>
+        </div>
+        <div class="calc-control">
+          <button class="stepper-btn" onclick="step('c-databundles',-1)">−</button>
+          <input class="num-input" id="c-databundles" type="number" min="0" max="50" value="0" oninput="calc()"/>
+          <button class="stepper-btn" onclick="step('c-databundles',1)">+</button>
+        </div>
+        <div class="line-cost" id="lc-databundles"></div>
+      </div>
+      
       <!-- Collect module (Pilot) -->
       <div class="calc-row" id="row-collect-pilot">
         <div class="calc-label">
