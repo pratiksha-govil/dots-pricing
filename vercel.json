@@ -1,7 +1,7 @@
 {
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/pricing", "destination": "/general.html" },
-    { "source": "/research", "destination": "/index.html" }
+    { "source": "/general", "destination": "/general.html" },
+    { "source": "/", "destination": "/index.html" }
   ]
 }
