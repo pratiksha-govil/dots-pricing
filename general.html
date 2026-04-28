@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Dots Pricing for Social Impact and MEL Teams</title>
+<title>Dots Pricing for Teams</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
 <style>
@@ -42,7 +42,7 @@ body {
 /* ── Header ── */
 .header { margin-bottom: 48px; }
 .logo-row { margin-bottom: 20px; }
-h1 { font-size: 40px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.15; margin-bottom: 10px; }
+h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.15; margin-bottom: 10px; }
 .subtitle { font-size: 15px; color: var(--text2); max-width: 520px; line-height: 1.6; }
 
 /* ── Region bar ── */
@@ -118,7 +118,13 @@ h1 { font-size: 40px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
 .plan-badge-wrap { position: relative; }
 
 /* Card sections */
-.plan-head { padding: 22px 22px 18px; border-bottom: 1px solid var(--border); }
+.plan-head {
+  padding: 22px 22px 18px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+}
+.plan-head-top { flex: 1; }
 .plan-body-section { padding: 14px 22px; border-bottom: 1px solid var(--border); }
 .plan-foot { padding: 14px 22px; }
 
@@ -135,6 +141,36 @@ h1 { font-size: 40px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
 .plan-price { font-size: 30px; font-weight: 800; letter-spacing: -1px; }
 .plan-period { font-size: 13px; color: var(--text3); font-weight: 400; }
 .plan-billing { font-size: 11px; color: var(--text3); margin-top: 3px; }
+
+/* Plan value stack */
+.plan-value-row {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+}
+.seats-line {
+  display: inline-block;
+  font-size: 14px; font-weight: 700;
+  background: var(--accent-bg); color: var(--accent-text);
+  padding: 3px 10px; border-radius: 6px;
+  align-self: flex-start;
+}
+.from-line {
+  font-size: 11px; color: var(--text3); margin-top: 12px; margin-bottom: 2px;
+}
+.price-line {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 22px; font-weight: 700; color: var(--text);
+  letter-spacing: -0.5px; line-height: 1.2;
+}
+.price-line .period {
+  font-size: 13px; font-weight: 500; color: var(--text3); letter-spacing: 0;
+}
+.price-gst-tip { display: inline-flex; align-items: center; }
+.billing-line { font-size: 11px; color: var(--text3); margin-top: 6px; }
+.plan-price-area { display: none; }
 
 /* GST hover badge on price */
 .price-gst-tip {
@@ -452,22 +488,24 @@ h1 { font-size: 40px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
     <!-- Pilot -->
     <div class="plan-card">
       <div class="plan-head">
-        <div class="plan-eyebrow gray">Monthly</div>
-        <div class="plan-name">Pilot</div>
-        <div class="plan-desc">For shorter-duration or first-time qualitative projects.</div>
-        <div class="plan-price-area">
-          <span class="price-gst-tip">
-            <span class="plan-price" id="price-pilot">₹50,000</span><span class="plan-period"> / month</span>
-            <span class="gst-badge">+GST</span>
-            <span class="gst-bubble" id="pilot-gst-bubble">18% GST applies for India</span>
-          </span>
-          <div class="plan-billing" id="pilot-per-user">≈ ₹10,000 / user / month (5 users)</div>
+        <div class="plan-head-top">
+          <div class="plan-eyebrow gray">Monthly</div>
+          <div class="plan-name">Pilot</div>
+          <div class="plan-desc">For shorter-duration or first-time qualitative projects.</div>
+        </div>
+        <div class="plan-value-row">
+          <div class="seats-line">5 user seats</div>
+          <div class="from-line">Starting from</div>
+          <div class="price-line">
+            <span id="price-pilot">₹50,000</span><span class="period">/month</span>
+            <span class="price-gst-tip"><span class="gst-badge">+GST</span><span class="gst-bubble" id="pilot-gst-bubble">18% GST applies for India</span></span>
+          </div>
+          <div class="billing-line">Billed monthly · cancel anytime</div>
         </div>
       </div>
       <div class="plan-body-section">
-        <div class="plan-section-label">Seats &amp; Data</div>
+        <div class="plan-section-label">Data</div>
         <ul class="plan-feat-list">
-          <li class="plan-feat"><span class="feat-check">✓</span> <strong>5 admin users</strong> included</li>
           <li class="plan-feat"><span class="feat-check">✓</span> <strong>1 data bundle</strong> <span style="color:var(--text3);font-size:12px;">(150K words / 5K rows)</span></li>
         </ul>
       </div>
@@ -499,22 +537,24 @@ h1 { font-size: 40px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
     <div class="plan-card highlighted plan-badge-wrap">
       <div class="recommended-badge">✦ Most popular</div>
       <div class="plan-head" style="padding-top:30px;">
-        <div class="plan-eyebrow">Annual</div>
-        <div class="plan-name">Pro</div>
-        <div class="plan-desc">For teams running recurring or multi-phase programmes.</div>
-        <div class="plan-price-area">
-          <span class="price-gst-tip">
-            <span class="plan-price" id="price-pro">₹8,00,000</span><span class="plan-period"> / year</span>
-            <span class="gst-badge">+GST</span>
-            <span class="gst-bubble" id="pro-gst-bubble">18% GST applies for India</span>
-          </span>
-          <div class="plan-billing" id="price-pro-monthly">≈ ₹4,444 / user / month (15 users)</div>
+        <div class="plan-head-top">
+          <div class="plan-eyebrow gray">Annual</div>
+          <div class="plan-name">Pro</div>
+          <div class="plan-desc">For teams running recurring or multi-phase programmes.</div>
+        </div>
+        <div class="plan-value-row">
+          <div class="seats-line">15 user seats</div>
+          <div class="from-line">Starting from</div>
+          <div class="price-line">
+            <span id="price-pro-equiv">₹66,667</span><span class="period">/month</span>
+            <span class="price-gst-tip"><span class="gst-badge">+GST</span><span class="gst-bubble" id="pro-gst-bubble">18% GST applies for India</span></span>
+          </div>
+          <div class="billing-line">Billed as <span id="price-pro">₹8,00,000</span> per year</div>
         </div>
       </div>
       <div class="plan-body-section">
-        <div class="plan-section-label">Seats &amp; Data</div>
+        <div class="plan-section-label">Data</div>
         <ul class="plan-feat-list">
-          <li class="plan-feat"><span class="feat-check">✓</span> <strong>15 admin users</strong> included</li>
           <li class="plan-feat"><span class="feat-check">✓</span> <strong>5 data bundles</strong> <span style="color:var(--text3);font-size:12px;">(750K words / 25K rows)</span></li>
         </ul>
       </div>
@@ -543,18 +583,21 @@ h1 { font-size: 40px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
     <!-- Enterprise -->
     <div class="plan-card">
       <div class="plan-head">
-        <div class="plan-eyebrow gray">Annual</div>
-        <div class="plan-name">Enterprise</div>
-        <div class="plan-desc">For large-scale longitudinal studies &amp; custom deployments.</div>
-        <div class="plan-price-area">
-          <span class="plan-price" id="price-enterprise">Custom</span>
-          <div class="plan-billing" id="price-enterprise-monthly">Tailored scope &amp; pricing</div>
+        <div class="plan-head-top">
+          <div class="plan-eyebrow gray">Annual</div>
+          <div class="plan-name">Enterprise</div>
+          <div class="plan-desc">For large-scale longitudinal studies &amp; custom deployments.</div>
+        </div>
+        <div class="plan-value-row">
+          <div class="seats-line">Custom user seats</div>
+          <div class="from-line">Pricing</div>
+          <div class="price-line" id="price-enterprise">Custom</div>
+          <div class="billing-line" id="price-enterprise-monthly">Tailored to your scope &amp; team size</div>
         </div>
       </div>
       <div class="plan-body-section">
-        <div class="plan-section-label">Seats &amp; Data</div>
+        <div class="plan-section-label">Data</div>
         <ul class="plan-feat-list">
-          <li class="plan-feat"><span class="feat-check">✓</span> <strong>Custom / unlimited users &amp; roles</strong></li>
           <li class="plan-feat"><span class="feat-check">✓</span> <strong>Custom data bundles</strong></li>
         </ul>
       </div>
@@ -1138,13 +1181,13 @@ h1 { font-size: 40px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
       <button class="faq-q" onclick="toggleFaq(this)">What transcription languages are supported?
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 4.5L7 9.5L12 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
       </button>
-      <div class="faq-a">Dots currently supports transcription and translation for Indian languages through Sarvam AI. Support for other languages may be available on request, depending on the use case. Pricing is usage-based — contact Dots for a quote tailored to your language mix and volume.</div>
+      <div class="faq-a">Dots supports multilingual transcription and translation through Sarvam AI. Coverage spans major Indian and global languages. Pricing for transcription &amp; translation is usage-based — contact Dots for a quote tailored to your language mix and volume.</div>
     </div>
     <div class="faq-item">
       <button class="faq-q" onclick="toggleFaq(this)">Is there a free trial?
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 4.5L7 9.5L12 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
       </button>
-      <div class="faq-a">Dots offers a short free trial on request and based on project needs. The team works with you to understand your use case before recommending a suitable trial approach. Contact Dots to discuss options</div>
+      <div class="faq-a">Dots offers a guided onboarding experience. Contact the team to discuss a pilot or proof-of-concept arrangement before committing to a full subscription.</div>
     </div>
   </div>
 
@@ -1229,24 +1272,17 @@ function setRegion(r) {
   document.getElementById('currency-badge').textContent = p.badge;
   document.getElementById('gst-note').classList.toggle('visible', p.gst);
 
-  // Plan card prices
   document.getElementById('price-pilot').textContent = fmt(p.pilot.base);
-  document.getElementById('price-pro').textContent = fmt(p.pro.base);
+  document.getElementById('price-pro-equiv').textContent = fmt(Math.round(p.pro.base / 12));
+  document.getElementById('price-pro').textContent = fmtFull(p.pro.base);
   // Enterprise is always custom pricing — no numeric update
 
-  // Per-user billing lines
-  const pilotPerUser = Math.round(p.pilot.base / 5);
-  const proPerUser   = Math.round(p.pro.base / 12 / 15);
   if (p.currency === 'INR') {
-    document.getElementById('pilot-per-user').textContent   = '≈ ₹' + pilotPerUser.toLocaleString('en-IN') + ' / user / month (5 users)';
-    document.getElementById('price-pro-monthly').textContent = '≈ ₹' + proPerUser.toLocaleString('en-IN') + ' / user / month (15 users)';
-    document.getElementById('pilot-gst-bubble').textContent  = '18% GST applies for India';
-    document.getElementById('pro-gst-bubble').textContent    = '18% GST applies for India';
+    document.getElementById('pilot-gst-bubble').textContent = '18% GST applies for India';
+    document.getElementById('pro-gst-bubble').textContent   = '18% GST applies for India';
   } else {
-    document.getElementById('pilot-per-user').textContent   = '≈ ' + p.symbol + pilotPerUser.toLocaleString('en-US') + ' / user / month (5 users)';
-    document.getElementById('price-pro-monthly').textContent = '≈ ' + p.symbol + proPerUser.toLocaleString('en-US') + ' / user / month (15 users)';
-    document.getElementById('pilot-gst-bubble').textContent  = 'Excl. local taxes';
-    document.getElementById('pro-gst-bubble').textContent    = 'Excl. local taxes';
+    document.getElementById('pilot-gst-bubble').textContent = 'Excl. local taxes';
+    document.getElementById('pro-gst-bubble').textContent   = 'Excl. local taxes';
   }
 
   // Compare table short prices
