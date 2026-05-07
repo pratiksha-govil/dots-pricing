@@ -160,6 +160,11 @@
   font-size: 12px; color: var(--text2); 
   margin-bottom: 5px; 
   }
+ .feat-tip { position: relative; display: inline-flex; align-items: center; }
+ .tip-icon { width: 14px; height: 14px; border-radius: 50%; border: 1px solid var(--border-md); display: inline-flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 600; color: var(--text3); cursor: default; margin-left: 4px; flex-shrink: 0; line-height: 1; }
+ .tip-box { position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%); background: var(--text); color: #fff; font-size: 11px; padding: 5px 9px; border-radius: 6px; white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity 0.15s; z-index: 10; }
+ .tip-box::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 4px solid transparent; border-top-color: var(--text); }
+ .feat-tip:hover .tip-box { opacity: 1; }
 
   /* Add-on cards */
   .addons-grid {
@@ -367,8 +372,8 @@
         <div class="feat"><span class="feat-dot"></span>Tagging &amp; qualitative structuring</div>
         <div class="feat"><span class="feat-dot"></span>AI-assisted analysis &amp; synthesis</div>
         <div class="feat"><span class="feat-dot"></span>Dashboards &amp; reporting widgets</div>
-        <div class="feat"><span class="feat-dot"></span>150K words for analysis</div>
-        <div class="feat"><span class="feat-dot"></span>5,000 response rows</div>
+        <div class="feat"><span class="feat-dot"></span>150K words for analysis<span class="feat-tip"><span class="tip-icon">i</span><span class="tip-box">One-time per project</span></span></div>
+        <div class="feat"><span class="feat-dot"></span>5,000 response rows<span class="feat-tip"><span class="tip-icon">i</span><span class="tip-box">One-time per project</span></span></div>
       </div>
       <div style="margin-top: 16px; padding-top: 16px; border-top: 0.5px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
         <span style="font-size: 11px; color: var(--text3);">ℹ Platform UI is in English only</span>
