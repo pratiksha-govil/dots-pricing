@@ -103,7 +103,7 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
   background: var(--surface);
   border: 1.5px solid var(--border);
   border-radius: var(--radius-lg);
-  overflow: hidden;
+  overflow: visible;
   box-shadow: var(--shadow);
   display: grid;
   grid-row: 1 / -1;
@@ -123,10 +123,12 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
   border-bottom: 1px solid var(--border);
   display: flex;
   flex-direction: column;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  overflow: hidden;
 }
 .plan-head-top { flex: 1; }
-.plan-body-section { padding: 14px 22px; border-bottom: 1px solid var(--border); }
-.plan-foot { padding: 14px 22px; }
+.plan-body-section { padding: 14px 22px; border-bottom: 1px solid var(--border); overflow: visible; }
+.plan-foot { padding: 14px 22px; border-radius: 0 0 var(--radius-lg) var(--radius-lg); overflow: hidden; }
 
 /* Plan head typography */
 .plan-eyebrow {
