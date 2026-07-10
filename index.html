@@ -268,6 +268,9 @@
   .line-cost { font-size: 13px; font-weight: 600; color: var(--text); min-width: 80px; text-align: right; }
   .line-cost.zero { color: var(--text3); font-weight: 400; }
 
+  .calc-row-wrap { flex-wrap: wrap; }
+  .full-width { flex: 1 0 100%; }
+
   /* Data volume estimator */
   .est-toggle-row { padding: 4px 0 12px; }
   .est-toggle-btn {
@@ -655,12 +658,12 @@
 
         <!-- Data volume estimator toggle -->
         <div class="est-toggle-row full-width">
-          <button class="est-toggle-btn" id="est-toggle-btn" onclick="toggleEstimator()">📊 Not sure how many bundles you need? Estimate from your data ↓</button>
+          <button class="est-toggle-btn" id="est-toggle-btn" onclick="toggleEstimator()">Not sure how many bundles you need? Estimate from your data ↓</button>
         </div>
  
         <div class="estimator-panel full-width" id="estimator-panel" style="display:none;">
         <div class="est-panel-title">Data volume estimator</div>
-        <div class="est-panel-sub">Add your interviews, calls, surveys &amp; other data types below — we'll estimate the qual &amp; quant bundles you need.</div>
+        <div class="est-panel-sub">Add your interviews, calls, surveys &amp; other data types below and we'll estimate the qual bundles you need.</div>
  
         <div class="est-grid-head">
           <div>Data type</div><div>Length (mins)</div><div>Words / unit</div><div>Count</div><div>Words</div><div></div>
@@ -723,14 +726,10 @@
             <span class="est-summary-label">Qual bundles needed <span style="color:var(--text3); font-weight:400;">(150K words included)</span></span>
             <span class="est-summary-value" id="est-qual-needed">0</span>
           </div>
-          <div class="est-summary-row highlight">
-            <span class="est-summary-label">Quant bundles needed <span style="color:var(--text3); font-weight:400;">(5K rows included)</span></span>
-            <span class="est-summary-value" id="est-quant-needed">0</span>
-          </div>
         </div>
  
         <button class="est-apply-btn" onclick="applyEstimate()">Apply to calculator ↑</button>
-        <div class="est-applied-note" id="est-applied-note">✓ Applied to Qual bundles &amp; Quant data rows below</div>
+        <div class="est-applied-note" id="est-applied-note">✓ Applied to Qual bundles rows below</div>
         </div>
       </div>
 
