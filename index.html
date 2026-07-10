@@ -311,10 +311,20 @@
     color: var(--text); background: var(--bg); outline: none;
     transition: border-color 0.15s;
   }
+  .est-input::-webkit-inner-spin-button,
+  .est-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  .est-input[type="number"] { -moz-appearance: textfield; }
   .est-input:focus { border-color: var(--text); }
   .est-input:disabled { background: var(--surface-subtle); color: var(--text3); border-style: dashed; }
   .est-input-name { text-align: left; font-weight: 500; }
   .est-words-val { font-size: 12px; font-weight: 600; color: var(--text2); text-align: right; }
+  .est-grid-head div:nth-child(2),
+  .est-grid-head div:nth-child(3),
+  .est-grid-head div:nth-child(4) { text-align: center; }
+  .est-grid-head div:nth-child(5) { text-align: right; }
   .est-remove-btn {
     width: 22px; height: 22px; border-radius: 5px; border: 1px solid var(--border-md);
     background: var(--surface); color: var(--text3); cursor: pointer;
@@ -332,9 +342,15 @@
   .est-summary {
     margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border);
   }
-  .est-summary-row { display: flex; justify-content: space-between; align-items: baseline; padding: 3px 0; }
-  .est-summary-label { font-size: 12px; color: var(--text2); }
-  .est-summary-value { font-size: 13px; font-weight: 600; color: var(--text); }
+  .est-summary-row {
+    display: grid;
+    grid-template-columns: 1.5fr 84px 92px 74px 92px 22px;
+    gap: 8px;
+    align-items: baseline;
+    padding: 3px 0;
+  }
+  .est-summary-label { grid-column: 1 / span 4; font-size: 12px; color: var(--text2); }
+  .est-summary-value { grid-column: 5; text-align: right; font-size: 13px; font-weight: 600; color: var(--text); }
   .est-summary-row.highlight .est-summary-value { color: var(--accent-text); }
   .est-apply-btn {
     margin-top: 12px; width: 100%; padding: 10px; border-radius: 8px; border: none;
@@ -348,7 +364,7 @@
   }
   .est-applied-note.visible { display: block; }
   @media (max-width: 560px) {
-    .est-grid-head, .est-row { grid-template-columns: 1.5fr 84px 92px 74px 92px 22px; gap: 8px; }
+    .est-grid-head, .est-row, .est-summary-row { grid-template-columns: 1.5fr 84px 92px 74px 92px 22px; gap: 8px; }
     .est-type-sub { display: none; }
   }
   
