@@ -1163,7 +1163,7 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
  
         <div class="estimator-panel full-width" id="estimator-panel" style="display:none;">
         <div class="est-panel-title">Data volume estimator</div>
-        <div class="est-panel-sub">Add your interviews, calls, surveys &amp; other data types below and we'll estimate the qual bundles you need.</div>
+        <div class="est-panel-sub">Add your interviews, calls, surveys &amp; other data types below and we'll estimate the data bundles you need.</div>
  
         <div class="est-grid-head">
           <div>Data type</div><div>Length (mins)</div><div>Words per doc</div><div>Doc Count</div><div>Words</div><div></div>
@@ -1233,7 +1233,7 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
         </div>
  
         <button class="est-apply-btn" onclick="applyEstimate()">Apply to calculator ↑</button>
-        <div class="est-applied-note" id="est-applied-note">✓ Applied to Qual bundles rows below</div>
+        <div class="est-applied-note" id="est-applied-note">✓ Applied to Qual & Quant bundles rows below</div>
         </div>
       </div>
 
@@ -1707,8 +1707,8 @@ function toggleEstimator() {
   const open = panel.style.display !== 'none';
   panel.style.display = open ? 'none' : 'block';
   document.getElementById('est-toggle-btn').textContent = open
-    ? '📊 Not sure how many bundles you need? Estimate from your data ↓'
-    : '📊 Hide data volume estimator ↑';
+    ? 'Not sure how many bundles you need? Estimate from your data ↓'
+    : 'Hide data volume estimator ↑';
   if (!open) estimateCalc();
 }
  
@@ -1782,7 +1782,7 @@ function estimateCalc() {
   document.getElementById('est-total-words').textContent = totalWords.toLocaleString('en-IN');
   document.getElementById('est-total-items').textContent = totalItems.toLocaleString('en-IN');
   document.getElementById('est-qual-needed').textContent = qualNeeded;
-   document.getElementById('est-quant-needed').textContent = quantNeeded;
+  document.getElementById('est-quant-needed').textContent = quantNeeded;
   document.getElementById('est-applied-note').classList.remove('visible');
  
   return { qualNeeded, quantNeeded };
