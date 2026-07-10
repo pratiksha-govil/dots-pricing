@@ -268,7 +268,88 @@
   .line-cost { font-size: 13px; font-weight: 600; color: var(--text); min-width: 80px; text-align: right; }
   .line-cost.zero { color: var(--text3); font-weight: 400; }
 
-  /* Radio for bundles */
+  /* Data volume estimator */
+  .est-toggle-row { padding: 4px 0 12px; }
+  .est-toggle-btn {
+    font-size: 12.5px; font-weight: 600; color: var(--accent-text);
+    background: var(--accent-bg); border: 1px solid var(--accent);
+    cursor: pointer; padding: 7px 13px; border-radius: 7px;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: opacity 0.12s;
+  }
+  .est-toggle-btn:hover { opacity: 0.85; }
+  .estimator-panel {
+    background: var(--surface-subtle);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 14px;
+  }
+  .est-panel-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+  .est-panel-sub { font-size: 11.5px; color: var(--text3); margin-bottom: 14px; }
+  .est-grid-head, .est-row {
+    display: grid;
+    grid-template-columns: 1.5fr 84px 92px 74px 92px 22px;
+    gap: 8px;
+    align-items: center;
+  }
+  .est-grid-head {
+    font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px;
+    color: var(--text3); padding: 0 0 6px; border-bottom: 1px solid var(--border);
+    margin-bottom: 6px;
+  }
+  .est-row { padding: 7px 0; border-bottom: 1px solid var(--border); }
+  .est-row:last-child { border-bottom: none; }
+  .est-type-name { font-size: 12.5px; font-weight: 600; color: var(--text); }
+  .est-type-sub { font-size: 10.5px; color: var(--text3); margin-top: 1px; line-height: 1.3; }
+  .est-input {
+    width: 100%; height: 30px; border: 1px solid var(--border-md);
+    border-radius: 6px; font-size: 12.5px; text-align: center;
+    color: var(--text); background: var(--bg); outline: none;
+    transition: border-color 0.15s;
+  }
+  .est-input:focus { border-color: var(--text); }
+  .est-input:disabled { background: var(--surface-subtle); color: var(--text3); border-style: dashed; }
+  .est-input-name { text-align: left; font-weight: 500; }
+  .est-words-val { font-size: 12px; font-weight: 600; color: var(--text2); text-align: right; }
+  .est-remove-btn {
+    width: 22px; height: 22px; border-radius: 5px; border: 1px solid var(--border-md);
+    background: var(--surface); color: var(--text3); cursor: pointer;
+    font-size: 13px; line-height: 1; display: flex; align-items: center; justify-content: center;
+    transition: all 0.12s;
+  }
+  .est-remove-btn:hover { border-color: #EF4444; color: #EF4444; }
+  .est-add-btn {
+    margin-top: 10px; font-size: 12px; font-weight: 600; color: var(--text);
+    background: var(--surface); border: 1px dashed var(--border-md); border-radius: 7px;
+    padding: 8px 12px; cursor: pointer; width: 100%; text-align: center;
+    transition: all 0.12s;
+  }
+  .est-add-btn:hover { border-color: var(--text); background: var(--surface-subtle); }
+  .est-summary {
+    margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border);
+  }
+  .est-summary-row { display: flex; justify-content: space-between; align-items: baseline; padding: 3px 0; }
+  .est-summary-label { font-size: 12px; color: var(--text2); }
+  .est-summary-value { font-size: 13px; font-weight: 600; color: var(--text); }
+  .est-summary-row.highlight .est-summary-value { color: var(--accent-text); }
+  .est-apply-btn {
+    margin-top: 12px; width: 100%; padding: 10px; border-radius: 8px; border: none;
+    background: var(--text); color: #fff; font-size: 13px; font-weight: 600; cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .est-apply-btn:hover { opacity: 0.88; }
+  .est-applied-note {
+    margin-top: 8px; font-size: 11px; color: var(--accent-text); text-align: center;
+    display: none;
+  }
+  .est-applied-note.visible { display: block; }
+  @media (max-width: 560px) {
+    .est-grid-head, .est-row { grid-template-columns: 1.3fr 62px 68px 58px 70px 20px; gap: 5px; }
+    .est-type-sub { display: none; }
+  }
+  
+ /* Radio for bundles */
   .bundle-opts { display: flex; gap: 7px; flex-wrap: wrap; }
   .bundle-btn {
     padding: 5px 11px; border-radius: 6px;
@@ -571,6 +652,86 @@
           <button class="stepper-btn" onclick="step('qual-bundles',1)">+</button>
         </div>
         <div class="line-cost" id="cost-qual"></div>
+
+        <!-- Data volume estimator toggle -->
+        <div class="est-toggle-row full-width">
+          <button class="est-toggle-btn" id="est-toggle-btn" onclick="toggleEstimator()">📊 Not sure how many bundles you need? Estimate from your data ↓</button>
+        </div>
+ 
+        <div class="estimator-panel full-width" id="estimator-panel" style="display:none;">
+        <div class="est-panel-title">Data volume estimator</div>
+        <div class="est-panel-sub">Add your interviews, calls, surveys &amp; other data types below — we'll estimate the qual &amp; quant bundles you need.</div>
+ 
+        <div class="est-grid-head">
+          <div>Data type</div><div>Length (mins)</div><div>Words / unit</div><div>Count</div><div>Words</div><div></div>
+        </div>
+ 
+        <!-- Preset: Interview Transcript -->
+        <div class="est-row">
+          <div>
+            <div class="est-type-name">Interview transcript</div>
+            <div class="est-type-sub">Full-length recorded interviews</div>
+          </div>
+          <input class="est-input" id="est-1-len" type="number" min="0" value="60" oninput="estimateCalc()" />
+          <input class="est-input" id="est-1-wpu" type="number" min="0" value="80" oninput="estimateCalc()" />
+          <input class="est-input" id="est-1-count" type="number" min="0" value="0" oninput="estimateCalc()" />
+          <div class="est-words-val" id="est-1-words">0</div>
+          <div></div>
+        </div>
+ 
+        <!-- Preset: Short Calls/Interviews -->
+        <div class="est-row">
+          <div>
+            <div class="est-type-name">Short calls / interviews</div>
+            <div class="est-type-sub">Phone calls or brief feedback interviews</div>
+          </div>
+          <input class="est-input" id="est-2-len" type="number" min="0" value="10" oninput="estimateCalc()" />
+          <input class="est-input" id="est-2-wpu" type="number" min="0" value="80" oninput="estimateCalc()" />
+          <input class="est-input" id="est-2-count" type="number" min="0" value="0" oninput="estimateCalc()" />
+          <div class="est-words-val" id="est-2-words">0</div>
+          <div></div>
+        </div>
+ 
+        <!-- Preset: Survey -->
+        <div class="est-row">
+          <div>
+            <div class="est-type-name">Survey responses</div>
+            <div class="est-type-sub">Short qual responses, ~2–5 per survey</div>
+          </div>
+          <input class="est-input" id="est-3-len" type="text" value="—" disabled />
+          <input class="est-input" id="est-3-wpu" type="number" min="0" value="250" oninput="estimateCalc()" />
+          <input class="est-input" id="est-3-count" type="number" min="0" value="0" oninput="estimateCalc()" />
+          <div class="est-words-val" id="est-3-words">0</div>
+          <div></div>
+        </div>
+ 
+        <!-- Custom data type rows get added here -->
+        <div id="est-custom-container"></div>
+ 
+        <button class="est-add-btn" onclick="addCustomRow()">+ Add custom data type</button>
+ 
+        <div class="est-summary">
+          <div class="est-summary-row">
+            <span class="est-summary-label">Total words</span>
+            <span class="est-summary-value" id="est-total-words">0</span>
+          </div>
+          <div class="est-summary-row">
+            <span class="est-summary-label">Total data items</span>
+            <span class="est-summary-value" id="est-total-items">0</span>
+          </div>
+          <div class="est-summary-row highlight">
+            <span class="est-summary-label">Qual bundles needed <span style="color:var(--text3); font-weight:400;">(150K words included)</span></span>
+            <span class="est-summary-value" id="est-qual-needed">0</span>
+          </div>
+          <div class="est-summary-row highlight">
+            <span class="est-summary-label">Quant bundles needed <span style="color:var(--text3); font-weight:400;">(5K rows included)</span></span>
+            <span class="est-summary-value" id="est-quant-needed">0</span>
+          </div>
+        </div>
+ 
+        <button class="est-apply-btn" onclick="applyEstimate()">Apply to calculator ↑</button>
+        <div class="est-applied-note" id="est-applied-note">✓ Applied to Qual bundles &amp; Quant data rows below</div>
+        </div>
       </div>
 
       <!-- Quant bundle -->
@@ -795,6 +956,111 @@ function calc() {
   document.getElementById('grand-total').textContent = fmtFull(total);
 }
 
+ // ---------- Data volume estimator ----------
+let customRowCount = 0;
+const INCLUDED_WORDS = 150000;
+const WORDS_PER_QUAL_BUNDLE = 250000;
+const INCLUDED_ROWS = 5000;
+const ROWS_PER_QUANT_BUNDLE = 10000;
+ 
+function toggleEstimator() {
+  const panel = document.getElementById('estimator-panel');
+  const open = panel.style.display !== 'none';
+  panel.style.display = open ? 'none' : 'block';
+  document.getElementById('est-toggle-btn').textContent = open
+    ? '📊 Not sure how many bundles you need? Estimate from your data ↓'
+    : '📊 Hide data volume estimator ↑';
+  if (!open) estimateCalc();
+}
+ 
+function addCustomRow() {
+  customRowCount++;
+  const id = customRowCount;
+  const container = document.getElementById('est-custom-container');
+  const row = document.createElement('div');
+  row.className = 'est-row';
+  row.id = 'est-custom-row-' + id;
+  row.innerHTML = `
+    <input class="est-input est-input-name" id="est-c${id}-name" type="text" placeholder="e.g. Focus group notes" oninput="estimateCalc()" />
+    <input class="est-input" id="est-c${id}-len" type="text" value="—" disabled />
+    <input class="est-input" id="est-c${id}-wpu" type="number" min="0" value="0" oninput="estimateCalc()" />
+    <input class="est-input" id="est-c${id}-count" type="number" min="0" value="0" oninput="estimateCalc()" />
+    <div class="est-words-val" id="est-c${id}-words">0</div>
+    <button class="est-remove-btn" onclick="removeCustomRow(${id})" title="Remove">×</button>
+  `;
+  container.appendChild(row);
+  estimateCalc();
+}
+ 
+function removeCustomRow(id) {
+  const row = document.getElementById('est-custom-row-' + id);
+  if (row) row.remove();
+  estimateCalc();
+}
+ 
+function getNum(id, def) {
+  const el = document.getElementById(id);
+  if (!el) return def || 0;
+  const v = parseFloat(el.value);
+  return isNaN(v) ? (def || 0) : v;
+}
+ 
+function estimateCalc() {
+  const len1 = getNum('est-1-len'), wpu1 = getNum('est-1-wpu'), c1 = getNum('est-1-count');
+  const words1 = len1 * wpu1 * c1;
+  document.getElementById('est-1-words').textContent = words1.toLocaleString('en-IN');
+ 
+  const len2 = getNum('est-2-len'), wpu2 = getNum('est-2-wpu'), c2 = getNum('est-2-count');
+  const words2 = len2 * wpu2 * c2;
+  document.getElementById('est-2-words').textContent = words2.toLocaleString('en-IN');
+ 
+  const wpu3 = getNum('est-3-wpu'), c3 = getNum('est-3-count');
+  const words3 = wpu3 * c3;
+  document.getElementById('est-3-words').textContent = words3.toLocaleString('en-IN');
+ 
+  let customWords = 0, customCount = 0;
+  document.querySelectorAll('#est-custom-container .est-row').forEach(row => {
+    const idMatch = row.id.match(/est-custom-row-(\d+)/);
+    if (!idMatch) return;
+    const id = idMatch[1];
+    const wpu = getNum('est-c' + id + '-wpu');
+    const count = getNum('est-c' + id + '-count');
+    const words = wpu * count;
+    const wordsEl = document.getElementById('est-c' + id + '-words');
+    if (wordsEl) wordsEl.textContent = words.toLocaleString('en-IN');
+    customWords += words;
+    customCount += count;
+  });
+ 
+  const totalWords = words1 + words2 + words3 + customWords;
+  const totalItems = c1 + c2 + c3 + customCount;
+ 
+  const qualNeeded = totalWords > INCLUDED_WORDS
+    ? Math.ceil((totalWords - INCLUDED_WORDS) / WORDS_PER_QUAL_BUNDLE) : 0;
+  const quantNeeded = totalItems > INCLUDED_ROWS
+    ? Math.ceil((totalItems - INCLUDED_ROWS) / ROWS_PER_QUANT_BUNDLE) : 0;
+ 
+  document.getElementById('est-total-words').textContent = totalWords.toLocaleString('en-IN');
+  document.getElementById('est-total-items').textContent = totalItems.toLocaleString('en-IN');
+  document.getElementById('est-qual-needed').textContent = qualNeeded;
+  document.getElementById('est-quant-needed').textContent = quantNeeded;
+ 
+  document.getElementById('est-applied-note').classList.remove('visible');
+ 
+  return { qualNeeded, quantNeeded };
+}
+ 
+function applyEstimate() {
+  const { qualNeeded, quantNeeded } = estimateCalc();
+  const qualEl = document.getElementById('qual-bundles');
+  const quantEl = document.getElementById('quant-rows');
+  qualEl.value = Math.min(parseInt(qualEl.max) || 20, qualNeeded);
+  quantEl.value = Math.min(parseInt(quantEl.max) || 100, quantNeeded);
+  calc();
+  document.getElementById('est-applied-note').classList.add('visible');
+  qualEl.closest('.calc-row').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
 function resetCalc() {
   document.getElementById('months').value = 2;
   document.getElementById('extra-users').value = 0;
@@ -809,6 +1075,18 @@ function resetCalc() {
   document.getElementById('forms-sublabel').textContent = 'Enable Collect module to add forms';
   calc();
 }
+
+  document.getElementById('est-1-len').value = 60;
+  document.getElementById('est-1-wpu').value = 80;
+  document.getElementById('est-1-count').value = 0;
+  document.getElementById('est-2-len').value = 10;
+  document.getElementById('est-2-wpu').value = 80;
+  document.getElementById('est-2-count').value = 0;
+  document.getElementById('est-3-wpu').value = 250;
+  document.getElementById('est-3-count').value = 0;
+  document.getElementById('est-custom-container').innerHTML = '';
+  document.getElementById('est-applied-note').classList.remove('visible');
+  estimateCalc();
 
 setRegion('india');
 </script>
