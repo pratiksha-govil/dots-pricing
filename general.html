@@ -1223,11 +1223,11 @@ h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1
             <span class="est-summary-value" id="est-total-items">0</span>
           </div>
           <div class="est-summary-row highlight">
-            <span class="est-summary-label">Qual bundles needed <span style="color:var(--text3); font-weight:400;">(150K words included)</span></span>
+            <span class="est-summary-label">Qual bundles needed <span style="color:var(--text3); font-weight:400;" id="est-qual-included">(150K words included)</span></span>
             <span class="est-summary-value" id="est-qual-needed">0</span>
           </div>
           <div class="est-summary-row highlight">
-            <span class="est-summary-label">Quant bundles needed <span style="color:var(--text3); font-weight:400;">(5K rows included)</span></span>
+            <span class="est-summary-label">Quant bundles needed <span style="color:var(--text3); font-weight:400;" id="est-quant-included">(5K rows included)</span></span>
             <span class="est-summary-value" id="est-quant-needed">0</span>
           </div>
         </div>
@@ -1530,6 +1530,8 @@ function setCalcPlan(plan) {
     document.getElementById('quant-sub').textContent = 'Base includes 25K data rows · add per 10K rows';
   }
 
+  if (!isEnt) updateEstimatorThresholds(plan);
+
   // Show custom quote panel for Enterprise, hide calculator total
   document.getElementById('enterprise-quote-panel').style.display = isEnt ? 'block' : 'none';
   document.getElementById('calc-total').style.display = isEnt ? 'none' : '';
@@ -1697,10 +1699,30 @@ function lc(id, n) {
 
   // ---------- Data volume estimator ----------
 let customRowCount = 0;
-const INCLUDED_WORDS = 150000;
-const WORDS_PER_QUAL_BUNDLE = 250000;
-const INCLUDED_ROWS = 5000;
-const ROWS_PER_QUANT_BUNDLE = 10000;
+let INCLUDED_WORDS = 150000;
+let WORDS_PER_QUAL_BUNDLE = 250000;
+let INCLUDED_ROWS = 5000;
+let ROWS_PER_QUANT_BUNDLE = 10000;
+
+const ESTIMATOR_THRESHOLDS = {
+  pilot: { includedWords: 150000, wordsPerQualBundle: 250000, includedRows: 5000, rowsPerQuantBundle: 10000 },
+  pro:   { includedWords: 750000, wordsPerQualBundle: 250000, includedRows: 25000, rowsPerQuantBundle: 10000 }
+};
+
+function updateEstimatorThresholds(plan) {
+  const t = ESTIMATOR_THRESHOLDS[plan] || ESTIMATOR_THRESHOLDS.pilot;
+  INCLUDED_WORDS = t.includedWords;
+  WORDS_PER_QUAL_BUNDLE = t.wordsPerQualBundle;
+  INCLUDED_ROWS = t.includedRows;
+  ROWS_PER_QUANT_BUNDLE = t.rowsPerQuantBundle;
+
+  const qualIncludedEl = document.getElementById('est-qual-included');
+  const quantIncludedEl = document.getElementById('est-quant-included');
+  if (qualIncludedEl) qualIncludedEl.textContent = '(' + (INCLUDED_WORDS / 1000) + 'K words included)';
+  if (quantIncludedEl) quantIncludedEl.textContent = '(' + (INCLUDED_ROWS / 1000) + 'K rows included)';
+
+  if (document.getElementById('estimator-panel')) estimateCalc();
+}
  
 function toggleEstimator() {
   const panel = document.getElementById('estimator-panel');
